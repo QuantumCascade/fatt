@@ -1,0 +1,52 @@
+[gd_scene load_steps=7 format=3 uid="uid://cfwps7ao3bsc7"]
+
+[ext_resource type="Texture2D" uid="uid://c3d8ylqxcminc" path="res://sprites/Castle-icon.png" id="1_2vh2i"]
+[ext_resource type="Script" path="res://castle.gd" id="1_vtc50"]
+[ext_resource type="Script" path="res://castle_body.gd" id="3_b5tuo"]
+[ext_resource type="AudioStream" uid="uid://gylt1xt0osdi" path="res://sounds/castle_destroyed.wav" id="4_bi7ej"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hn40p"]
+size = Vector2(26, 16.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4bymn"]
+size = Vector2(45.25, 42.5)
+
+[node name="Castle" type="Node2D"]
+scale = Vector2(2, 2)
+script = ExtResource("1_vtc50")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("1_2vh2i")
+
+[node name="SpawnArea" type="Area2D" parent="."]
+position = Vector2(0, 24)
+input_pickable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SpawnArea"]
+position = Vector2(0, 8.75)
+shape = SubResource("RectangleShape2D_hn40p")
+
+[node name="CastleBody" type="StaticBody2D" parent="."]
+show_behind_parent = true
+script = ExtResource("3_b5tuo")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CastleBody"]
+position = Vector2(0, 2.5)
+shape = SubResource("RectangleShape2D_4bymn")
+debug_color = Color(0, 0.6, 0.701961, 0.419608)
+
+[node name="HpBar" type="ProgressBar" parent="CastleBody"]
+modulate = Color(0, 1, 0, 1)
+show_behind_parent = true
+texture_filter = 1
+offset_left = -23.0
+offset_top = -25.0
+offset_right = 21.0
+offset_bottom = -21.0
+value = 75.0
+show_percentage = false
+
+[node name="DestroyedSfx" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_bi7ej")
+max_distance = 1500.0

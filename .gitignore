@@ -5,6 +5,8 @@
 .import/
 export.cfg
 export_presets.cfg
+addons/
+build/
 
 # Imported translations (automatically generated from CSV files)
 *.translation
