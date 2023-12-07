@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://cur4y0lfhhpar"]
 
 [ext_resource type="Script" path="res://projectiles/projectile.gd" id="1_bendr"]
-[ext_resource type="Texture2D" uid="uid://cdh2c2ujr73en" path="res://sprites/towerDefense_tilesheet.png" id="2_dgosl"]
+[ext_resource type="Texture2D" uid="uid://1bo1qasrg8nh" path="res://sprites/particles/trace_03.png" id="2_cdkyr"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_c3rgj"]
 
@@ -12,17 +12,16 @@ z_index = 10
 script = ExtResource("1_bendr")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.8, 0.8)
-texture = ExtResource("2_dgosl")
-region_enabled = true
-region_rect = Rect2(1408, 768, 64, 64)
+rotation = 1.5708
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("2_cdkyr")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_c3rgj")
 disabled = true
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 3.0
+wait_time = 10.0
 one_shot = true
 autostart = true
 

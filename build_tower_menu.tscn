@@ -1,18 +1,18 @@
 [gd_scene load_steps=3 format=3 uid="uid://bbd5yguc57ukr"]
 
-[ext_resource type="Texture2D" uid="uid://dbri2ygargsek" path="res://sprites/icon.svg" id="1_70bh2"]
+[ext_resource type="Texture2D" uid="uid://cqgn3ve0hqaj7" path="res://sprites/buildings/tower-wooden-1.png" id="1_moa2q"]
 [ext_resource type="Script" path="res://build_tower_menu.gd" id="2_ls4jj"]
 
 [node name="PopupMenu" type="PopupMenu"]
 gui_embed_subwindows = true
 title = "Select a tower"
-size = Vector2i(400, 225)
+size = Vector2i(400, 234)
 visible = true
 hide_on_checkable_item_selection = false
 allow_search = false
 item_count = 5
-item_0/text = "slinger tower | gold: 200"
-item_0/icon = ExtResource("1_70bh2")
+item_0/text = "archer tower | atk=50 | wood=100"
+item_0/icon = ExtResource("1_moa2q")
 item_0/checkable = 2
 item_0/checked = true
 item_0/id = 0

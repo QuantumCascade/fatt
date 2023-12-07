@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cdh2c2ujr73en"
-path="res://.godot/imported/towerDefense_tilesheet.png-2dd105f69bbf5acc1a3bb84d0421fae7.ctex"
+uid="uid://c2v7falqbd8v6"
+path="res://.godot/imported/castle-2.webp-26acfa6c81eda4f432851bb9fb7596a0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/towerDefense_tilesheet.png"
-dest_files=["res://.godot/imported/towerDefense_tilesheet.png-2dd105f69bbf5acc1a3bb84d0421fae7.ctex"]
+source_file="res://sprites/buildings/castle-2.webp"
+dest_files=["res://.godot/imported/castle-2.webp-26acfa6c81eda4f432851bb9fb7596a0.ctex"]
 
 [params]
 

@@ -17,5 +17,6 @@ func _process(delta):
 		text = PREFIX + str(ceil(val)) + POSTFIX
 	else:
 		val = -1
+		main_scene.swithch_to_war()
 		text = "Attack mode"
 		main_scene.spawnMobs()

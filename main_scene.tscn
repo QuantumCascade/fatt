@@ -1,160 +1,601 @@
-[gd_scene load_steps=10 format=3 uid="uid://1ekjvjf5gvp8"]
+[gd_scene load_steps=16 format=3 uid="uid://1ekjvjf5gvp8"]
 
-[ext_resource type="Texture2D" uid="uid://cdh2c2ujr73en" path="res://sprites/towerDefense_tilesheet.png" id="1_p1hno"]
 [ext_resource type="Script" path="res://main_scene.gd" id="1_v74v4"]
 [ext_resource type="Script" path="res://next_wave_timer.gd" id="2_i6rgi"]
-[ext_resource type="Texture2D" uid="uid://dbri2ygargsek" path="res://sprites/icon.svg" id="4_f3xr6"]
-
-[sub_resource type="NavigationPolygon" id="NavigationPolygon_0v6fn"]
-vertices = PackedVector2Array(32, 32, -32, 32, -32, -32, 32, -32)
-polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(-32, -32, 32, -32, 32, 32, -32, 32)])
-source_geometry_group_name = &"navigation_polygon_source_group"
-agent_radius = 0.0
-
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_llrak"]
-texture = ExtResource("1_p1hno")
-texture_region_size = Vector2i(64, 64)
-2:3/0 = 0
-2:3/0/terrain_set = 0
-2:3/0/terrains_peering_bit/bottom_left_corner = 0
-2:3/0/custom_data_0 = true
-1:3/0 = 0
-1:3/0/terrain_set = 0
-1:3/0/terrains_peering_bit/bottom_right_corner = 0
-1:3/0/terrains_peering_bit/bottom_side = 0
-1:3/0/terrains_peering_bit/bottom_left_corner = 0
-1:3/0/custom_data_0 = true
-0:3/0 = 0
-0:3/0/terrain_set = 0
-0:3/0/terrains_peering_bit/bottom_right_corner = 0
-0:3/0/custom_data_0 = true
-0:4/0 = 0
-0:4/0/terrain_set = 0
-0:4/0/terrains_peering_bit/right_side = 0
-0:4/0/terrains_peering_bit/bottom_right_corner = 0
-0:4/0/terrains_peering_bit/top_right_corner = 0
-0:4/0/custom_data_0 = true
-1:4/0 = 0
-1:4/0/terrain_set = 0
-1:4/0/terrain = 0
-1:4/0/terrains_peering_bit/right_side = 0
-1:4/0/terrains_peering_bit/bottom_right_corner = 0
-1:4/0/terrains_peering_bit/bottom_side = 0
-1:4/0/terrains_peering_bit/bottom_left_corner = 0
-1:4/0/terrains_peering_bit/left_side = 0
-1:4/0/terrains_peering_bit/top_left_corner = 0
-1:4/0/terrains_peering_bit/top_side = 0
-1:4/0/terrains_peering_bit/top_right_corner = 0
-1:4/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_0v6fn")
-2:4/0 = 0
-2:4/0/terrain_set = 0
-2:4/0/terrains_peering_bit/bottom_left_corner = 0
-2:4/0/terrains_peering_bit/left_side = 0
-2:4/0/terrains_peering_bit/top_left_corner = 0
-2:4/0/custom_data_0 = true
-2:5/0 = 0
-2:5/0/terrain_set = 0
-2:5/0/terrains_peering_bit/top_left_corner = 0
-2:5/0/custom_data_0 = true
-1:5/0 = 0
-1:5/0/terrain_set = 0
-1:5/0/terrains_peering_bit/top_left_corner = 0
-1:5/0/terrains_peering_bit/top_side = 0
-1:5/0/terrains_peering_bit/top_right_corner = 0
-1:5/0/custom_data_0 = true
-0:5/0 = 0
-0:5/0/terrain_set = 0
-0:5/0/terrains_peering_bit/top_right_corner = 0
-0:5/0/custom_data_0 = true
-4:4/0 = 0
-4:4/0/terrain_set = 0
-4:4/0/terrain = 0
-4:4/0/terrains_peering_bit/right_side = 0
-4:4/0/terrains_peering_bit/bottom_right_corner = 0
-4:4/0/terrains_peering_bit/bottom_side = 0
-4:4/0/terrains_peering_bit/bottom_left_corner = 0
-4:4/0/terrains_peering_bit/top_right_corner = 0
-4:3/0 = 0
-4:3/0/terrain_set = 0
-4:3/0/terrain = 0
-4:3/0/terrains_peering_bit/right_side = 0
-4:3/0/terrains_peering_bit/bottom_right_corner = 0
-4:3/0/terrains_peering_bit/top_left_corner = 0
-4:3/0/terrains_peering_bit/top_side = 0
-4:3/0/terrains_peering_bit/top_right_corner = 0
-3:3/0 = 0
-3:3/0/terrain_set = 0
-3:3/0/terrain = 0
-3:3/0/terrains_peering_bit/bottom_left_corner = 0
-3:3/0/terrains_peering_bit/left_side = 0
-3:3/0/terrains_peering_bit/top_left_corner = 0
-3:3/0/terrains_peering_bit/top_side = 0
-3:3/0/terrains_peering_bit/top_right_corner = 0
-3:4/0 = 0
-3:4/0/terrain_set = 0
-3:4/0/terrain = 0
-3:4/0/terrains_peering_bit/bottom_right_corner = 0
-3:4/0/terrains_peering_bit/bottom_side = 0
-3:4/0/terrains_peering_bit/bottom_left_corner = 0
-3:4/0/terrains_peering_bit/left_side = 0
-3:4/0/terrains_peering_bit/top_left_corner = 0
-1:1/0 = 0
-1:1/0/terrain_set = 0
-6:7/0 = 0
-6:7/0/modulate = Color(4.412, 0, 19.411, 1)
-
-[sub_resource type="TileSet" id="TileSet_lda50"]
-tile_size = Vector2i(64, 64)
-terrain_set_0/mode = 0
-terrain_set_0/terrain_0/name = "Terrain 0"
-terrain_set_0/terrain_0/color = Color(0.501961, 0.345098, 0.25098, 1)
-terrain_set_1/mode = 0
-terrain_set_1/terrain_0/name = "Terrain 0"
-terrain_set_1/terrain_0/color = Color(0.5, 0.34375, 0.25, 1)
-navigation_layer_0/layers = 1
-custom_data_layer_0/name = "twr_places"
-custom_data_layer_0/type = 1
-sources/0 = SubResource("TileSetAtlasSource_llrak")
+[ext_resource type="Texture2D" uid="uid://brh0kj666ld38" path="res://sprites/terrain/grass.jpeg" id="3_t73vt"]
+[ext_resource type="Texture2D" uid="uid://xivtg88gk0vq" path="res://sprites/terrain/mountains/9ptj648xhg6yice2igf61ruey2hz.webp" id="4_ayodn"]
+[ext_resource type="Texture2D" uid="uid://cramc2a64ly33" path="res://sprites/terrain/mountains/9z2qwo3hym6dq0yrxfhihmpncq2p.webp" id="5_7q30d"]
+[ext_resource type="Texture2D" uid="uid://u41yj68h0bgn" path="res://sprites/terrain/mountains/f16c4pmw7qnuc6ee01eps7s8nmbu.webp" id="6_418kn"]
+[ext_resource type="Texture2D" uid="uid://cp1ikqjy4bbjb" path="res://sprites/terrain/mountains/nha1bnmmpccntmh4qjikpeg5te1m.webp" id="7_t1xv0"]
+[ext_resource type="Texture2D" uid="uid://bx234xlh5rqa" path="res://sprites/terrain/mountains/q3djx95dt3oark10rlsp18ag0bwf.webp" id="8_qi2j7"]
+[ext_resource type="Texture2D" uid="uid://glp5dc2mm11p" path="res://sprites/terrain/mountains/u82ubza47y00kh3j0ygssfv71lkm.webp" id="9_hq4kq"]
+[ext_resource type="Texture2D" uid="uid://dt8jy0obupb84" path="res://sprites/terrain/mountains/vqq6brgye3cp7r5njlsrljbli5bj.webp" id="10_0tk87"]
+[ext_resource type="Texture2D" uid="uid://6p7eixc4wns" path="res://sprites/terrain/mountains/w9vd9k6xp0aaywz6ejpxvqaz0kj9.webp" id="11_ob3fh"]
+[ext_resource type="Texture2D" uid="uid://cqgn3ve0hqaj7" path="res://sprites/buildings/tower-wooden-1.png" id="12_53ukm"]
 
 [sub_resource type="Curve2D" id="Curve2D_58vmd"]
+bake_interval = 10.0
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 84, 184, 0, 0, 0, 0, 1068, 190, 0, 0, 0, 0, 1076, 385, 0, 0, 0, 0, 914, 398, 0, 0, 0, 0, 846, 343, 0, 0, 0, 0, 559, 333, 0, 0, 0, 0, 509, 403, 0, 0, 0, 0, 153, 410, 0, 0, 0, 0, 138, 934, 0, 0, 0, 0, 1219, 943)
+"points": PackedVector2Array(0, 0, 0, 0, 328, 277, 0, 0, 0, 0, 1360, 307, 0, 0, 0, 0, 1475, 325, 0, 0, 0, 0, 1524.93, 383, 0, 0, 0, 0, 1499.97, 433, 0, 0, 0, 0, 1352.35, 494, 0, 0, 0, 0, 1050, 531, 0, 0, 0, 0, 678, 492, 0, 0, 0, 0, 439, 539, 0, 0, 0, 0, 269, 538, 0, 0, 0, 0, 217, 779, 0, 0, 0, 0, 353, 844, 0, 0, 0, 0, 488, 865, 0, 0, 0, 0, 596, 929, 0, 0, 0, 0, 695.67, 931, 0, 0, 0, 0, 884.533, 933, 0, 0, 0, 0, 1033.24, 956, 0, 0, 0, 0, 1302.42, 941, 0, 0, 0, 0, 1528.19, 933, 0, 0, 0, 0, 1691, 933)
 }
-point_count = 10
+point_count = 20
 
 [sub_resource type="Curve2D" id="Curve2D_dmy04"]
+bake_interval = 10.0
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 59, 30, 0, 0, 0, 0, 1259, 28, 0, 0, 0, 0, 1273, 568, 0, 0, 0, 0, 924, 564, 0, 0, 0, 0, 872, 614, 0, 0, 0, 0, 545, 619, 0, 0, 0, 0, 512, 573, 0, 0, 0, 0, 339, 572, 0, 0, 0, 0, 330, 773, 0, 0, 0, 0, 1293, 787)
+"points": PackedVector2Array(0, 0, 0, 0, 421, 66, 0, 0, 0, 0, 720, 159, 0, 0, 0, 0, 1028, 176, 0, 0, 0, 0, 1115, 156, 0, 0, 0, 0, 1335, 144, 0, 0, 0, 0, 1644, 177, 0, 0, 0, 0, 1789, 372, 0, 0, 0, 0, 1727, 529, 0, 0, 0, 0, 1437, 584, 0, 0, 0, 0, 1194, 634, 0, 0, 0, 0, 918, 631, 0, 0, 0, 0, 649, 649, 0, 0, 0, 0, 584, 698, 0, 0, 0, 0, 586, 769, 0, 0, 0, 0, 688, 806, 0, 0, 0, 0, 891, 812, 0, 0, 0, 0, 1004, 843, 0, 0, 0, 0, 1133, 835, 0, 0, 0, 0, 1252, 830, 0, 0, 0, 0, 1346, 805, 0, 0, 0, 0, 1440, 765, 0, 0, 0, 0, 1634, 796)
 }
-point_count = 10
+point_count = 22
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_hkctb"]
+vertices = PackedVector2Array(1566, 805, 1682, 820, 1657, 916, 962, 943, 1103, 856, 712, 827, 570, 924, 581, 761, 224, 796, 230, 543, 616, 643, 1289, 620, 688, 502, 1008, 530, 1009, 530, 1259, 521, 629, 308, 273, 290, 292, 83, 789, 178, 1171, 301, 1628, 215, 1172, 301, 1405, 324, 1450, 432, 1768, 447, 1703, 545)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3, 4), PackedInt32Array(5, 4, 3, 6), PackedInt32Array(7, 5, 6, 8), PackedInt32Array(7, 8, 9, 10), PackedInt32Array(11, 10, 9, 12, 13), PackedInt32Array(11, 13, 14), PackedInt32Array(11, 14, 15), PackedInt32Array(16, 17, 18, 19, 20), PackedInt32Array(20, 19, 21, 22), PackedInt32Array(23, 22, 21), PackedInt32Array(24, 23, 21, 25, 26), PackedInt32Array(24, 26, 11, 15)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(283, 71, 790, 168, 1635, 206, 1780, 447, 1709, 555, 1291, 630, 624, 653, 593, 756, 715, 817, 1103, 846, 1567, 795, 1696, 812, 1666, 926, 962, 953, 570, 934, 214, 803, 221, 534, 688, 492, 1009, 520, 1257, 511, 1437, 427, 1398, 333, 1171, 311, 629, 318, 263, 300)])
+source_geometry_group_name = &"navigation_polygon_source_group"
 
 [node name="MainScene" type="Node2D"]
+y_sort_enabled = true
 script = ExtResource("1_v74v4")
 
-[node name="TileMap" type="TileMap" parent="."]
-tile_set = SubResource("TileSet_lda50")
-rendering_quadrant_size = 64
-format = 2
-layer_0/tile_data = PackedInt32Array(65538, 65536, 4, 131074, 65536, 5, 65539, 65536, 4, 131075, 65536, 5, 131076, 65536, 5, 5, 65536, 3, 131077, 65536, 5, 65542, 65536, 4, 6, 65536, 3, 131078, 65536, 5, 196614, 65536, 1, 196613, 65536, 1, 262150, 65536, 1, 262149, 65536, 1, 262151, 65536, 1, 851988, 65536, 4, 851989, 131072, 4, 917523, 65536, 5, 851987, 65536, 4, 786451, 65536, 3, 786452, 65536, 3, 786453, 131072, 3, 851986, 65536, 4, 786450, 65536, 3, 917522, 65536, 5, 851985, 65536, 4, 786449, 65536, 3, 851984, 65536, 4, 917521, 65536, 5, 917520, 65536, 5, 786448, 65536, 3, 851983, 65536, 4, 786447, 65536, 3, 917519, 65536, 5, 851982, 65536, 4, 786446, 65536, 3, 917518, 65536, 5, 851981, 65536, 4, 786445, 65536, 3, 851980, 65536, 4, 917517, 65536, 5, 917516, 65536, 5, 786444, 65536, 3, 851979, 65536, 4, 786443, 65536, 3, 917515, 65536, 5, 851978, 65536, 4, 786442, 65536, 3, 917514, 65536, 5, 851977, 65536, 4, 786441, 65536, 3, 917513, 65536, 5, 851976, 65536, 4, 786440, 65536, 3, 917512, 65536, 5, 851975, 65536, 4, 786439, 65536, 3, 917511, 65536, 5, 786438, 65536, 3, 786437, 65536, 3, 720901, 65536, 1, 720902, 65536, 1, 655365, 65536, 1, 655366, 65536, 1, 720903, 65536, 1, 851974, 65536, 4, 851973, 65536, 4, 655367, 65536, 1, 589830, 65536, 1, 589831, 65536, 1, 524295, 65536, 5, 524296, 262144, 3, 524301, 196608, 3, 524300, 65536, 4, 524299, 65536, 4, 524298, 65536, 4, 524297, 65536, 4, 589832, 0, 5, 589833, 65536, 5, 524302, 65536, 5, 524304, 65536, 5, 524305, 65536, 5, 589841, 65536, 1, 458770, 65536, 4, 458771, 131072, 4, 393234, 65536, 4, 393235, 131072, 4, 327698, 65536, 4, 262162, 65536, 4, 327699, 131072, 4, 262163, 131072, 4, 196626, 65536, 4, 196627, 131072, 4, 131090, 65536, 4, 131091, 131072, 4, 65553, 65536, 4, 65554, 65536, 4, 65552, 65536, 4, 65551, 65536, 4, 131088, 65536, 5, 131087, 65536, 5, 65550, 65536, 4, 131086, 65536, 5, 262157, 65536, 1, 262156, 65536, 1, 262152, 65536, 1, 262153, 65536, 1, 262154, 65536, 1, 327689, 65536, 3, 327690, 65536, 3, 262155, 65536, 1, 327687, 65536, 1, 327686, 65536, 1, 327685, 65536, 1, 327688, 0, 3, 524306, 65536, 5, 589842, 65536, 1, 524307, 131072, 5, 589843, 65536, 1, 917510, 65536, 5, 917509, 65536, 5, 917525, 131072, 5, 917524, 65536, 5, 917508, 65536, 5, 917507, 65536, 5, 917506, 0, 5, 917505, 65536, 1, 8, 65536, 3, 9, 65536, 3, 10, 65536, 3, 720917, 65536, 1, 655381, 65536, 1, 589845, 65536, 1, 524309, 65536, 1, 458773, 65536, 1, 327701, 65536, 1, 262165, 65536, 1, 196629, 65536, 1, 131093, 65536, 1, 65557, 65536, 1, 21, 65536, 1, 20, 65536, 1, 458755, 65536, 4, 393219, 65536, 3, 327683, 65536, 1, 262147, 65536, 1, 196611, 65536, 1, 196610, 65536, 1, 262145, 65536, 1, 327681, 65536, 1, 393217, 65536, 1, 458753, 65536, 1, 524289, 65536, 1, 589825, 65536, 1, 655361, 65536, 1, 720897, 65536, 1, 786433, 65536, 1, 851969, 65536, 1, 851970, 0, 4, 786434, 0, 4, 720898, 0, 4, 655362, 0, 4, 589826, 0, 4, 524290, 0, 4, 458754, 0, 4, 393218, 0, 3, 327682, 65536, 1, 262146, 65536, 1, 524291, 65536, 4, 589827, 65536, 4, 655363, 65536, 4, 720899, 65536, 4, 786435, 65536, 4, 851971, 65536, 4, 851972, 65536, 4, 786436, 196608, 4, 720900, 131072, 4, 655364, 131072, 4, 589828, 131072, 4, 524292, 196608, 3, 458756, 65536, 4, 196612, 65536, 1, 393221, 65536, 3, 393225, 65536, 4, 393226, 65536, 4, 393227, 65536, 4, 393228, 65536, 4, 393230, 65536, 3, 393231, 65536, 3, 327695, 65536, 1, 262159, 65536, 1, 196623, 65536, 1, 196624, 65536, 1, 262160, 65536, 1, 327696, 65536, 1, 393232, 65536, 3, 65545, 65536, 4, 65544, 65536, 4, 131080, 65536, 5, 131081, 65536, 5, 131082, 65536, 5, 65546, 65536, 4, 131083, 65536, 5, 655375, 65536, 1, 655374, 65536, 1, 655373, 65536, 1, 655372, 65536, 1, 655371, 65536, 1, 655370, 65536, 1, 655369, 65536, 1, 655368, 65536, 1, 720904, 65536, 1, 720905, 65536, 1, 720906, 65536, 1, 720907, 65536, 1, 720908, 65536, 1, 720909, 65536, 1, 720910, 65536, 1, 720911, 65536, 1, 720912, 65536, 1, 655376, 65536, 1, 655377, 65536, 1, 720913, 65536, 1, 720914, 65536, 1, 655378, 65536, 1, 655379, 65536, 1, 720915, 65536, 1, 720916, 65536, 1, 655380, 65536, 1, 589844, 65536, 1, 524308, 65536, 1, 458772, 65536, 1, 393236, 65536, 1, 262164, 65536, 1, 196628, 65536, 1, 131092, 65536, 1, 65556, 65536, 1, 524293, 65536, 5, 327684, 65536, 1, 393220, 65536, 3, 589829, 65536, 1, 262148, 65536, 1, 393223, 65536, 3, 393222, 65536, 3, 393224, 262144, 4, 65555, 131072, 4, 327693, 131072, 3, 65549, 65536, 4, 458758, 65536, 4, 327700, 65536, 1, 131089, 262144, 3, 196622, 65536, 1, 196621, 65536, 1, 131085, 65536, 5, 262158, 65536, 1, 196620, 65536, 1, 131084, 65536, 5, 65540, 65536, 4, 65541, 65536, 4, 131073, 65536, 5, 458759, 65536, 4, 458760, 65536, 4, 458761, 65536, 4, 458762, 65536, 4, 589834, 65536, 5, 458763, 65536, 4, 589835, 65536, 5, 458764, 65536, 4, 589836, 65536, 5, 458765, 65536, 4, 589837, 131072, 5, 589838, 65536, 1, 458767, 65536, 4, 524294, 65536, 5, 458757, 65536, 4, 589839, 65536, 1, 458768, 65536, 4, 458769, 65536, 4, 393233, 262144, 4, 327697, 0, 4, 262161, 0, 4, 196625, 0, 4, 65548, 65536, 4, 12, 65536, 3, 13, 65536, 3, 14, 65536, 3, 15, 65536, 3, 16, 65536, 3, 17, 65536, 3, 18, 65536, 3, 19, 131072, 3, 65537, 65536, 4, 1, 65536, 3, 3, 65536, 3, 4, 65536, 3, 65543, 65536, 4, 7, 65536, 3, 131079, 65536, 5, 196615, 65536, 1, 196616, 65536, 1, 196617, 65536, 1, 196618, 65536, 1, 196619, 65536, 1, 327694, 65536, 1, 196609, 65536, 1, 589840, 65536, 1, 524303, 65536, 5, 458766, 65536, 4, 393229, 196608, 4, 327692, 65536, 3, 327691, 65536, 3, 393237, 65536, 1, 11, 65536, 3, 65547, 65536, 4, 2, 65536, 3, 0, 0, 3, 65536, 0, 4, 131072, 0, 5, 262144, 65536, 1, 196608, 65536, 1, 327680, 65536, 1, 393216, 65536, 1, 458752, 65536, 1, 524288, 65536, 1, 589824, 65536, 1, 655360, 65536, 1, 720896, 65536, 1, 786432, 65536, 1, 851968, 65536, 1, 917504, 65536, 1)
-layer_1/tile_data = PackedInt32Array()
+[node name="Terrain" type="CanvasGroup" parent="."]
+y_sort_enabled = true
+metadata/_edit_lock_ = true
+
+[node name="Grass0-0" type="Sprite2D" parent="Terrain"]
+texture = ExtResource("3_t73vt")
+centered = false
+metadata/_edit_lock_ = true
+
+[node name="Grass0-1" type="Sprite2D" parent="Terrain"]
+texture = ExtResource("3_t73vt")
+centered = false
+offset = Vector2(256, 0)
+metadata/_edit_lock_ = true
+
+[node name="Grass0-2" type="Sprite2D" parent="Terrain"]
+texture = ExtResource("3_t73vt")
+centered = false
+offset = Vector2(512, 0)
+metadata/_edit_lock_ = true
+
+[node name="Grass0-3" type="Sprite2D" parent="Terrain"]
+texture = ExtResource("3_t73vt")
+centered = false
+offset = Vector2(768, 0)
+metadata/_edit_lock_ = true
+
+[node name="Grass0-4" type="Sprite2D" parent="Terrain"]
+texture = ExtResource("3_t73vt")
+centered = false
+offset = Vector2(1024, 0)
+metadata/_edit_lock_ = true
+
+[node name="Grass0-5" type="Sprite2D" parent="Terrain"]
+texture = ExtResource("3_t73vt")
+centered = false
+offset = Vector2(1280, 0)
+metadata/_edit_lock_ = true
+
+[node name="Grass0-6" type="Sprite2D" parent="Terrain"]
+texture = ExtResource("3_t73vt")
+centered = false
+offset = Vector2(1536, 0)
+metadata/_edit_lock_ = true
+
+[node name="Grass0-7" type="Sprite2D" parent="Terrain"]
+texture = ExtResource("3_t73vt")
+centered = false
+offset = Vector2(1792, 0)
+metadata/_edit_lock_ = true
+
+[node name="Grass0-8" type="Sprite2D" parent="Terrain"]
+texture = ExtResource("3_t73vt")
+centered = false
+offset = Vector2(0, 256)
+metadata/_edit_lock_ = true
+
+[node name="Grass0-9" type="Sprite2D" parent="Terrain"]
+texture = ExtResource("3_t73vt")
+centered = false
+offset = Vector2(256, 256)
+metadata/_edit_lock_ = true
+
+[node name="Grass0-10" type="Sprite2D" parent="Terrain"]
+texture = ExtResource("3_t73vt")
+centered = false
+offset = Vector2(512, 256)
+metadata/_edit_lock_ = true
+
+[node name="Grass0-11" type="Sprite2D" parent="Terrain"]
+texture = ExtResource("3_t73vt")
+centered = false
+offset = Vector2(768, 256)
+metadata/_edit_lock_ = true
+
+[node name="Grass0-12" type="Sprite2D" parent="Terrain"]
+texture = ExtResource("3_t73vt")
+centered = false
+offset = Vector2(1024, 256)
+metadata/_edit_lock_ = true
+
+[node name="Grass0-13" type="Sprite2D" parent="Terrain"]
+texture = ExtResource("3_t73vt")
+centered = false
+offset = Vector2(1280, 256)
+metadata/_edit_lock_ = true
+
+[node name="Grass0-14" type="Sprite2D" parent="Terrain"]
+texture = ExtResource("3_t73vt")
+centered = false
+offset = Vector2(1536, 256)
+metadata/_edit_lock_ = true
+
+[node name="Grass0-15" type="Sprite2D" parent="Terrain"]
+texture = ExtResource("3_t73vt")
+centered = false
+offset = Vector2(1792, 256)
+metadata/_edit_lock_ = true
+
+[node name="Grass0-16" type="Sprite2D" parent="Terrain"]
+texture = ExtResource("3_t73vt")
+centered = false
+offset = Vector2(0, 512)
+metadata/_edit_lock_ = true
+
+[node name="Grass0-17" type="Sprite2D" parent="Terrain"]
+texture = ExtResource("3_t73vt")
+centered = false
+offset = Vector2(256, 512)
+metadata/_edit_lock_ = true
+
+[node name="Grass0-18" type="Sprite2D" parent="Terrain"]
+texture = ExtResource("3_t73vt")
+centered = false
+offset = Vector2(512, 512)
+metadata/_edit_lock_ = true
+
+[node name="Grass0-19" type="Sprite2D" parent="Terrain"]
+texture = ExtResource("3_t73vt")
+centered = false
+offset = Vector2(768, 512)
+metadata/_edit_lock_ = true
+
+[node name="Grass0-20" type="Sprite2D" parent="Terrain"]
+texture = ExtResource("3_t73vt")
+centered = false
+offset = Vector2(1024, 512)
+metadata/_edit_lock_ = true
+
+[node name="Grass0-21" type="Sprite2D" parent="Terrain"]
+texture = ExtResource("3_t73vt")
+centered = false
+offset = Vector2(1280, 512)
+metadata/_edit_lock_ = true
+
+[node name="Grass0-22" type="Sprite2D" parent="Terrain"]
+texture = ExtResource("3_t73vt")
+centered = false
+offset = Vector2(1536, 512)
+metadata/_edit_lock_ = true
+
+[node name="Grass0-23" type="Sprite2D" parent="Terrain"]
+texture = ExtResource("3_t73vt")
+centered = false
+offset = Vector2(1792, 512)
+metadata/_edit_lock_ = true
+
+[node name="Grass0-24" type="Sprite2D" parent="Terrain"]
+texture = ExtResource("3_t73vt")
+centered = false
+offset = Vector2(0, 768)
+metadata/_edit_lock_ = true
+
+[node name="Grass0-25" type="Sprite2D" parent="Terrain"]
+texture = ExtResource("3_t73vt")
+centered = false
+offset = Vector2(256, 768)
+metadata/_edit_lock_ = true
+
+[node name="Grass0-26" type="Sprite2D" parent="Terrain"]
+texture = ExtResource("3_t73vt")
+centered = false
+offset = Vector2(512, 768)
+metadata/_edit_lock_ = true
+
+[node name="Grass0-27" type="Sprite2D" parent="Terrain"]
+texture = ExtResource("3_t73vt")
+centered = false
+offset = Vector2(768, 768)
+metadata/_edit_lock_ = true
+
+[node name="Grass0-28" type="Sprite2D" parent="Terrain"]
+texture = ExtResource("3_t73vt")
+centered = false
+offset = Vector2(1024, 768)
+metadata/_edit_lock_ = true
+
+[node name="Grass0-29" type="Sprite2D" parent="Terrain"]
+texture = ExtResource("3_t73vt")
+centered = false
+offset = Vector2(1280, 768)
+metadata/_edit_lock_ = true
+
+[node name="Grass0-30" type="Sprite2D" parent="Terrain"]
+texture = ExtResource("3_t73vt")
+centered = false
+offset = Vector2(1536, 768)
+metadata/_edit_lock_ = true
+
+[node name="Grass0-31" type="Sprite2D" parent="Terrain"]
+texture = ExtResource("3_t73vt")
+centered = false
+offset = Vector2(1792, 768)
+metadata/_edit_lock_ = true
+
+[node name="mountain0-0" type="Sprite2D" parent="Terrain"]
+y_sort_enabled = true
+position = Vector2(694, 42.5)
+texture = ExtResource("4_ayodn")
+metadata/_edit_lock_ = true
+
+[node name="mountain0-8" type="Sprite2D" parent="Terrain"]
+y_sort_enabled = true
+position = Vector2(1933, 281)
+texture = ExtResource("4_ayodn")
+metadata/_edit_lock_ = true
+
+[node name="mountain1-0" type="Sprite2D" parent="Terrain"]
+y_sort_enabled = true
+position = Vector2(823, 27)
+texture = ExtResource("5_7q30d")
+metadata/_edit_lock_ = true
+
+[node name="mountain2-0" type="Sprite2D" parent="Terrain"]
+y_sort_enabled = true
+position = Vector2(821, 82.5)
+texture = ExtResource("6_418kn")
+
+[node name="mountain3-0" type="Sprite2D" parent="Terrain"]
+y_sort_enabled = true
+position = Vector2(947, 31.5)
+texture = ExtResource("7_t1xv0")
+
+[node name="mountain4-0" type="Sprite2D" parent="Terrain"]
+y_sort_enabled = true
+position = Vector2(1018, 101.5)
+texture = ExtResource("8_qi2j7")
+
+[node name="mountain5-0" type="Sprite2D" parent="Terrain"]
+y_sort_enabled = true
+position = Vector2(1106, 28.5)
+texture = ExtResource("9_hq4kq")
+
+[node name="mountain6-0" type="Sprite2D" parent="Terrain"]
+y_sort_enabled = true
+position = Vector2(1161, 97.5)
+texture = ExtResource("10_0tk87")
+
+[node name="mountain6-8" type="Sprite2D" parent="Terrain"]
+y_sort_enabled = true
+position = Vector2(1924, 577)
+texture = ExtResource("10_0tk87")
+
+[node name="mountain7-0" type="Sprite2D" parent="Terrain"]
+y_sort_enabled = true
+position = Vector2(1283, 38.5)
+texture = ExtResource("11_ob3fh")
+
+[node name="mountain0-1" type="Sprite2D" parent="Terrain"]
+y_sort_enabled = true
+position = Vector2(1388, 61)
+texture = ExtResource("4_ayodn")
+
+[node name="mountain1-1" type="Sprite2D" parent="Terrain"]
+y_sort_enabled = true
+position = Vector2(1498, 15)
+texture = ExtResource("5_7q30d")
+
+[node name="mountain2-1" type="Sprite2D" parent="Terrain"]
+y_sort_enabled = true
+position = Vector2(1515, 101)
+texture = ExtResource("6_418kn")
+
+[node name="mountain3-1" type="Sprite2D" parent="Terrain"]
+y_sort_enabled = true
+position = Vector2(1641, 50)
+texture = ExtResource("7_t1xv0")
+
+[node name="mountain4-1" type="Sprite2D" parent="Terrain"]
+y_sort_enabled = true
+position = Vector2(1712, 120)
+texture = ExtResource("8_qi2j7")
+
+[node name="mountain5-1" type="Sprite2D" parent="Terrain"]
+y_sort_enabled = true
+position = Vector2(1800, 47)
+texture = ExtResource("9_hq4kq")
+
+[node name="mountain6-1" type="Sprite2D" parent="Terrain"]
+y_sort_enabled = true
+position = Vector2(1896, 234)
+texture = ExtResource("10_0tk87")
+
+[node name="mountain7-1" type="Sprite2D" parent="Terrain"]
+y_sort_enabled = true
+position = Vector2(732, 414)
+texture = ExtResource("11_ob3fh")
+
+[node name="mountain0-2" type="Sprite2D" parent="Terrain"]
+y_sort_enabled = true
+position = Vector2(844, 418.5)
+texture = ExtResource("4_ayodn")
+
+[node name="mountain1-2" type="Sprite2D" parent="Terrain"]
+y_sort_enabled = true
+position = Vector2(813, 339.5)
+texture = ExtResource("5_7q30d")
+
+[node name="mountain2-2" type="Sprite2D" parent="Terrain"]
+y_sort_enabled = true
+position = Vector2(830, 425.5)
+texture = ExtResource("6_418kn")
+
+[node name="mountain3-2" type="Sprite2D" parent="Terrain"]
+y_sort_enabled = true
+position = Vector2(956, 374.5)
+texture = ExtResource("7_t1xv0")
+
+[node name="mountain4-2" type="Sprite2D" parent="Terrain"]
+y_sort_enabled = true
+position = Vector2(1027, 444.5)
+texture = ExtResource("8_qi2j7")
+
+[node name="mountain5-2" type="Sprite2D" parent="Terrain"]
+y_sort_enabled = true
+position = Vector2(1115, 371.5)
+texture = ExtResource("9_hq4kq")
+
+[node name="mountain6-2" type="Sprite2D" parent="Terrain"]
+y_sort_enabled = true
+position = Vector2(1170, 440.5)
+texture = ExtResource("10_0tk87")
+
+[node name="mountain7-2" type="Sprite2D" parent="Terrain"]
+y_sort_enabled = true
+position = Vector2(1292, 381.5)
+texture = ExtResource("11_ob3fh")
+
+[node name="mountain7-8" type="Sprite2D" parent="Terrain"]
+y_sort_enabled = true
+position = Vector2(1808, 168)
+texture = ExtResource("11_ob3fh")
+
+[node name="mountain0-3" type="Sprite2D" parent="Terrain"]
+y_sort_enabled = true
+position = Vector2(1382, 668.5)
+texture = ExtResource("4_ayodn")
+
+[node name="mountain1-3" type="Sprite2D" parent="Terrain"]
+y_sort_enabled = true
+position = Vector2(1492, 622.5)
+texture = ExtResource("5_7q30d")
+
+[node name="mountain2-3" type="Sprite2D" parent="Terrain"]
+y_sort_enabled = true
+position = Vector2(1509, 708.5)
+texture = ExtResource("6_418kn")
+
+[node name="mountain3-3" type="Sprite2D" parent="Terrain"]
+y_sort_enabled = true
+position = Vector2(1635, 657.5)
+texture = ExtResource("7_t1xv0")
+
+[node name="mountain4-3" type="Sprite2D" parent="Terrain"]
+y_sort_enabled = true
+position = Vector2(1706, 727.5)
+texture = ExtResource("8_qi2j7")
+
+[node name="mountain5-3" type="Sprite2D" parent="Terrain"]
+y_sort_enabled = true
+position = Vector2(1794, 654.5)
+texture = ExtResource("9_hq4kq")
+
+[node name="mountain6-3" type="Sprite2D" parent="Terrain"]
+y_sort_enabled = true
+position = Vector2(1849, 723.5)
+texture = ExtResource("10_0tk87")
+
+[node name="mountain7-3" type="Sprite2D" parent="Terrain"]
+y_sort_enabled = true
+position = Vector2(1971, 664.5)
+texture = ExtResource("11_ob3fh")
+
+[node name="mountain0-4" type="Sprite2D" parent="Terrain"]
+y_sort_enabled = true
+position = Vector2(728, 706.5)
+texture = ExtResource("4_ayodn")
+
+[node name="mountain1-4" type="Sprite2D" parent="Terrain"]
+y_sort_enabled = true
+position = Vector2(838, 660.5)
+texture = ExtResource("5_7q30d")
+
+[node name="mountain2-4" type="Sprite2D" parent="Terrain"]
+y_sort_enabled = true
+position = Vector2(855, 746.5)
+texture = ExtResource("6_418kn")
+
+[node name="mountain3-4" type="Sprite2D" parent="Terrain"]
+y_sort_enabled = true
+position = Vector2(981, 695.5)
+texture = ExtResource("7_t1xv0")
+
+[node name="mountain4-4" type="Sprite2D" parent="Terrain"]
+y_sort_enabled = true
+position = Vector2(1052, 765.5)
+texture = ExtResource("8_qi2j7")
+
+[node name="mountain4-8" type="Sprite2D" parent="Terrain"]
+y_sort_enabled = true
+position = Vector2(1943, 440)
+texture = ExtResource("8_qi2j7")
+
+[node name="mountain5-4" type="Sprite2D" parent="Terrain"]
+y_sort_enabled = true
+position = Vector2(1140, 692.5)
+texture = ExtResource("9_hq4kq")
+
+[node name="mountain6-4" type="Sprite2D" parent="Terrain"]
+y_sort_enabled = true
+position = Vector2(1195, 761.5)
+texture = ExtResource("10_0tk87")
+
+[node name="mountain7-4" type="Sprite2D" parent="Terrain"]
+y_sort_enabled = true
+position = Vector2(1317, 702.5)
+texture = ExtResource("11_ob3fh")
+
+[node name="mountain0-6" type="Sprite2D" parent="Terrain"]
+y_sort_enabled = true
+position = Vector2(737, 958.5)
+texture = ExtResource("4_ayodn")
+
+[node name="mountain2-6" type="Sprite2D" parent="Terrain"]
+y_sort_enabled = true
+position = Vector2(864, 998.5)
+texture = ExtResource("6_418kn")
+
+[node name="mountain4-6" type="Sprite2D" parent="Terrain"]
+y_sort_enabled = true
+position = Vector2(1061, 1017.5)
+texture = ExtResource("8_qi2j7")
+
+[node name="mountain6-6" type="Sprite2D" parent="Terrain"]
+y_sort_enabled = true
+position = Vector2(1204, 1013.5)
+texture = ExtResource("10_0tk87")
+
+[node name="mountain7-6" type="Sprite2D" parent="Terrain"]
+y_sort_enabled = true
+position = Vector2(1374, 993)
+texture = ExtResource("11_ob3fh")
+
+[node name="mountain0-7" type="Sprite2D" parent="Terrain"]
+y_sort_enabled = true
+position = Vector2(49, 948.5)
+texture = ExtResource("4_ayodn")
+
+[node name="mountain1-7" type="Sprite2D" parent="Terrain"]
+y_sort_enabled = true
+position = Vector2(159, 902.5)
+texture = ExtResource("5_7q30d")
+
+[node name="mountain2-7" type="Sprite2D" parent="Terrain"]
+y_sort_enabled = true
+position = Vector2(176, 988.5)
+texture = ExtResource("6_418kn")
+
+[node name="mountain3-7" type="Sprite2D" parent="Terrain"]
+y_sort_enabled = true
+position = Vector2(302, 937.5)
+texture = ExtResource("7_t1xv0")
+
+[node name="mountain4-7" type="Sprite2D" parent="Terrain"]
+y_sort_enabled = true
+position = Vector2(373, 1007.5)
+texture = ExtResource("8_qi2j7")
+
+[node name="mountain5-7" type="Sprite2D" parent="Terrain"]
+y_sort_enabled = true
+position = Vector2(461, 934.5)
+texture = ExtResource("9_hq4kq")
+
+[node name="mountain6-7" type="Sprite2D" parent="Terrain"]
+y_sort_enabled = true
+position = Vector2(515.5, 1003.8)
+scale = Vector2(1.0041, 1.0041)
+texture = ExtResource("10_0tk87")
+
+[node name="mountain7-7" type="Sprite2D" parent="Terrain"]
+y_sort_enabled = true
+position = Vector2(672, 992.5)
+texture = ExtResource("11_ob3fh")
+
+[node name="mountain0-5" type="Sprite2D" parent="Terrain"]
+y_sort_enabled = true
+position = Vector2(47, 388.5)
+texture = ExtResource("4_ayodn")
+
+[node name="mountain1-5" type="Sprite2D" parent="Terrain"]
+y_sort_enabled = true
+position = Vector2(157, 342.5)
+texture = ExtResource("5_7q30d")
+
+[node name="mountain2-5" type="Sprite2D" parent="Terrain"]
+y_sort_enabled = true
+position = Vector2(174, 428.5)
+texture = ExtResource("6_418kn")
+
+[node name="mountain3-5" type="Sprite2D" parent="Terrain"]
+y_sort_enabled = true
+position = Vector2(300, 377.5)
+texture = ExtResource("7_t1xv0")
+
+[node name="mountain4-5" type="Sprite2D" parent="Terrain"]
+y_sort_enabled = true
+position = Vector2(371, 447.5)
+texture = ExtResource("8_qi2j7")
+
+[node name="mountain5-5" type="Sprite2D" parent="Terrain"]
+y_sort_enabled = true
+position = Vector2(459, 374.5)
+texture = ExtResource("9_hq4kq")
+
+[node name="mountain6-5" type="Sprite2D" parent="Terrain"]
+y_sort_enabled = true
+position = Vector2(514, 443.5)
+texture = ExtResource("10_0tk87")
+
+[node name="mountain7-5" type="Sprite2D" parent="Terrain"]
+y_sort_enabled = true
+position = Vector2(636, 384.5)
+texture = ExtResource("11_ob3fh")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Terrain"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Terrain/StaticBody2D"]
+polygon = PackedVector2Array(2002, 716, 1930, 765, 1804, 773, 1726, 797, 1633, 758, 1487, 733, 1359, 753, 1267, 819, 1137, 806, 1058, 841, 975, 795, 866, 796, 767, 780, 627, 752, 610, 728, 696, 681, 818, 668, 931, 681, 1041, 666, 1224, 681, 1399, 639, 1538, 617, 1586, 633, 1696, 643, 1786, 617, 1869, 533, 1887, 485, 1882, 410, 1926, 370, 1930, 331, 1843, 313, 1763, 220, 1681, 167, 1601, 143, 1348, 104, 1238, 130, 1098, 156, 1023, 178, 933, 135, 821, 133, 738, 108, 613, 81, 660, 16, 2008, 15)
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="Terrain"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Terrain/StaticBody2D2"]
+polygon = PackedVector2Array(13, 356, 260, 331, 543, 353, 742, 327, 954, 348, 1169, 324, 1341, 338, 1386, 368, 1386, 394, 1312, 428, 1288, 440, 1281, 456, 1217, 481, 1042, 504, 950, 473, 868, 478, 789, 447, 698, 455, 646, 450, 628, 472, 511, 497, 417, 506, 368, 505, 261, 477, 102, 465, -4, 449)
 
 [node name="NextWaveTimer" type="Label" parent="."]
-offset_left = 595.0
-offset_top = 14.0
-offset_right = 778.0
-offset_bottom = 39.0
+offset_left = 1110.0
+offset_top = 20.0
+offset_right = 1293.0
+offset_bottom = 45.0
 text = "Next wave in: ? seconds"
 script = ExtResource("2_i6rgi")
 
-[node name="TowerPlaceholder" type="Sprite2D" parent="."]
-modulate = Color(1, 1, 1, 0.501961)
-position = Vector2(-100, 0)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("4_f3xr6")
-
-[node name="Path2D2" type="Path2D" parent="."]
+[node name="TowersLine1" type="Path2D" parent="."]
 curve = SubResource("Curve2D_58vmd")
 
-[node name="Path2D" type="Path2D" parent="."]
+[node name="TowersLine2" type="Path2D" parent="."]
 curve = SubResource("Curve2D_dmy04")
+
+[node name="CastleMarker1" type="Marker2D" parent="."]
+position = Vector2(149, 140)
+
+[node name="CastleMarker2" type="Marker2D" parent="."]
+position = Vector2(1734, 840)
+
+[node name="TowerPlaceholder" type="Sprite2D" parent="."]
+visible = false
+modulate = Color(1, 1, 1, 0.501961)
+y_sort_enabled = true
+texture = ExtResource("12_53ukm")
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+navigation_polygon = SubResource("NavigationPolygon_hkctb")

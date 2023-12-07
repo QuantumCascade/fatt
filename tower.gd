@@ -21,6 +21,7 @@ func _physics_process(_delta):
 	if !enemies_in_range.is_empty() && attack_cooldown <= 0:
 		var projectile: Projectile = projectile_prefab.instantiate()
 		projectile.global_position = global_position
+		projectile.global_position.y = projectile.global_position.y - 100
 		projectile.target = enemies_in_range[0]
 		print(getId() + " attack >> " + str(projectile.target))
 		get_parent().add_child(projectile)

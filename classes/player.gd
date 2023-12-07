@@ -24,7 +24,6 @@ var mobs: Array[Unit] = []
 func _init(id: String):
 	self.pid = id
 
-
 func _physics_process(delta: float):
 	if mana < mana_limit:
 		var mana_genered = min(mana_regen, mana_pool) * delta
@@ -39,7 +38,7 @@ func _physics_process(delta: float):
 			spawn_cooldown = 0
 
 func setupCastleAt(position: Vector2) -> Player:
-	var res = preload("res://castle.tscn")
+	var res = preload("res://castles/castle.tscn")
 	castle = res.instantiate()
 	castle.position = position
 	castle.master = self
@@ -53,11 +52,19 @@ func attachTo(scene: MainScene) -> Player:
 
 
 func can_spawn() -> bool:
-	if mana < spawn_mana_cost \
-		|| castle.body.hp <= 0 \
-		|| spawn_cooldown > 0 \
-		|| !castle.spawnArea.get_overlapping_bodies().is_empty() \
-		|| mobs.size() >= mobs_limit:
+	var reason = ""
+	if mana < spawn_mana_cost:
+		reason += "/ mana=" + str(mana) + " but cost=" + str(spawn_mana_cost)
+	if castle.body.hp <= 0:
+		reason += "/ castle_hp=" + str(castle.body.hp)
+	if spawn_cooldown > 0:
+		reason += "/ spawn_cooldown=" + str(spawn_cooldown)
+	if !castle.spawnArea.get_overlapping_bodies().is_empty():
+		reason += "/occupied_zone=" + str(castle.spawnArea.get_overlapping_bodies())
+	if mobs.size() >= mobs_limit:
+		reason += "/mobs=" + str(mobs.size()) + " but limit="+str(mobs_limit)
+	if reason != "":
+		#print(pid + "# can not spawn:" + reason)
 		return false
 	return true
 

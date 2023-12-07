@@ -15,6 +15,18 @@ enum State { WAITING, DESTROYED }
 func _ready():
 	print(getId() + " spawned at " + str(position))
 
+func flip():
+	$Sprite2D.flip_h = true
+	$SpawnArea.position.x = -1 * $SpawnArea.position.x
+
+func load_texture(n: int):
+	if n == 1:
+		var img: Texture2D = load("res://sprites/buildings/castle-1.png")
+		$Sprite2D.set_texture(img)
+	elif n == 2:
+		var img: Texture2D = load("res://sprites/buildings/castle-2.webp")
+		$Sprite2D.set_texture(img)
+
 func _physics_process(_delta: float):
 	if body.hp <= 0 && state != State.DESTROYED:
 		state = State.DESTROYED

@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://bwv1hf7b5avj3"]
 
 [ext_resource type="Script" path="res://tower.gd" id="1_h5wei"]
-[ext_resource type="Texture2D" uid="uid://dbri2ygargsek" path="res://sprites/icon.svg" id="2_i11jy"]
+[ext_resource type="Texture2D" uid="uid://cqgn3ve0hqaj7" path="res://sprites/buildings/tower-wooden-1.png" id="2_v10ao"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_6kmlq"]
 radius = 32.0
@@ -13,8 +13,8 @@ radius = 150.0
 script = ExtResource("1_h5wei")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("2_i11jy")
+texture = ExtResource("2_v10ao")
+offset = Vector2(0, -20)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_6kmlq")

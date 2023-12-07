@@ -6,7 +6,7 @@ enum State { WAITING, WALKING, ATTACKING, DYING, DEAD }
 
 var id: String = "unit"
 var master: Player
-@export var movement_speed: float = 200.0
+@export var movement_speed: float = 100.0
 @export var vision_range: float = 150
 @export var attack_range: float = 25
 @export var attack_strength: float = 50

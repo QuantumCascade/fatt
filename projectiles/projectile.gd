@@ -2,7 +2,7 @@ class_name Projectile extends CharacterBody2D
 
 const GRAVITY = 10
 
-var accel: float = 500.0
+var accel: float = 250.0
 
 var attacker: Node2D
 var target: Unit
@@ -15,6 +15,7 @@ var p
 func launch(subj: Node2D):
 	self.attacker = subj
 	from = global_position
+	from.y = from.y 
 	var predicted_target_pos = target.get_pos_after(accel / 1000)
 	var tx = predicted_target_pos.x
 	var ty = predicted_target_pos.y
@@ -37,9 +38,12 @@ func calc_motion(at_x: float) -> Vector2:
 
 func _physics_process(delta):
 	var motion: Vector2 = calc_motion(global_position.x + dir.x * delta * accel)
-	if randf() < (1./30.):
-		print("Flying from " + str(global_position) + " to " + str(motion))
+	#if randf() < (1./30.):
+		#print("Flying from " + str(global_position) + " to " + str(motion))
 	velocity = global_position.direction_to(motion) * accel
+	if global_position.y > target.global_position.y && velocity.y > 0:
+		velocity = Vector2.ZERO
+		return
 	rotation = velocity.angle()
 	move_and_slide()
 
