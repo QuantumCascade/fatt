@@ -1,22 +1,35 @@
 class_name NextWaveTimer extends Label
 
-const PREFIX = "Next wave in: "
-const POSTFIX = " seconds"
-
-var val: float = -1
+var time_to_attack: float = -1
 
 @onready var main_scene: MainScene = get_parent()
 
 func _process(delta):
-	if val < 0:
+	
+	if main_scene.players["a"].castle.state == Castle.State.DESTROYED:
+		text = "You lost this battle"
 		return
-	if val > 0:
-		val = val - delta
-		if val < 0:
-			val = 0
-		text = PREFIX + str(ceil(val)) + POSTFIX
-	else:
-		val = -1
+	elif main_scene.players["b"].castle.state == Castle.State.DESTROYED:
+		text = "Congratulations - you won this battle!"
+		return
+	
+	var new_text: String = ""
+	
+	var stats: PlayerStats = main_scene.players["a"].stats
+	new_text += stats.txt_spawn_readiness() + "\n"
+	new_text += stats.txt_spawn_reserve_report(main_scene.players["a"]) + "\n"
+	new_text += stats.txt_spawn_pool_remainings() + "\n"
+	new_text += stats.txt_building_resource_report() + "\n"
+	
+	if time_to_attack > 0:
+		time_to_attack = max(time_to_attack - delta, 0)
+		new_text += "Next attack in: %d seconds" % time_to_attack
+	elif time_to_attack != -1:
+		time_to_attack = -1
+		var remainings = floor(stats.spawn_resource_pool / stats.spawn_cost)
+		var mobs = main_scene.players["a"].mobs.size()
+		if mobs > 0 || remainings > 0:
+			new_text += "\nAttack!"
 		main_scene.swithch_to_war()
-		text = "Attack mode"
-		main_scene.spawnMobs()
+	text = new_text
+	

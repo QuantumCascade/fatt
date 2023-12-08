@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://1ekjvjf5gvp8"]
+[gd_scene load_steps=24 format=3 uid="uid://1ekjvjf5gvp8"]
 
 [ext_resource type="Script" path="res://main_scene.gd" id="1_v74v4"]
 [ext_resource type="Script" path="res://next_wave_timer.gd" id="2_i6rgi"]
@@ -10,8 +10,16 @@
 [ext_resource type="Texture2D" uid="uid://bx234xlh5rqa" path="res://sprites/terrain/mountains/q3djx95dt3oark10rlsp18ag0bwf.webp" id="8_qi2j7"]
 [ext_resource type="Texture2D" uid="uid://glp5dc2mm11p" path="res://sprites/terrain/mountains/u82ubza47y00kh3j0ygssfv71lkm.webp" id="9_hq4kq"]
 [ext_resource type="Texture2D" uid="uid://dt8jy0obupb84" path="res://sprites/terrain/mountains/vqq6brgye3cp7r5njlsrljbli5bj.webp" id="10_0tk87"]
+[ext_resource type="Texture2D" uid="uid://bmdngvyy83uhe" path="res://sprites/terrain/trees/xf2h0kvecdlnkvz8jhmps8sghg5z.webp" id="11_fjx4x"]
 [ext_resource type="Texture2D" uid="uid://6p7eixc4wns" path="res://sprites/terrain/mountains/w9vd9k6xp0aaywz6ejpxvqaz0kj9.webp" id="11_ob3fh"]
+[ext_resource type="Texture2D" uid="uid://kviche032mq3" path="res://sprites/terrain/trees/jt70bbubv0rtszxah5o6huq6esg0.webp" id="12_4nljs"]
 [ext_resource type="Texture2D" uid="uid://cqgn3ve0hqaj7" path="res://sprites/buildings/tower-wooden-1.png" id="12_53ukm"]
+[ext_resource type="Texture2D" uid="uid://igqggtffqukn" path="res://sprites/terrain/trees/rpb7t1j0hlx86lkskhit30hbcimh.webp" id="13_qp2b8"]
+[ext_resource type="Texture2D" uid="uid://cnetqtve0korn" path="res://sprites/terrain/trees/gso7zcatbm4fj5fr23lekcvbythl.webp" id="14_whrck"]
+[ext_resource type="Texture2D" uid="uid://cbp6mx73ui10" path="res://sprites/terrain/trees/prhz0i4csj34a1ini146cbb1jqcj.webp" id="15_dj4rl"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_ye6tq"]
+font_size = 19
 
 [sub_resource type="Curve2D" id="Curve2D_58vmd"]
 bake_interval = 10.0
@@ -28,14 +36,30 @@ _data = {
 point_count = 22
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_hkctb"]
-vertices = PackedVector2Array(1566, 805, 1682, 820, 1657, 916, 962, 943, 1103, 856, 712, 827, 570, 924, 581, 761, 224, 796, 230, 543, 616, 643, 1289, 620, 688, 502, 1008, 530, 1009, 530, 1259, 521, 629, 308, 273, 290, 292, 83, 789, 178, 1171, 301, 1628, 215, 1172, 301, 1405, 324, 1450, 432, 1768, 447, 1703, 545)
-polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3, 4), PackedInt32Array(5, 4, 3, 6), PackedInt32Array(7, 5, 6, 8), PackedInt32Array(7, 8, 9, 10), PackedInt32Array(11, 10, 9, 12, 13), PackedInt32Array(11, 13, 14), PackedInt32Array(11, 14, 15), PackedInt32Array(16, 17, 18, 19, 20), PackedInt32Array(20, 19, 21, 22), PackedInt32Array(23, 22, 21), PackedInt32Array(24, 23, 21, 25, 26), PackedInt32Array(24, 26, 11, 15)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(283, 71, 790, 168, 1635, 206, 1780, 447, 1709, 555, 1291, 630, 624, 653, 593, 756, 715, 817, 1103, 846, 1567, 795, 1696, 812, 1666, 926, 962, 953, 570, 934, 214, 803, 221, 534, 688, 492, 1009, 520, 1257, 511, 1437, 427, 1398, 333, 1171, 311, 629, 318, 263, 300)])
+vertices = PackedVector2Array(1665, 916, 1666, 916, 962, 943, 396, 60, 610, 114, 609, 114, 1566, 805, 1690, 821, 1758, 909, 1103, 856, 629, 308, 264, 290, 133, 238, 287, 80, 782, 164, 1171, 301, 712, 827, 570, 924, 581, 761, 224, 796, 230, 543, 616, 643, 1289, 620, 688, 502, 1008, 530, 1009, 530, 1259, 521, 1628, 215, 1172, 301, 1405, 324, 1450, 432, 1768, 447, 1703, 545)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2), PackedInt32Array(3, 4, 5), PackedInt32Array(6, 7, 8, 0, 2, 9), PackedInt32Array(10, 11, 12, 13, 3, 5, 14, 15), PackedInt32Array(16, 9, 2, 17), PackedInt32Array(18, 16, 17, 19), PackedInt32Array(18, 19, 20, 21), PackedInt32Array(22, 21, 20, 23, 24), PackedInt32Array(22, 24, 25), PackedInt32Array(22, 25, 26), PackedInt32Array(15, 14, 27, 28), PackedInt32Array(29, 28, 27), PackedInt32Array(30, 29, 27, 31, 32), PackedInt32Array(30, 32, 22, 26)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(283, 71, 397, 50, 612, 104, 784, 154, 1635, 206, 1780, 447, 1709, 555, 1291, 630, 624, 653, 593, 756, 715, 817, 1103, 846, 1567, 795, 1696, 812, 1778, 918, 1666, 926, 962, 953, 570, 934, 214, 803, 221, 534, 688, 492, 1009, 520, 1257, 511, 1437, 427, 1398, 333, 1171, 311, 629, 318, 263, 300, 116, 242)])
 source_geometry_group_name = &"navigation_polygon_source_group"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_01kmq"]
+radius = 50.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_83cco"]
+radius = 50.0
 
 [node name="MainScene" type="Node2D"]
 y_sort_enabled = true
 script = ExtResource("1_v74v4")
+
+[node name="NextWaveTimer" type="Label" parent="."]
+z_index = 1
+offset_left = 1110.0
+offset_top = 20.0
+offset_right = 1293.0
+offset_bottom = 45.0
+text = "Next attack in: ? seconds"
+label_settings = SubResource("LabelSettings_ye6tq")
+script = ExtResource("2_i6rgi")
 
 [node name="Terrain" type="CanvasGroup" parent="."]
 y_sort_enabled = true
@@ -462,22 +486,22 @@ texture = ExtResource("4_ayodn")
 
 [node name="mountain2-6" type="Sprite2D" parent="Terrain"]
 y_sort_enabled = true
-position = Vector2(864, 998.5)
+position = Vector2(864, 983.5)
 texture = ExtResource("6_418kn")
 
 [node name="mountain4-6" type="Sprite2D" parent="Terrain"]
 y_sort_enabled = true
-position = Vector2(1061, 1017.5)
+position = Vector2(1061, 1002.5)
 texture = ExtResource("8_qi2j7")
 
 [node name="mountain6-6" type="Sprite2D" parent="Terrain"]
 y_sort_enabled = true
-position = Vector2(1204, 1013.5)
+position = Vector2(1204, 998.5)
 texture = ExtResource("10_0tk87")
 
 [node name="mountain7-6" type="Sprite2D" parent="Terrain"]
 y_sort_enabled = true
-position = Vector2(1374, 993)
+position = Vector2(1374, 978)
 texture = ExtResource("11_ob3fh")
 
 [node name="mountain0-7" type="Sprite2D" parent="Terrain"]
@@ -561,6 +585,66 @@ y_sort_enabled = true
 position = Vector2(636, 384.5)
 texture = ExtResource("11_ob3fh")
 
+[node name="tree1-1" type="Sprite2D" parent="Terrain"]
+position = Vector2(155, 785)
+texture = ExtResource("11_fjx4x")
+
+[node name="tree2-1" type="Sprite2D" parent="Terrain"]
+position = Vector2(96, 651)
+texture = ExtResource("12_4nljs")
+
+[node name="tree3-1" type="Sprite2D" parent="Terrain"]
+position = Vector2(140, 573)
+texture = ExtResource("13_qp2b8")
+
+[node name="tree4-1" type="Sprite2D" parent="Terrain"]
+position = Vector2(168, 697)
+texture = ExtResource("14_whrck")
+
+[node name="tree5-1" type="Sprite2D" parent="Terrain"]
+position = Vector2(54, 531)
+texture = ExtResource("15_dj4rl")
+
+[node name="tree1-2" type="Sprite2D" parent="Terrain"]
+position = Vector2(61, 308)
+texture = ExtResource("11_fjx4x")
+
+[node name="tree2-2" type="Sprite2D" parent="Terrain"]
+position = Vector2(29, 220)
+texture = ExtResource("12_4nljs")
+
+[node name="tree3-2" type="Sprite2D" parent="Terrain"]
+position = Vector2(578, 39)
+texture = ExtResource("13_qp2b8")
+
+[node name="tree4-2" type="Sprite2D" parent="Terrain"]
+position = Vector2(511, 52)
+texture = ExtResource("14_whrck")
+
+[node name="tree5-2" type="Sprite2D" parent="Terrain"]
+position = Vector2(47, 68)
+texture = ExtResource("15_dj4rl")
+
+[node name="tree1-3" type="Sprite2D" parent="Terrain"]
+position = Vector2(1606, 974)
+texture = ExtResource("11_fjx4x")
+
+[node name="tree2-3" type="Sprite2D" parent="Terrain"]
+position = Vector2(1513, 993)
+texture = ExtResource("12_4nljs")
+
+[node name="tree3-3" type="Sprite2D" parent="Terrain"]
+position = Vector2(1777.5, 584)
+texture = ExtResource("13_qp2b8")
+
+[node name="tree4-3" type="Sprite2D" parent="Terrain"]
+position = Vector2(1782, 943)
+texture = ExtResource("14_whrck")
+
+[node name="tree5-3" type="Sprite2D" parent="Terrain"]
+position = Vector2(1856, 808)
+texture = ExtResource("15_dj4rl")
+
 [node name="StaticBody2D" type="StaticBody2D" parent="Terrain"]
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Terrain/StaticBody2D"]
@@ -570,14 +654,6 @@ polygon = PackedVector2Array(2002, 716, 1930, 765, 1804, 773, 1726, 797, 1633, 7
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Terrain/StaticBody2D2"]
 polygon = PackedVector2Array(13, 356, 260, 331, 543, 353, 742, 327, 954, 348, 1169, 324, 1341, 338, 1386, 368, 1386, 394, 1312, 428, 1288, 440, 1281, 456, 1217, 481, 1042, 504, 950, 473, 868, 478, 789, 447, 698, 455, 646, 450, 628, 472, 511, 497, 417, 506, 368, 505, 261, 477, 102, 465, -4, 449)
-
-[node name="NextWaveTimer" type="Label" parent="."]
-offset_left = 1110.0
-offset_top = 20.0
-offset_right = 1293.0
-offset_bottom = 45.0
-text = "Next wave in: ? seconds"
-script = ExtResource("2_i6rgi")
 
 [node name="TowersLine1" type="Path2D" parent="."]
 curve = SubResource("Curve2D_58vmd")
@@ -599,3 +675,21 @@ texture = ExtResource("12_53ukm")
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
 navigation_polygon = SubResource("NavigationPolygon_hkctb")
+
+[node name="GatheringSpot1" type="Marker2D" parent="."]
+position = Vector2(373, 173)
+
+[node name="Area2D" type="Area2D" parent="GatheringSpot1"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GatheringSpot1/Area2D"]
+position = Vector2(-24, -6)
+shape = SubResource("CircleShape2D_01kmq")
+
+[node name="GatheringSpot2" type="Marker2D" parent="."]
+position = Vector2(1480, 833)
+
+[node name="Area2D" type="Area2D" parent="GatheringSpot2"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GatheringSpot2/Area2D"]
+position = Vector2(24, 2)
+shape = SubResource("CircleShape2D_83cco")

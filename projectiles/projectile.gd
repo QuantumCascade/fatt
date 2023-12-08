@@ -1,6 +1,6 @@
 class_name Projectile extends CharacterBody2D
 
-const GRAVITY = 10
+const kind: String = "Projectile"
 
 var accel: float = 250.0
 
@@ -32,14 +32,11 @@ func launch(subj: Node2D):
 
 func calc_motion(at_x: float) -> Vector2:
 	var at_y = pow(at_x - vertex.x, 2) / (4 * p) + vertex.y
-	#print("Shifting on x from: " + str(global_position.x) + " to " + str(at_x))
 	return Vector2(at_x, at_y)
 
 
 func _physics_process(delta):
 	var motion: Vector2 = calc_motion(global_position.x + dir.x * delta * accel)
-	#if randf() < (1./30.):
-		#print("Flying from " + str(global_position) + " to " + str(motion))
 	velocity = global_position.direction_to(motion) * accel
 	if global_position.y > target.global_position.y && velocity.y > 0:
 		velocity = Vector2.ZERO
@@ -53,7 +50,8 @@ func _on_timer_timeout():
 
 
 func _on_area_2d_body_entered(body):
-	if Util.is_attackable_enemy(attacker, body):
+	if Util.is_attackable_enemy(attacker, body) && velocity != Vector2.ZERO:
 		print("projectile hit >> " + str(body))
 		body.receive_dmg(50, attacker)
+		velocity = Vector2.ZERO
 		queue_free()

@@ -13,15 +13,21 @@ config_version=5
 config/name="fatt"
 run/main_scene="res://main_scene.tscn"
 config/features=PackedStringArray("4.2", "GL Compatibility")
-boot_splash/image="res://sprites/Castle-icon.png"
+boot_splash/image="res://sprites/buildings/castle-1.png"
 boot_splash/fullsize=false
 config/icon="res://sprites/Castle-icon.png"
 
 [display]
 
 window/size/viewport_width=1908
-window/size/viewport_height=960
+window/size/viewport_height=1010
+window/energy_saving/keep_screen_on=false
 window/stretch/mode="canvas_items"
+window/ios/allow_high_refresh_rate=false
+
+[editor]
+
+movie_writer/movie_file="/Users/konstantin/trunk/fatt/build/scren_rec.avi"
 
 [input]
 

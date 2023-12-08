@@ -1,13 +1,16 @@
-[gd_scene load_steps=5 format=3 uid="uid://bwv1hf7b5avj3"]
+[gd_scene load_steps=6 format=3 uid="uid://bwv1hf7b5avj3"]
 
 [ext_resource type="Script" path="res://tower.gd" id="1_h5wei"]
 [ext_resource type="Texture2D" uid="uid://cqgn3ve0hqaj7" path="res://sprites/buildings/tower-wooden-1.png" id="2_v10ao"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_6kmlq"]
-radius = 32.0
+radius = 30.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_d8nrb"]
-radius = 150.0
+radius = 200.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_sjdxr"]
+radius = 30.0
 
 [node name="Tower" type="StaticBody2D"]
 script = ExtResource("1_h5wei")
@@ -17,16 +20,31 @@ texture = ExtResource("2_v10ao")
 offset = Vector2(0, -20)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-6, -13)
 shape = SubResource("CircleShape2D_6kmlq")
 
 [node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="."]
 show_behind_parent = true
+position = Vector2(-6, -13)
 radius = 32.0
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="AttackArea" type="Area2D" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="AttackRange" type="CollisionShape2D" parent="AttackArea"]
 shape = SubResource("CircleShape2D_d8nrb")
 
-[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
-[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
+[node name="BuilderArea" type="Area2D" parent="."]
+
+[node name="BuilderRange" type="CollisionShape2D" parent="BuilderArea"]
+position = Vector2(-6, -12)
+shape = SubResource("CircleShape2D_sjdxr")
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+offset_left = 22.0
+offset_top = -100.0
+offset_right = 26.0
+offset_bottom = -73.0
+
+[connection signal="body_entered" from="AttackArea" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="AttackArea" to="." method="_on_area_2d_body_exited"]
+[connection signal="body_entered" from="BuilderArea" to="." method="_on_builder_area_body_entered"]

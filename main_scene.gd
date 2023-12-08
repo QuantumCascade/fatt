@@ -17,36 +17,49 @@ var tower_to_build_id: int = -1
 @onready var towers_line_1: Curve2D = $TowersLine1.curve
 @onready var towers_line_2: Curve2D = $TowersLine2.curve
 
+
 func _ready():
-	addPlayer(Player.new("a"), $CastleMarker1.position, Color(0, 0, 0)).mana = 20
+	# main player
+	add_player(Player.new("a"), $CastleMarker1.position, Color(0, 0, 0))
+	players["a"].stats.spawn_resource_val = 0
+	players["a"].stats.basic_unit_hp = 100
 	players["a"].castle.load_texture(1)
 	players["a"].castle.flip()
-	addPlayer(Player.new("b"), $CastleMarker2.position, Color(0, 0, -255))
+	
+	# opponent
+	add_player(Player.new("b"), $CastleMarker2.position, Color(0, 0, -255))
+	players["b"].stats.spawn_resource_val = 100
+	players["b"].stats.spawn_resource_regen_from_pool = 5
+	players["b"].stats.basic_unit_hp = 80
 	players["b"].castle.load_texture(2)
+
+	players["a"].enemy = players["b"]
+	players["b"].enemy = players["a"]
+	
 	initWaveTimer(2)
-	
+
+
 func initWaveTimer(val: int):
-	print("next wave in " + str(val) + " sec")
-	next_wave_timer.val = val
-	
+	print("next attack in " + str(val) + " sec")
+	next_wave_timer.time_to_attack = val
+
 func swithch_to_war():
 	state = State.WAR
 
-func _physics_process(delta: float):
-	for pid in players:
-		players[pid]._physics_process(delta)
-	if !mobs.is_empty():
-		if state != State.WAR:
-			state = State.WAR
-			print("Switching to war state")
+#func _physics_process(delta: float):
 
-	if state == State.WAR && mobs.is_empty():
-		print("Switching to peace")
-		state = State.PEACE
-		initWaveTimer(5)
+	#if !mobs.is_empty():
+		#if state != State.WAR:
+			#state = State.WAR
+			#print("Switching to war state")
+#
+	#if state == State.WAR && mobs.is_empty():
+		#print("Switching to peace")
+		#state = State.PEACE
+		#initWaveTimer(5)
 		
-	if state == State.WAR:
-		spawnMobs()
+	#if state == State.WAR:
+		#spawn_mobs()
 
 #func if_tile_for_tower() -> Vector2i:
 	#var cell: Vector2i = tile_map.local_to_map(tile_map.get_local_mouse_position())
@@ -58,6 +71,13 @@ func _physics_process(delta: float):
 
 
 func _input(event: InputEvent):
+	var player: Player = players["a"]
+	if player.can_build_tower():
+		process_tower_placeholder(event)
+	else:
+		tower_placeholder.hide()
+
+func process_tower_placeholder(event: InputEvent):
 	# POC for placing towers without tile data
 	var mouse_pos = get_global_mouse_position()
 	var p1 = towers_line_1.get_closest_point(mouse_pos)
@@ -124,43 +144,58 @@ func on_build_tower_selected(id: int):
 func on_build_tower_confirmed(id: int):
 	print("Tower confirmed: " + str(id) + "@" + str(tower_placeholder_pos))
 	tower_to_build_id = id
-	if tower_placeholder_pos != Vector2.ZERO:
-	#if tile_bkp_pos != Vector2i.MIN:
-		#var placement: Vector2 = tile_map.map_to_local(tile_bkp_pos)
-		var towerPrefab = preload("res://tower.tscn")
-		var tower: Tower = towerPrefab.instantiate()
-		tower.global_position = tower_placeholder_pos
-		tower.master = players["a"]
-		add_child(tower)
+	if tower_placeholder_pos == Vector2.ZERO:
+		return
+	var player: Player = players["a"]
+	var towerPrefab = preload("res://tower.tscn")
+	var tower: Tower = towerPrefab.instantiate()
+	if !player.paid_for_tower(tower):
+		print("Error! Not ehough wood to build a tower")
+		tower_placeholder_pos = Vector2.ZERO
+		tower.queue_free()
+		return
+	tower.global_position = tower_placeholder_pos
+	tower.master = player
+	add_child(tower)
+	tower.shadow()
+	tower_placeholder_pos = Vector2.ZERO
+
 
 func on_mob_killed(killedMob: Unit):
 	mobs.erase(killedMob)
 	print("burying mob: " + killedMob.getId())
 
-func addPlayer(player: Player, castlePosition: Vector2, colorMod: Color):
-	players[player.pid] = player.setupCastleAt(castlePosition).attachTo(self)
+func add_player(player: Player, castlePosition: Vector2, colorMod: Color):
+	player.main_scene = self
+	players[player.pid] = player.setupCastleAt(castlePosition)
 	player.color_mod = colorMod
-	#player.castle.apply_color_mod(colorMod)
+	add_child(player)
+	add_child(player.castle)
 	return player
 
+func spawned_mob(mob: Unit):
+	mobs.append(mob)
+	add_child(mob)
+	mob.killed.connect(on_mob_killed)
+	print("spawned: " + str(mob))
 
-func spawnMobs():
-	for pid in players:
-		var player: Player = players[pid]
-		if player.can_spawn():
-			var opponent: Player = getOpponent(pid)
-			var unit: Unit = player.spawnMob()
-			if unit != null:
-				unit.general_target = opponent.castle
-				mobs.append(unit)
-				add_child(unit)
-				unit.killed.connect(on_mob_killed)
-				print("spawned: " + str(unit))
+#func spawn_mobs():
+	#for pid in players:
+		#var player: Player = players[pid]
+		#if player.can_spawn():
+			#var opponent: Player = getOpponent(pid)
+			#var unit: Unit = player.spawnMob()
+			#if unit != null:
+				#unit.enemy_castle = opponent.castle
+				#mobs.append(unit)
+				#add_child(unit)
+				#unit.killed.connect(on_mob_killed)
+				#print("spawned: " + str(unit))
 
 
 
-func getOpponent(pid: String) -> Player:
-	for id in players:
-		if id != pid:
-			return players[id]
-	return null
+#func getOpponent(pid: String) -> Player:
+	#for id in players:
+		#if id != pid:
+			#return players[id]
+	#return null
