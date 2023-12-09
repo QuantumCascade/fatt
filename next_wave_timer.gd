@@ -5,6 +5,9 @@ var time_to_attack: float = -1
 @onready var main_scene: MainScene = get_parent()
 
 func _process(delta):
+	if main_scene.state == MainScene.State.WIN:
+		text = "Congratulations - you survived!"
+		return
 	
 	if main_scene.players["a"].castle.state == Castle.State.DESTROYED:
 		text = "You lost this battle"

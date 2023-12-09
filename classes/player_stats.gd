@@ -15,20 +15,25 @@ var spawn_resource_limit: float = 100
 # how much to spawn a unit
 var spawn_cost: float = 20
 
-
 var build_tower_resource_val: float = 50
 var build_tower_resource_limit: float = 200
 var build_tower_resource_regen: float = 2
 var build_tower_cost: float = 100
 
 var basic_unit_hp: float = 100
+var basic_unit_attack_strength: float = 50
+var basic_unit_armor: float = 20
+var basic_unit_movement_speed: float = 100
 
+var gathering_party_count: int = 4
+var next_party_id = 0
 
+# should run in physics_process
 func regen_spawn_resource(delta: float):
 	var to_regen: float = spawn_resource_limit - spawn_resource_val
 	if to_regen <= 0:
 		return
-	var available: float = min(spawn_resource_regen_from_pool, spawn_resource_pool) * delta
+	var available: float = min(spawn_resource_regen_from_pool * delta, spawn_resource_pool)
 	to_regen = min(to_regen, available)
 	spawn_resource_val += to_regen
 	spawn_resource_pool -= to_regen
@@ -41,6 +46,16 @@ func regen_building_resource(delta: float):
 		return
 	build_tower_resource_val += build_tower_resource_regen * delta
 
+func regen_spawn_for_unit(_unit: Unit):
+	var to_regen = spawn_cost
+	var capacity = spawn_resource_limit - spawn_resource_val
+	if capacity > 0:
+		spawn_resource_val += capacity
+		print("returned %d to spawn resource" % capacity)
+	var to_pool = max(to_regen - capacity, 0)
+	if to_pool > 0:
+		spawn_resource_pool += to_pool
+		print("returned %d to spawn pool" % to_pool)
 
 func txt_spawn_pool_remainings() -> String:
 	var remainings = floor(spawn_resource_pool / spawn_cost)

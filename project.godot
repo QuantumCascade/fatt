@@ -10,8 +10,9 @@ config_version=5
 
 [application]
 
-config/name="fatt"
-run/main_scene="res://main_scene.tscn"
+config/name="Fortress Assault: Tower Tactics"
+config/description="Fortress Assault: Tower Tactics"
+run/main_scene="res://main_menu.tscn"
 config/features=PackedStringArray("4.2", "GL Compatibility")
 boot_splash/image="res://sprites/buildings/castle-1.png"
 boot_splash/fullsize=false
@@ -28,6 +29,10 @@ window/ios/allow_high_refresh_rate=false
 [editor]
 
 movie_writer/movie_file="/Users/konstantin/trunk/fatt/build/scren_rec.avi"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/gut/plugin.cfg", "res://addons/midi/plugin.cfg")
 
 [input]
 

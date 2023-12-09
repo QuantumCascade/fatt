@@ -42,22 +42,39 @@ func _physics_process(delta: float):
 		if check_pending_buildings() != null && can_spawn():
 			spawn_mob()
 
-func setupCastleAt(position: Vector2) -> Player:
+func setup_castle_at(position: Vector2) -> Player:
 	var res = preload("res://castles/castle.tscn")
 	castle = res.instantiate()
 	castle.position = position
 	castle.master = self
 	return self
 
-func call_for_builder(tower: Tower):
-	if !building_orders.has(tower):
-		print(pid + "# received order to build " + str(tower))
-		building_orders.append(tower)
-
 func can_build_tower() -> bool:
 	return stats.build_tower_resource_val >= stats.build_tower_cost
 
-func paid_for_tower(tower: Tower) -> bool:
+func build_tower(tower_pos: Vector2, tower_id: int) -> Tower:
+	var tower: Tower = preload("res://tower.tscn").instantiate()
+	if !paid_for_tower(tower, tower_id):
+		print("Error! Not ehough wood to build a tower %d" % tower_id)
+		tower.queue_free()
+		return null
+	tower.global_position = tower_pos
+	tower.master = self
+	add_child(tower)
+	tower.shadow()
+	tower.missing_operator.connect(on_tower_missing_operator)
+	tower.operator_inside_tower.connect(on_operator_inside_tower)
+	return tower
+
+func on_tower_missing_operator(tower: Tower):
+	if !building_orders.has(tower):
+		print(pid + "# received call to build " + str(tower))
+		building_orders.append(tower)
+
+func on_operator_inside_tower(mob: Unit):
+	mobs.erase(mob)
+	
+func paid_for_tower(_tower: Tower, _tower_id: int) -> bool:
 	if stats.build_tower_resource_val >= stats.build_tower_cost:
 		stats.build_tower_resource_val -= stats.build_tower_cost
 		return true
@@ -74,7 +91,7 @@ func can_spawn() -> bool:
 	if spawn_cooldown > 0:
 		#reason += "/ spawn_cooldown=" + str(spawn_cooldown)
 		return false
-	if !castle.spawnArea.get_overlapping_bodies().is_empty():
+	if castle.any_unit_in_spawn_area():
 		#reason += "/occupied_zone=" + str(castle.spawnArea.get_overlapping_bodies())
 		return false
 	if mobs.size() >= mobs_limit:
@@ -89,10 +106,9 @@ func spawn_mob() -> Unit:
 	if !can_spawn():
 		return null
 	var mob: Unit = unit_prefab.instantiate()
-	mob.position = castle.spawnArea.global_position
+	mob.position = castle.spawn_area.global_position
 	mob.master = self
-	mob.hp = stats.basic_unit_hp
-	mob.max_hp = stats.basic_unit_hp
+	mob.init_stats(stats)
 	mob.id = "unit_" + str(nextMobIdx()) + "@" + pid
 	mob.apply_color_mod(color_mod)
 	mobs.append(mob)
@@ -104,6 +120,7 @@ func spawn_mob() -> Unit:
 	main_scene.spawned_mob(mob)
 	var pending_twr: Tower = check_pending_buildings()
 	if pending_twr != null:
+		print("assigned %s as operator for %s" % [mob.getId(), pending_twr.getId()])
 		pending_twr.set_operator(mob)
 		mob.operating_tower = pending_twr
 	return mob
@@ -119,9 +136,13 @@ func check_pending_buildings() -> Tower:
 		return null
 	return non_operable[0]
 
+func get_spawn_potential() -> float:
+	return stats.spawn_resource_val + stats.spawn_resource_pool
 
+# Returns true if player can spawn a mob now or when spawn resource regenerated.
+# If spawn resource depleted and current value is not enough to spawn a mob then return false.
 func has_spawn_potential() -> bool:
-	if (stats.spawn_resource_val + stats.spawn_resource_pool) < stats.spawn_cost:
+	if get_spawn_potential() < stats.spawn_cost:
 		return false
 	return true
 	

@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://1ym8eivh1j6j"]
+
+[node name="Tutorial" type="Node"]
+
+[node name="Panel" type="Panel" parent="."]
+offset_right = 468.0
+offset_bottom = 212.0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Panel"]
+layout_mode = 0
+offset_right = 440.0
+offset_bottom = 158.0
+text = "There is no time to explain everything. 
+You should defend your castle.
+Enemy will be approaching from the west very soon.
+"
+fit_content = true

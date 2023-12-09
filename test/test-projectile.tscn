@@ -1,0 +1,58 @@
+[gd_scene load_steps=5 format=3 uid="uid://c1506hhdfvgdi"]
+
+[ext_resource type="PackedScene" uid="uid://bwv1hf7b5avj3" path="res://tower.tscn" id="1_6mupr"]
+[ext_resource type="Script" path="res://test/test-projectile.gd" id="1_uajk2"]
+[ext_resource type="PackedScene" uid="uid://dy8hxfaug3ufp" path="res://unit.tscn" id="2_wa0pg"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_p4htr"]
+vertices = PackedVector2Array(856, -16, 908, 465, -149, 434, -30, -44)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-38, -55, 866, -26, 920, 476, -162, 444)])
+source_geometry_group_name = &"navigation_polygon_source_group"
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_uajk2")
+
+[node name="Tower3" parent="." instance=ExtResource("1_6mupr")]
+position = Vector2(155, 192)
+state = 2
+arc_height = 200.0
+attack_cooldown_val = 1.0
+attack_strength = 1.0
+
+[node name="Tower4" parent="." instance=ExtResource("1_6mupr")]
+position = Vector2(542, 189)
+state = 2
+arc_height = 200.0
+attack_cooldown_val = 1.0
+attack_strength = 1.0
+
+[node name="Tower5" parent="." instance=ExtResource("1_6mupr")]
+position = Vector2(575, 316)
+state = 2
+arc_height = 200.0
+attack_cooldown_val = 1.0
+attack_strength = 1.0
+
+[node name="Tower6" parent="." instance=ExtResource("1_6mupr")]
+position = Vector2(205, 317)
+state = 2
+arc_height = 200.0
+attack_cooldown_val = 1.0
+attack_strength = 1.0
+
+[node name="Unit" parent="." instance=ExtResource("2_wa0pg")]
+position = Vector2(396, 215)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(402, 287)
+offset = Vector2(10, -100)
+zoom = Vector2(2, 2)
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+navigation_polygon = SubResource("NavigationPolygon_p4htr")
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

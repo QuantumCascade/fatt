@@ -4,10 +4,10 @@
 [ext_resource type="Texture2D" uid="uid://cqgn3ve0hqaj7" path="res://sprites/buildings/tower-wooden-1.png" id="2_v10ao"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_6kmlq"]
-radius = 30.0
+radius = 28.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_d8nrb"]
-radius = 200.0
+radius = 300.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_sjdxr"]
 radius = 30.0
@@ -26,7 +26,7 @@ shape = SubResource("CircleShape2D_6kmlq")
 [node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="."]
 show_behind_parent = true
 position = Vector2(-6, -13)
-radius = 32.0
+radius = 35.0
 
 [node name="AttackArea" type="Area2D" parent="."]
 

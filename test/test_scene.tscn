@@ -1,0 +1,54 @@
+[gd_scene load_steps=6 format=3 uid="uid://dv8o15hk8vllp"]
+
+[ext_resource type="Script" path="res://test/test_scene.gd" id="1_jwrxs"]
+[ext_resource type="Texture2D" uid="uid://dbri2ygargsek" path="res://icon.svg" id="2_88id8"]
+[ext_resource type="Texture2D" uid="uid://brh0kj666ld38" path="res://sprites/terrain/grass.jpeg" id="2_qc6sb"]
+[ext_resource type="PackedScene" uid="uid://cur4y0lfhhpar" path="res://projectiles/projectile.tscn" id="3_81n2r"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_2jqfe"]
+
+[node name="Node" type="Node"]
+script = ExtResource("1_jwrxs")
+
+[node name="Grass" type="Sprite2D" parent="."]
+position = Vector2(306, 509)
+texture = ExtResource("2_qc6sb")
+
+[node name="Grass2" type="Sprite2D" parent="."]
+position = Vector2(1224, 641)
+texture = ExtResource("2_qc6sb")
+offset = Vector2(0, 20)
+
+[node name="Grass3" type="Sprite2D" parent="."]
+y_sort_enabled = true
+position = Vector2(1451, 583)
+texture = ExtResource("2_qc6sb")
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+y_sort_enabled = true
+position = Vector2(1415, 569)
+
+[node name="Icon" type="Sprite2D" parent="CharacterBody2D"]
+texture = ExtResource("2_88id8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+shape = SubResource("CircleShape2D_2jqfe")
+
+[node name="CharacterBody2D2" type="CharacterBody2D" parent="."]
+y_sort_enabled = true
+position = Vector2(301, 495)
+
+[node name="Icon" type="Sprite2D" parent="CharacterBody2D2"]
+texture = ExtResource("2_88id8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D2"]
+shape = SubResource("CircleShape2D_2jqfe")
+
+[node name="Projectile" parent="." instance=ExtResource("3_81n2r")]
+position = Vector2(819, 415)
+scale = Vector2(3, 3)
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

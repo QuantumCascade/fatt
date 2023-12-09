@@ -2,7 +2,8 @@ class_name CastleBody extends StaticBody2D
 
 const kind = "CastleBody"
 
-@export var hp: float = 150
+@export var hp: float = 300
+@export var armor: float = 30
 
 @onready var castle: Castle = get_parent()
 
@@ -11,10 +12,11 @@ func _ready():
 	$HpBar.value = hp
 	$HpBar.visible = false
 
-func receive_dmg(dmg: float, attacker: Node) -> void:
-	hp = max(hp - dmg, 0)
+func receive_dmg(dmg: Dictionary, attacker: Node) -> void:
+	var hp_before = hp
+	hp = max(hp - dmg.dmg, 0)
 	print(castle.getId() + " received " + str(dmg) \
-		+ " dmg from [" + str(attacker) + "] >> hp=" + str(hp))
+		+ " from [" + str(attacker) + "] ~ hp: " + str(hp_before) + "->" + str(hp))
 	$HpBar.value = hp
 	$HpBar.visible = true
 	if hp/$HpBar.max_value < 0.5:
@@ -22,7 +24,7 @@ func receive_dmg(dmg: float, attacker: Node) -> void:
 
 
 func get_pid():
-	return castle.master.pid
+	return castle.get_pid()
 
 func _to_string():
 	return str(castle)

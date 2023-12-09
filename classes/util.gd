@@ -25,12 +25,19 @@ static func getf(prop: String, obj: Node) -> float:
 	return 0
 
 
-static func calc_dmg(attacker: Node, target: Node) -> float:
-	var targetArmor: float = getf("armor", target)
+static func calc_dmg(attacker: Node, target: Node):
+	var target_armor: float = getf("armor", target)
 	var attack_strength: float = getf("attack_strength", attacker)
-	attack_strength = attack_strength * randf_range(0.25, 1.00)
-	var dmg: float = attack_strength - targetArmor
-	return dmg
+	var atk = attack_strength * randf_range(0.2, 1.0)
+	var blocked_dmg: float = min(target_armor, attack_strength) * randf_range(0.2, 1.0)
+	var dmg: float = max(atk - blocked_dmg, 0)
+	var armor_dmg: float = blocked_dmg * randf_range(0.2, 1.0)
+	return {
+		"atk": atk,
+		"dmg": dmg,
+		"blocked_dmg": blocked_dmg,
+		"armor_dmg": armor_dmg
+	}
 
 
 static func is_attackable_enemy(attacker: Node, target: Node) -> bool:
