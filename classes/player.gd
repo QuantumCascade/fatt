@@ -46,7 +46,7 @@ func setup_castle_at(position: Vector2) -> Player:
 	var res = preload("res://castles/castle.tscn")
 	castle = res.instantiate()
 	castle.position = position
-	castle.master = self
+	castle.set_master(self)
 	return self
 
 func can_build_tower() -> bool:
@@ -59,7 +59,7 @@ func build_tower(tower_pos: Vector2, tower_id: int) -> Tower:
 		tower.queue_free()
 		return null
 	tower.global_position = tower_pos
-	tower.master = self
+	tower.set_master(self)
 	add_child(tower)
 	tower.shadow()
 	tower.missing_operator.connect(on_tower_missing_operator)
@@ -85,8 +85,8 @@ func can_spawn() -> bool:
 	if stats.spawn_resource_val < stats.spawn_cost:
 		#reason += "/ mana=" + str(mana) + " but cost=" + str(spawn_mana_cost)
 		return false
-	if castle.body.hp <= 0:
-		#reason += "/ castle_hp=" + str(castle.body.hp)
+	if castle.hp <= 0:
+		#reason += "/ castle_hp=" + str(castle.hp)
 		return false
 	if spawn_cooldown > 0:
 		#reason += "/ spawn_cooldown=" + str(spawn_cooldown)
@@ -107,9 +107,10 @@ func spawn_mob() -> Unit:
 		return null
 	var mob: Unit = unit_prefab.instantiate()
 	mob.position = castle.spawn_area.global_position
-	mob.master = self
+	mob.set_master(self)
+	mob.killed.connect(on_mob_killed)
 	mob.init_stats(stats)
-	mob.id = "unit_" + str(nextMobIdx()) + "@" + pid
+	mob.id = str(nextMobIdx())
 	mob.apply_color_mod(color_mod)
 	mobs.append(mob)
 	if pid == "b":
@@ -149,6 +150,8 @@ func has_spawn_potential() -> bool:
 func on_mob_killed(mob: Unit):
 	mobs.erase(mob)
 
+func get_pid():
+	return pid
 
 func nextMobIdx() -> int:
 	mob_idx += 1

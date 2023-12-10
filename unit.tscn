@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=3 uid="uid://dy8hxfaug3ufp"]
+[gd_scene load_steps=50 format=3 uid="uid://dy8hxfaug3ufp"]
 
 [ext_resource type="Script" path="res://unit.gd" id="1_f75v1"]
 [ext_resource type="Texture2D" uid="uid://cs08ad6co2nqm" path="res://sprites/Hero-walk-Sheet.png" id="2_6pdex"]
@@ -10,6 +10,9 @@
 [ext_resource type="AudioStream" uid="uid://d1beb42g3psyn" path="res://sounds/hit_hurt.wav" id="7_men1e"]
 [ext_resource type="AudioStream" uid="uid://d1mmi6d34ktho" path="res://sounds/dying.wav" id="8_2c5l2"]
 [ext_resource type="AudioStream" uid="uid://bspm5f85ac7af" path="res://sounds/spawn.wav" id="9_fh8j8"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_t61u3"]
+radius = 7.0
 
 [sub_resource type="Animation" id="Animation_d0ogb"]
 length = 0.001
@@ -313,13 +316,14 @@ animations = [{
 "speed": 10.0
 }]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_n7xgu"]
-
 [sub_resource type="CircleShape2D" id="CircleShape2D_ytd7t"]
 radius = 100.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_uofvt"]
 radius = 25.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cnml1"]
+size = Vector2(16, 32)
 
 [sub_resource type="LabelSettings" id="LabelSettings_oobbc"]
 font_size = 24
@@ -329,9 +333,16 @@ y_sort_enabled = true
 safe_margin = 2.0
 script = ExtResource("1_f75v1")
 
+[node name="CollisionMovingShape" type="CollisionShape2D" parent="."]
+modulate = Color(1, 1, 1, 0.443137)
+show_behind_parent = true
+position = Vector2(-1, 14)
+shape = SubResource("CircleShape2D_t61u3")
+debug_color = Color(0.937255, 0.988235, 1, 0.0823529)
+
 [node name="Sprite2D" type="Sprite2D" parent="."]
 y_sort_enabled = true
-position = Vector2(4, -3)
+position = Vector2(0, -3)
 scale = Vector2(1.3, 1.3)
 texture = ExtResource("2_jenae")
 hframes = 6
@@ -351,45 +362,52 @@ scale = Vector2(1.5, 1.5)
 sprite_frames = SubResource("SpriteFrames_6a1an")
 animation = &"idle"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-modulate = Color(1, 1, 1, 0.443137)
-show_behind_parent = true
-position = Vector2(-2, 8)
-shape = SubResource("CircleShape2D_n7xgu")
-debug_color = Color(0.937255, 0.988235, 1, 0.0823529)
-
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 path_desired_distance = 30.0
 target_desired_distance = 100.0
 avoidance_enabled = true
-radius = 17.0
 neighbor_distance = 75.0
 max_speed = 200.0
 
 [node name="NavTimer" type="Timer" parent="."]
+wait_time = 0.5
 autostart = true
 
-[node name="Vision" type="Area2D" parent="."]
+[node name="VisionArea" type="Area2D" parent="."]
 modulate = Color(1, 1, 1, 0.262745)
 show_behind_parent = true
 collision_layer = 0
+collision_mask = 2
 input_pickable = false
+monitorable = false
 
-[node name="VisionRange" type="CollisionShape2D" parent="Vision"]
+[node name="VisionRange" type="CollisionShape2D" parent="VisionArea"]
 show_behind_parent = true
 shape = SubResource("CircleShape2D_ytd7t")
 debug_color = Color(0, 0.945098, 0.745098, 0.129412)
 
-[node name="Attack" type="Area2D" parent="."]
+[node name="AttackArea" type="Area2D" parent="."]
 modulate = Color(1, 1, 1, 0.32549)
 show_behind_parent = true
 position = Vector2(0, 5)
 collision_layer = 0
+collision_mask = 2
+monitorable = false
 
-[node name="AttackRange" type="CollisionShape2D" parent="Attack"]
+[node name="AttackRange" type="CollisionShape2D" parent="AttackArea"]
 show_behind_parent = true
 shape = SubResource("CircleShape2D_uofvt")
 debug_color = Color(0.431373, 0.890196, 1, 0.176471)
+
+[node name="HitArea" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 0
+monitoring = false
+
+[node name="CollisionHitShape" type="CollisionShape2D" parent="HitArea"]
+position = Vector2(0, 3)
+shape = SubResource("RectangleShape2D_cnml1")
+debug_color = Color(0.792157, 0.341176, 0.662745, 0.266667)
 
 [node name="StateLabel" type="Label" parent="."]
 visible = false
@@ -425,9 +443,11 @@ value = 75.0
 show_percentage = false
 metadata/_edit_use_anchors_ = true
 
+[node name="RayCast2D" type="RayCast2D" parent="."]
+
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="animation_complete"]
 [connection signal="velocity_computed" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_velocity_computed"]
 [connection signal="timeout" from="NavTimer" to="." method="_on_nav_timer_timeout"]
-[connection signal="body_entered" from="Vision" to="." method="_on_vision_body_entered"]
-[connection signal="body_entered" from="Attack" to="." method="_on_attack_body_entered"]
+[connection signal="area_entered" from="VisionArea" to="." method="_on_vision_area_area_entered"]
+[connection signal="area_entered" from="AttackArea" to="." method="_on_attack_area_area_entered"]

@@ -7,7 +7,7 @@
 radius = 28.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_d8nrb"]
-radius = 300.0
+radius = 250.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_sjdxr"]
 radius = 30.0
@@ -20,8 +20,10 @@ texture = ExtResource("2_v10ao")
 offset = Vector2(0, -20)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+modulate = Color(1, 1, 1, 0.333333)
 position = Vector2(-6, -13)
 shape = SubResource("CircleShape2D_6kmlq")
+debug_color = Color(1, 1, 1, 0.419608)
 
 [node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="."]
 show_behind_parent = true
@@ -29,11 +31,19 @@ position = Vector2(-6, -13)
 radius = 35.0
 
 [node name="AttackArea" type="Area2D" parent="."]
+modulate = Color(1, 1, 1, 0.345098)
+collision_layer = 0
+collision_mask = 2
+monitorable = false
 
 [node name="AttackRange" type="CollisionShape2D" parent="AttackArea"]
 shape = SubResource("CircleShape2D_d8nrb")
 
 [node name="BuilderArea" type="Area2D" parent="."]
+modulate = Color(1, 1, 1, 0.341176)
+collision_layer = 0
+collision_mask = 3
+monitorable = false
 
 [node name="BuilderRange" type="CollisionShape2D" parent="BuilderArea"]
 position = Vector2(-6, -12)
@@ -45,6 +55,9 @@ offset_top = -100.0
 offset_right = 26.0
 offset_bottom = -73.0
 
-[connection signal="body_entered" from="AttackArea" to="." method="_on_area_2d_body_entered"]
-[connection signal="body_exited" from="AttackArea" to="." method="_on_area_2d_body_exited"]
-[connection signal="body_entered" from="BuilderArea" to="." method="_on_builder_area_body_entered"]
+[node name="LaunchMarker" type="Marker2D" parent="."]
+position = Vector2(4, -62)
+
+[connection signal="area_entered" from="AttackArea" to="." method="_on_attack_area_area_entered"]
+[connection signal="area_exited" from="AttackArea" to="." method="_on_attack_area_area_exited"]
+[connection signal="area_entered" from="BuilderArea" to="." method="_on_builder_area_area_entered"]

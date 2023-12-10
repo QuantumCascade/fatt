@@ -5,17 +5,17 @@ const kind = "Tower"
 enum State { PLACEHOLDER, BUILDING, READY }
 
 var master: Player
+var pid: String = "?"
 var operator: Unit # a builder or an archer
 var enemies_in_range: Array[Unit] = []
 
-var projectile_prefab = preload("res://projectiles/projectile.tscn")
-
 @export var state: State = State.PLACEHOLDER
-@export var arc_height: float = 100
-@export var max_charges: int = 3
-@export var recharge_cooldown_val: float = 4
+
+@export var arc_height: float = 30.0
+@export var max_charges: int = 2
+@export var recharge_cooldown_val: float = 3
 @export var attack_cooldown_val: float = 0.75
-@export var attack_strength: float = 50
+@export var attack_strength: float = 75
 
 @onready var charges: int = max_charges
 @onready var recharge_cooldown: float = recharge_cooldown_val
@@ -53,8 +53,14 @@ func _physics_process(delta: float):
 	
 	regen_cooldowns(delta)
 	
+	var attackable_enemies: Array = $AttackArea.get_overlapping_areas()\
+		.map(get_area_body)\
+		.filter(func(b): return Util.is_attackable_enemy(self, b))
+	enemies_in_range.clear()
+	enemies_in_range.append_array(attackable_enemies)
+	
 	if !enemies_in_range.is_empty() && attack_cooldown <= 0 && charges > 0:
-		launch_projectile()
+		launch_projectile(enemies_in_range[0])
 
 # do not collide when tower does not exist yet
 func shadow():
@@ -92,23 +98,28 @@ func regen_cooldowns(delta: float):
 			charges = max_charges
 
 
-func launch_projectile():
-	var a_target = enemies_in_range[0]
-	var projectile: Projectile = projectile_prefab.instantiate()
-	var launch_at = global_position
-	launch_at.y -= 100 # shooting from the top # TODO: add marker
+func launch_projectile(a_target: Unit):
+	var projectile := preload("res://projectiles/projectile.tscn").instantiate() as Projectile
+	add_child(projectile)
+	var launch_at = $LaunchMarker.global_position
 	projectile.global_position = launch_at
 	projectile.target = a_target
 	projectile.attack_strength = attack_strength
+	projectile.arc_height = arc_height
+	# hmmm...
+	projectile.arc_height = min(arc_height, position.distance_to(a_target.position))
 	print(getId() + " attack >> " + str(a_target))
-	get_parent().add_child(projectile)
 	#var cur_distance_to_target = attacker.global_position.distance_to(target.global_position)
-	var predicted_target_pos = a_target.get_pos_after(1) # TODO: fix 
+	var predicted_target_pos = a_target.get_pos_after(0.85) # TODO: fix 
 	projectile.launch(self, predicted_target_pos)
 	charges -= 1
 	attack_cooldown = attack_cooldown_val
 	if recharge_cooldown == 0:
 		recharge_cooldown = recharge_cooldown_val
+
+func set_master(player: Player):
+	self.master = player
+	self.pid = player.pid
 
 func set_operator(unit: Unit):
 	if unit != null:
@@ -118,33 +129,45 @@ func set_operator(unit: Unit):
 		missing_operator.emit(self)
 		operator = null
 
-
 func is_builder_in_place(unit: Unit) -> bool:
-	return unit != null && $BuilderArea.get_overlapping_bodies().has(unit)
+	return unit != null && get_bodies_in_builder_area().has(unit)
 
+func get_bodies_in_builder_area() -> Array:
+	return $BuilderArea.get_overlapping_areas().map(get_area_body)
+
+func get_area_body(area: Area2D):
+	return area.get_parent()
+
+func _on_builder_area_area_entered(area: Area2D):
+	var body = area.get_parent()
+	if body != operator || state != State.PLACEHOLDER:
+		return
+	print(getId() + " builder arrived")
+
+
+func _on_attack_area_area_entered(area):
+	_on_area_2d_body_entered(area.get_parent())
 
 func _on_area_2d_body_entered(target):
 	if Util.is_attackable_enemy(self, target):
 		print(getId() + " i see >> " + str(target))
 		enemies_in_range.append(target)
 
+func _on_attack_area_area_exited(area):
+	_on_attack_area_body_exited(area.get_parent())
 
-func _on_area_2d_body_exited(body):
+func _on_attack_area_body_exited(body_exited):
 	if Util.get_kind(body_exited) == "Unit":
-		enemies_in_range.erase(body)
+		enemies_in_range.erase(body_exited)
 
 func getId() -> String:
 	return "tower@" + get_pid()
 
 func get_pid():
 	if master == null:
-		return "%"
+		return pid
 	return master.pid
 
 func _to_string():
 	return getId() + " at " + str(position)
 
-func _on_builder_area_body_entered(body):
-	if body != operator || state != State.PLACEHOLDER:
-		return
-	print(getId() + " builder arrived")

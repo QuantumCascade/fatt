@@ -8,11 +8,16 @@ enum State { WAITING, DESTROYED }
 @export var attack_range: float = 10
 @export var state: State = State.WAITING
 @export var master: Player
+@export var pid: String = "?"
 
 @export var recharge_cooldown_val: float = 4
 @export var attack_cooldown_val: float = 0.5
 @export var attack_strength: float = 50
-@export var max_charges = 5
+@export var max_charges = 3
+
+@export var max_hp: float = 300
+@export var hp: float = 300
+@export var armor: float = 30
 
 var charges = max_charges
 var recharge_cooldown: float = 0
@@ -23,10 +28,16 @@ var enemies_in_range: Array[Unit] = []
 var projectile_prefab = preload("res://projectiles/projectile.tscn")
 
 @onready var spawn_area: Area2D = $SpawnArea
-@onready var body: CastleBody = $CastleBody
 
 func _ready():
-	print(getId() + " spawned at " + str(position))
+	$HpBar.max_value = hp
+	$HpBar.value = hp
+	$HpBar.visible = false
+	print("%s spawned at %s" % [getId(), position])
+
+func set_master(player: Player):
+	self.master = player
+	self.pid = player.get_pid()
 
 func flip():
 	$Sprite2D.flip_h = true
@@ -41,7 +52,7 @@ func load_texture(n: int):
 		$Sprite2D.set_texture(img)
 
 func _physics_process(delta: float):
-	if body.hp <= 0 && state != State.DESTROYED:
+	if hp <= 0 && state != State.DESTROYED:
 		state = State.DESTROYED
 		$DestroyedSfx.pitch_scale = randf_range(0.8, 1.2)
 		$DestroyedSfx.play()
@@ -51,6 +62,8 @@ func _physics_process(delta: float):
 		return
 	
 	regen_cooldowns(delta)
+	
+	enemies_in_range = enemies_in_range.filter(func(e): return Util.is_attackable_enemy(self, e))
 	
 	if !enemies_in_range.is_empty() && attack_cooldown <= 0 && charges > 0:
 		var a_target = enemies_in_range[0]
@@ -69,6 +82,12 @@ func _physics_process(delta: float):
 		attack_cooldown = attack_cooldown_val
 		if recharge_cooldown == 0:
 			recharge_cooldown = recharge_cooldown_val
+	
+	for overlapping in spawn_area.get_overlapping_areas():
+		process_body_in_spawn_area(get_area_body(overlapping))
+
+func get_area_body(area: Area2D):
+	return area.get_parent()
 
 func regen_cooldowns(delta: float):
 	if attack_cooldown > 0:
@@ -86,18 +105,30 @@ func any_unit_in_spawn_area() -> bool:
 func apply_color_mod(color_mod: Color):
 	$Sprite2D.modulate = $Sprite2D.modulate + color_mod
 
+
+func receive_dmg(dmg: Dictionary, attacker: Node):
+	var hp_before = hp
+	hp = max(hp - dmg.dmg, 0)
+	print("%s received %s from %s ~ hp: %s -> %s" % [getId(), dmg, attacker.getId(), hp_before, hp])
+	$HpBar.value = hp
+	$HpBar.visible = true
+	if hp/$HpBar.max_value < 0.5:
+		$HpBar.modulate = Color.RED
+
 func getId() -> String:
 	return "castle@" + get_pid()
 	
 func get_pid() -> String:
 	if master == null:
-		return "?"
+		return pid
 	return master.pid
 
 func _to_string():
-	return getId() + "|" + str(body.hp) + "hp"
+	return "%s | hp=" % [getId(), hp]
 
 
+func _on_attack_area_area_entered(area):
+	_on_attack_area_body_entered(area.get_parent())
 
 func _on_attack_area_body_entered(target):
 	if Util.is_attackable_enemy(self, target):
@@ -110,16 +141,17 @@ func _on_attack_area_body_exited(body_exited):
 		enemies_in_range.erase(body_exited)
 
 
-func _on_spawn_area_body_entered(body_entered):
-	if Util.get_kind(body_entered) != "Unit":
-		return
-	var unit: Unit = body_entered as Unit
-	if unit.get_pid() != get_pid():
-		return
+func process_body_in_spawn_area(body):
 	if master.main_scene.state != MainScene.State.PEACE:
+		return
+	if Util.get_kind(body) != "Unit":
+		return
+	var unit: Unit = body as Unit
+	if unit.get_pid() != self.get_pid():
 		return
 	if unit.operating_tower != null:
 		return
 	# load units into barrack
 	master.stats.regen_spawn_for_unit(unit)
 	unit.erase_from_parents()
+

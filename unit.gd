@@ -4,9 +4,10 @@ const kind = "Unit"
 
 enum State { WAITING, WALKING, ATTACKING, BUILDING, DYING, DEAD }
 
-var id: String = "unit"
-var master: Player
-var party_id: int = -1
+@export var id: String = "unit"
+@export var master: Player
+@export var pid: String = "?"
+@export var party_id: int = -1
 
 @export var movement_speed: float = 100.0
 @export var vision_range: float = 150
@@ -34,19 +35,21 @@ var desired_velocity: Vector2
 @onready var anim: AnimatedSprite2D = $AnimatedSprite2D
 @onready var anim_player: AnimationPlayer = $AnimationPlayer
 @onready var state_label: Label = $StateLabel
-@onready var attack_obj: Area2D = $Attack
-@onready var vision_obj: Area2D = $Vision
+@onready var attack_area: Area2D = $AttackArea
+@onready var vision_area: Area2D = $VisionArea
 
 signal killed # hp=0 - play "dying" animation
 signal died # dying animation complete
 signal decayed # corpse disappeared from the scene
 
+var hit_force: Vector2 = Vector2.ZERO
+
 func _ready():
 	if master == null:
 		#just to debug as a separate scene
 		return
-	$Attack/AttackRange.shape.radius = attack_range
-	$Vision/VisionRange.shape.radius = vision_range
+	$AttackArea/AttackRange.shape.radius = attack_range
+	$VisionArea/VisionRange.shape.radius = vision_range
 	$HpBar.max_value = hp
 	$HpBar.value = hp
 	$HpBar.visible = false
@@ -56,6 +59,10 @@ func _ready():
 		gathering_spot = get_parent().find_child("GatheringSpot1").find_child("Area2D")
 	else:
 		gathering_spot = get_parent().find_child("GatheringSpot2").find_child("Area2D")
+
+func set_master(player: Player):
+	self.master = player
+	self.pid = master.pid
 
 func init_stats(stats: PlayerStats):
 	hp = stats.basic_unit_hp
@@ -77,6 +84,10 @@ func decay_dead():
 func _physics_process(delta: float):
 	#updateStateLabel()
 
+	if hit_force != Vector2.ZERO:
+		global_position += hit_force
+		hit_force = Vector2.ZERO
+
 	if state == State.DEAD:
 		decay_dead()
 		return
@@ -95,20 +106,20 @@ func _physics_process(delta: float):
 		return
 
 	# the unit is alive - let's pick a target
-	var visibleTargets = vision_obj.get_overlapping_bodies().filter(is_attackable_enemy)
-	var attackableTargets = attack_obj.get_overlapping_bodies().filter(is_attackable_enemy)
+	var visible_targets = vision_area.get_overlapping_areas().map(get_area_body).filter(is_attackable_enemy)
+	var attackable_targets = attack_area.get_overlapping_areas().map(get_area_body).filter(is_attackable_enemy)
 	
-	if visibleTargets.is_empty():
+	if visible_targets.is_empty():
 		choose_where_to_go_when_no_visible_targets()
-	elif current_target != null && attackableTargets.has(current_target):
+	elif current_target != null && attackable_targets.has(current_target):
 		# the current target is still nearby and can be attacked
 		pass
-	elif !attackableTargets.is_empty():
+	elif !attackable_targets.is_empty():
 		# there is another target close enough - let's attack it
-		current_target = attackableTargets[0]
+		current_target = attackable_targets[0]
 	else:
 		# approach visible enemy
-		current_target = visibleTargets[0]
+		current_target = visible_targets[0]
 	
 	# at this point we chose a target
 	
@@ -142,6 +153,9 @@ func _physics_process(delta: float):
 	if state != State.WALKING:
 		desired_velocity = Vector2.ZERO
 
+func get_area_body(area: Area2D) -> Node:
+	return area.get_parent()
+
 func choose_where_to_go_when_no_visible_targets():
 	if operating_tower != null:
 		if current_target != operating_tower:
@@ -153,10 +167,12 @@ func choose_where_to_go_when_no_visible_targets():
 		current_target = gathering_spot
 	elif general_target != null:
 		current_target = general_target
-	elif current_target != enemy_castle && enemy_castle != null && enemy_castle.body.hp > 0:
+	elif pid == "a":
+		pass
+	elif current_target != enemy_castle && enemy_castle != null && enemy_castle.hp > 0:
 		current_target = enemy_castle
 		print(getId() + " marching to the enemy castle!")
-	elif enemy_castle != null && enemy_castle.body.hp <= 0 && current_target != null:
+	elif enemy_castle != null && enemy_castle.hp <= 0 && current_target != null:
 		print(getId() + " we're done here - let's have rest")
 		current_target = null
 	set_movement_target(current_target)
@@ -192,7 +208,6 @@ func killed_switch_to_dying():
 	anim_player.play("die")
 	nav_agent.avoidance_enabled = false
 	nav_agent.radius = 0
-	master.on_mob_killed(self)
 	$DyingSfx.pitch_scale = randf_range(0.5, 1.5)
 	$DyingSfx.play()
 	$HpBar.visible = false
@@ -215,7 +230,7 @@ func set_movement_target(movement_target: Node2D):
 		nav_agent.set_target_position(current_target.global_position)
 
 
-func receive_dmg(dmg: Dictionary, _attacker: Node) -> void:
+func receive_dmg(dmg: Dictionary, attacker: Node) -> void:
 	var hp_before = hp
 	armor -= min(dmg.armor_dmg, armor)
 	hp = max(hp - dmg.dmg, 0)
@@ -235,10 +250,15 @@ func receive_dmg(dmg: Dictionary, _attacker: Node) -> void:
 	elif hp_perc < 0.5:
 		movement_speed *= 0.75
 		$HpBar.modulate = Color.YELLOW
+	if Util.get_kind(attacker) == "Unit":
+		hit_force += -position.direction_to(attacker.position) * 10.0
+
+func get_bodies_in_attack_area() -> Array:
+	return attack_area.get_overlapping_areas().map(get_area_body)
 
 func can_attack(target: Node) -> bool:
 	return target != null \
-		&& attack_obj.get_overlapping_bodies().has(target) \
+		&& get_bodies_in_attack_area().has(target) \
 		&& is_attackable_enemy(target)
 
 func is_attackable_enemy(target: Node) -> bool:
@@ -273,19 +293,20 @@ func _on_animation_player_animation_finished(anim_name: String):
 		after_die_animation()
 
 func after_attack_animation():
-	if state == State.ATTACKING:
-		if can_attack(current_target):
-			var dmg = Util.calc_dmg(self, current_target)
-			current_target.receive_dmg(dmg, self)
-			if current_target.hp <= 0:
-				current_target = null
-				state = State.WAITING
-		else:
-			print(getId() + " attack missed")
+	if state != State.ATTACKING:
+		return
+	if !can_attack(current_target):
+		print(getId() + " attack missed")
+		return
+	var dmg = Util.calc_dmg(self, current_target)
+	current_target.receive_dmg(dmg, self)
+	if current_target.hp <= 0:
+		current_target = null
+		state = State.WAITING
 
 func after_die_animation():
 	state = State.DEAD
-	$CollisionShape2D.disabled = true
+	$CollisionMovingShape.disabled = true
 	died.emit(self)
 	print(getId() + " died")
 
@@ -349,17 +370,23 @@ func erase_from_parents():
 
 func get_pid():
 	if master == null:
-		return "?"
+		return pid
 	return master.pid
 
 func getId() -> String:
-	return id
+	return "unit_%s@%s" % [id, pid]
 	
-func _on_attack_body_entered(body):
+func _on_attack_area_area_entered(area):
+	_on_attack_area_body_entered(get_area_body(area))
+
+func _on_attack_area_body_entered(body):
 	if can_attack(body):
 		print(getId() + " attackable >> " + str(body))
-	
-func _on_vision_body_entered(body):
+
+func _on_vision_area_area_entered(area):
+	_on_vision_area_body_entered(get_area_body(area))
+
+func _on_vision_area_body_entered(body):
 	if can_attack(body):
 		print(getId() + " visible >> " + str(body))
 

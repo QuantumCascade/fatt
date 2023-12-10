@@ -12,7 +12,8 @@ static func get_game_obj(target: Node):
 static func get_kind(target: Node) -> String:
 	if target == null:
 		return "null"
-	return get_game_obj(target).kind
+	return gets("kind", get_game_obj(target))
+	
 
 static func gets(prop: String, obj: Node) -> String:
 	if prop in obj:
@@ -36,7 +37,7 @@ static func calc_dmg(attacker: Node, target: Node):
 		"atk": atk,
 		"dmg": dmg,
 		"blocked_dmg": blocked_dmg,
-		"armor_dmg": armor_dmg
+		"armor_dmg": armor_dmg,
 	}
 
 
@@ -50,6 +51,9 @@ static func get_pid(obj: Node):
 		return obj.pid
 	if obj.has_method("get_pid"):
 		return obj.get_pid()
+	var parent = obj.get_parent()
+	if parent != null:
+		return get_pid(parent)
 	return "unknown"
 
 # this will have shared seed

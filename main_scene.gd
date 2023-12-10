@@ -28,20 +28,20 @@ var phases: Array = [
 	{
 		"length": 30,
 		"spawn_pool_a": 160,
-		"spawn_pool_b": 240,
-		"party_size_b": 4,
+		"spawn_pool_b": 360,
+		"party_size_b": 6,
 	},
 	{
 		"length": 30,
 		"spawn_pool_a": 320,
-		"spawn_pool_b": 450,
-		"party_size_b": 5,
+		"spawn_pool_b": 540,
+		"party_size_b": 9,
 	},
 	{
 		"length": 30,
-		"spawn_pool_a": 640,
-		"spawn_pool_b": 1200,
-		"party_size_b": 6,
+		"spawn_pool_a": 320,
+		"spawn_pool_b": 720,
+		"party_size_b": 12,
 	}
 ]
 
@@ -49,11 +49,13 @@ func _ready():
 	# main player
 	add_player(Player.new("a"), $CastleMarker1.position, Color(0, 0, 0))
 	player_a = players["a"]
+	player_a.stats.build_tower_resource_val = 100
+	player_a.stats.build_tower_resource_regen = 5
 	player_a.stats.spawn_resource_val = 0
 	player_a.stats.spawn_resource_regen_from_pool = 3
-	player_a.stats.basic_unit_hp = 100
-	player_a.stats.basic_unit_attack_strength = 40
-	player_a.stats.basic_unit_armor = 18
+	player_a.stats.basic_unit_hp = 70
+	player_a.stats.basic_unit_attack_strength = 30
+	player_a.stats.basic_unit_armor = 15
 	player_a.stats.basic_unit_movement_speed = 100
 	player_a.castle.load_texture(1)
 	player_a.castle.flip()
@@ -63,7 +65,7 @@ func _ready():
 	player_b = players["b"]
 	player_b.stats.spawn_resource_val = 20
 	player_b.stats.spawn_resource_regen_from_pool = 5.5
-	player_b.stats.basic_unit_hp = 80
+	player_b.stats.basic_unit_hp = 100
 	player_b.stats.basic_unit_attack_strength = 45
 	player_b.stats.basic_unit_armor = 20
 	player_b.stats.basic_unit_movement_speed = 95
@@ -95,6 +97,7 @@ func swithch_to_peace():
 		if mob.general_target != mob.master.castle.spawn_area:
 			print("send %s to barracks" % mob.getId())
 			mob.general_target = mob.master.castle.spawn_area
+			mob.set_movement_target(mob.general_target)
 	
 	var phase_conf = phases.pop_front()
 	print("Starting next phase: " + str(phase_conf))
