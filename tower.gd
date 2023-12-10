@@ -149,7 +149,7 @@ func _on_attack_area_area_entered(area):
 	_on_area_2d_body_entered(area.get_parent())
 
 func _on_area_2d_body_entered(target):
-	if Util.is_attackable_enemy(self, target):
+	if target is Unit and Util.is_attackable_enemy(self, target):
 		print(getId() + " i see >> " + str(target))
 		enemies_in_range.append(target)
 
@@ -157,7 +157,7 @@ func _on_attack_area_area_exited(area):
 	_on_attack_area_body_exited(area.get_parent())
 
 func _on_attack_area_body_exited(body_exited):
-	if Util.get_kind(body_exited) == "Unit":
+	if body_exited is Unit:
 		enemies_in_range.erase(body_exited)
 
 func getId() -> String:

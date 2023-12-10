@@ -137,14 +137,14 @@ func _on_attack_area_body_entered(target):
 
 
 func _on_attack_area_body_exited(body_exited):
-	if Util.get_kind(body_exited) == "Unit":
+	if body_exited is Unit:
 		enemies_in_range.erase(body_exited)
 
 
 func process_body_in_spawn_area(body):
 	if master.main_scene.state != MainScene.State.PEACE:
 		return
-	if Util.get_kind(body) != "Unit":
+	if not body is Unit:
 		return
 	var unit: Unit = body as Unit
 	if unit.get_pid() != self.get_pid():

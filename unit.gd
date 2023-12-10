@@ -250,7 +250,7 @@ func receive_dmg(dmg: Dictionary, attacker: Node) -> void:
 	elif hp_perc < 0.5:
 		movement_speed *= 0.75
 		$HpBar.modulate = Color.YELLOW
-	if Util.get_kind(attacker) == "Unit":
+	if attacker is Unit:
 		hit_force += -position.direction_to(attacker.position) * 10.0
 
 func get_bodies_in_attack_area() -> Array:

@@ -83,6 +83,7 @@ func initWaveTimer(val: int):
 
 func swithch_to_war():
 	state = State.WAR
+	play_midi()
 
 func swithch_to_peace():
 	if phases.is_empty():
@@ -91,6 +92,7 @@ func swithch_to_peace():
 			print("Win")
 		return
 	state = State.PEACE
+	play_midi()
 	
 	var active_mobs = mobs.filter(is_active_mob)
 	for mob: Unit in active_mobs:
@@ -106,6 +108,16 @@ func swithch_to_peace():
 	player_b.stats.gathering_party_count = phase_conf.party_size_b
 	initWaveTimer(phase_conf.length)
 
+
+func play_midi():
+	var midi: MidiPlayer = $MidiPlayer
+	midi.send_reset()
+	if state == State.WAR:
+		midi.file = "res://sounds/BLACK SABBATH.War pigs.mid"
+	else:
+		midi.file = "res://sounds/selenger_s_round_(nc)werths.mid"
+	midi.play()
+	
 func _physics_process(_delta):
 	var active_mobs = mobs.filter(is_active_mob)
 	var player_b_active_mobs = active_mobs.filter(func(u: Unit): return u.get_pid() == "b")

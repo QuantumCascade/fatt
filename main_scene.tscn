@@ -697,5 +697,6 @@ shape = SubResource("CircleShape2D_83cco")
 
 [node name="MidiPlayer" type="Node" parent="."]
 script = ExtResource("19_fdnah")
+file = "res://sounds/selenger_s_round_(nc)werths.mid"
 volume_db = -30.0
 soundfont = "res://addons/midi/Aspirin-Stereo.sf2"
