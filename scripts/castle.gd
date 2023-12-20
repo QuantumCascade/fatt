@@ -1,0 +1,2 @@
+class_name Castle
+extends StaticBody2D

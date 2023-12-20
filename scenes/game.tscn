@@ -1,0 +1,52 @@
+[gd_scene load_steps=10 format=3 uid="uid://c07cic3w8csc2"]
+
+[ext_resource type="Script" path="res://scripts/game.gd" id="1_1a6y0"]
+[ext_resource type="PackedScene" uid="uid://e2ft0lem6hph" path="res://scenes/map.tscn" id="3_7ilo6"]
+[ext_resource type="PackedScene" uid="uid://co72133kjqkh8" path="res://scenes/music_controller.tscn" id="3_p2e6e"]
+[ext_resource type="PackedScene" uid="uid://cphwy31nutt22" path="res://scenes/builder_assistant.tscn" id="4_ycgkk"]
+[ext_resource type="PackedScene" uid="uid://bbd5yguc57ukr" path="res://scenes/build_tower_menu.tscn" id="5_rapum"]
+[ext_resource type="Script" path="res://scripts/camera.gd" id="6_qeogq"]
+[ext_resource type="PackedScene" uid="uid://b88a5krlaxdg1" path="res://scenes/player.tscn" id="7_l61vt"]
+[ext_resource type="PackedScene" uid="uid://bqej0do2t2xbl" path="res://scenes/spawn_area.tscn" id="8_up4ck"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ixepg"]
+radius = 20.0
+
+[node name="Game" type="Node2D"]
+y_sort_enabled = true
+script = ExtResource("1_1a6y0")
+
+[node name="Map" parent="." instance=ExtResource("3_7ilo6")]
+
+[node name="MusicController" parent="." instance=ExtResource("3_p2e6e")]
+
+[node name="BuilderAssistant" parent="." instance=ExtResource("4_ycgkk")]
+y_sort_enabled = true
+
+[node name="BuilderMenu" parent="." instance=ExtResource("5_rapum")]
+initial_position = 1
+visible = false
+
+[node name="Camera2D" type="Camera2D" parent="." groups=["cam"]]
+zoom = Vector2(2, 2)
+limit_left = 0
+limit_top = 0
+limit_right = 1920
+limit_bottom = 980
+script = ExtResource("6_qeogq")
+
+[node name="Player" parent="." groups=["player"] instance=ExtResource("7_l61vt")]
+
+[node name="SpawnArea" parent="." groups=["player_spawn_area"] instance=ExtResource("8_up4ck")]
+position = Vector2(245, 209)
+collision_layer = 0
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="SpawnArea"]
+shape = SubResource("CircleShape2D_ixepg")
+
+[node name="EnemySpawnArea" parent="." groups=["enemy_spawn_area"] instance=ExtResource("8_up4ck")]
+position = Vector2(1833, 814)
+collision_layer = 0
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="EnemySpawnArea"]
+shape = SubResource("CircleShape2D_ixepg")

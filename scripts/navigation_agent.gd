@@ -1,0 +1,2 @@
+class_name NavAgent
+extends NavigationAgent2D

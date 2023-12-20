@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://ck5j4uyt7yhnn"]
+
+[ext_resource type="Script" path="res://scripts/navigation_agent.gd" id="1_naxee"]
+
+[node name="NavAgent" type="NavigationAgent2D"]
+avoidance_enabled = true
+neighbor_distance = 200.0
+debug_enabled = true
+script = ExtResource("1_naxee")

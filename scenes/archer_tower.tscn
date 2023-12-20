@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://b261f4fix2qlb"]
+
+[ext_resource type="Script" path="res://scripts/archer_tower.gd" id="1_0sy20"]
+[ext_resource type="Texture2D" uid="uid://cundacks05h02" path="res://assets/sprites/buildings/tower-wooden-1.png" id="2_vbg41"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_0w2od"]
+radius = 18.0
+height = 54.0
+
+[node name="ArcherTower" type="StaticBody2D"]
+script = ExtResource("1_0sy20")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_vbg41")
+offset = Vector2(7, -15)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_0w2od")

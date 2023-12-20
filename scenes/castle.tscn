@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://eecndwmx724m"]
+
+[ext_resource type="Texture2D" uid="uid://brsum2svio828" path="res://assets/sprites/buildings/city-with-wall.webp" id="1_71e3u"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_skvsl"]
+radius = 56.0
+height = 182.0
+
+[node name="Castle" type="StaticBody2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 5)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_skvsl")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_71e3u")
+flip_h = true

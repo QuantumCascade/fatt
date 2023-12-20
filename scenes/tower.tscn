@@ -1,0 +1,54 @@
+[gd_scene load_steps=5 format=3 uid="uid://b2g5yc414kg6g"]
+
+[ext_resource type="Script" path="res://scripts/tower.gd" id="1_skhl3"]
+[ext_resource type="Texture2D" uid="uid://cundacks05h02" path="res://assets/sprites/buildings/tower-wooden-1.png" id="2_jjp8u"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_27a7u"]
+radius = 50.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_85ria"]
+radius = 30.2655
+
+[node name="Tower" type="Node2D"]
+y_sort_enabled = true
+script = ExtResource("1_skhl3")
+
+[node name="StaticBody" type="StaticBody2D" parent="."]
+unique_name_in_owner = true
+collision_mask = 33
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody"]
+polygon = PackedVector2Array(-28, 5, -1, 20, 27, 4, 0, -8)
+
+[node name="Sprite" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+y_sort_enabled = true
+texture = ExtResource("2_jjp8u")
+offset = Vector2(6, -15)
+
+[node name="BuildingArea" type="Area2D" parent="."]
+unique_name_in_owner = true
+collision_layer = 16
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BuildingArea"]
+shape = SubResource("CircleShape2D_27a7u")
+debug_color = Color(0, 0.6, 0.701961, 0.0862745)
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+unique_name_in_owner = true
+z_index = 1
+offset_left = 31.0
+offset_top = -87.0
+offset_right = 62.0
+offset_bottom = -60.0
+value = 45.0
+
+[node name="ConstructionSiteArea" type="Area2D" parent="."]
+unique_name_in_owner = true
+collision_layer = 32
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ConstructionSiteArea"]
+shape = SubResource("CircleShape2D_85ria")
+debug_color = Color(0, 0.6, 0.701961, 0.0823529)

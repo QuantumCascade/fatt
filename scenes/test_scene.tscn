@@ -1,0 +1,44 @@
+[gd_scene load_steps=6 format=3 uid="uid://cpvj4g13ugmjm"]
+
+[ext_resource type="Script" path="res://scripts/test_scene.gd" id="1_bwdub"]
+[ext_resource type="PackedScene" uid="uid://duf6fdpme1wuv" path="res://scenes/builder.tscn" id="2_7456c"]
+[ext_resource type="PackedScene" uid="uid://b2g5yc414kg6g" path="res://scenes/tower.tscn" id="3_ubitd"]
+[ext_resource type="Texture2D" uid="uid://c7fab8dnj1l4n" path="res://icon.svg" id="4_nxud7"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_kwsxk"]
+vertices = PackedVector2Array(798, 275, 1257, 275, 1240, 281, 1184, 292, 1256, 524, 1242, 497, 1242, 464, 1236, 424, 1231, 332, 1181, 463, 1188, 473, 1168, 474, 1230, 516, 798, 522, 1188, 516, 1168, 501, 1177, 447, 1191, 457, 1221, 335, 1206, 423)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(1, 4, 5, 6), PackedInt32Array(2, 1, 6, 7, 8), PackedInt32Array(9, 10, 11), PackedInt32Array(12, 5, 4), PackedInt32Array(12, 4, 13, 14), PackedInt32Array(15, 14, 13, 0), PackedInt32Array(16, 17, 9), PackedInt32Array(18, 8, 7, 19), PackedInt32Array(11, 15, 0), PackedInt32Array(11, 0, 3, 16), PackedInt32Array(16, 9, 11), PackedInt32Array(16, 3, 18, 19)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(790, 267, 1266, 268, 1264, 533, 790, 530), PackedVector2Array(1204, 481, 1176, 482, 1176, 497, 1191, 508, 1208, 508, 1226, 508, 1234, 495, 1234, 465, 1229, 432, 1209, 431, 1190, 447, 1206, 459, 1193, 466), PackedVector2Array(1230, 291, 1199, 297, 1224, 326)])
+source_geometry_group_name = &"navigation_polygon_source_group"
+
+[node name="TestScene" type="Node2D"]
+script = ExtResource("1_bwdub")
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+modulate = Color(1, 0.160784, 1, 0.52549)
+navigation_polygon = SubResource("NavigationPolygon_kwsxk")
+
+[node name="Builder" parent="." node_paths=PackedStringArray("building_target") instance=ExtResource("2_7456c")]
+position = Vector2(1104, 433)
+building_target = NodePath("../Tower")
+
+[node name="Tower" parent="." instance=ExtResource("3_ubitd")]
+position = Vector2(1019, 348)
+state = 0
+
+[node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="Tower"]
+radius = 10.0
+vertices = PackedVector2Array(15, -18, 0, -20, -16, -18, -26, -10, -28, 3, -20, 15, -9, 20, 12, 20, 20, 15, 27, 6, 27, -3, 23, -12)
+
+[node name="Icon" type="Sprite2D" parent="."]
+position = Vector2(937, 424)
+texture = ExtResource("4_nxud7")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Icon"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Icon/StaticBody2D"]
+polygon = PackedVector2Array(52, -61, -52, -62, -61, -55, -62, 48, -55, 61, 52, 64, 63, 53, 63, -53)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(1027, 400)
+zoom = Vector2(2, 2)

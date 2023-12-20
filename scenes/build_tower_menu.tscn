@@ -1,0 +1,38 @@
+[gd_scene load_steps=3 format=3 uid="uid://bbd5yguc57ukr"]
+
+[ext_resource type="Script" path="res://scripts/build_tower_menu.gd" id="2_cto2i"]
+[ext_resource type="PackedScene" uid="uid://bjsfq2u1w3ta" path="res://scenes/tower_panel.tscn" id="4_ayntx"]
+
+[node name="PopupPanel2" type="Popup"]
+size = Vector2i(900, 250)
+visible = true
+content_scale_aspect = 1
+script = ExtResource("2_cto2i")
+
+[node name="BoxContainer" type="HBoxContainer" parent="."]
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 904.0
+offset_bottom = 254.0
+size_flags_vertical = 3
+
+[node name="Button" type="Button" parent="BoxContainer"]
+layout_mode = 2
+text = "<<"
+
+[node name="TowerPanel" parent="BoxContainer" instance=ExtResource("4_ayntx")]
+layout_mode = 2
+
+[node name="TowerPanel2" parent="BoxContainer" instance=ExtResource("4_ayntx")]
+layout_mode = 2
+
+[node name="TowerPanel3" parent="BoxContainer" instance=ExtResource("4_ayntx")]
+layout_mode = 2
+
+[node name="Button2" type="Button" parent="BoxContainer"]
+layout_mode = 2
+text = ">>"
+
+[connection signal="close_requested" from="." to="." method="_on_close_requested"]
+[connection signal="focus_exited" from="." to="." method="_on_focus_exited"]
+[connection signal="popup_hide" from="." to="." method="_on_popup_hide"]

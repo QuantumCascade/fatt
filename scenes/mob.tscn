@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://cvdu04x1u1m1o"]
+
+[ext_resource type="Script" path="res://scripts/mob.gd" id="1_e0ehi"]
+[ext_resource type="PackedScene" uid="uid://c64kdkeybuyfm" path="res://scenes/steering.tscn" id="2_05gm0"]
+
+[node name="Mob" type="CharacterBody2D"]
+script = ExtResource("1_e0ehi")
+
+[node name="Steering" parent="." instance=ExtResource("2_05gm0")]
+unique_name_in_owner = true
