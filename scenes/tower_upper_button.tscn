@@ -1,0 +1,57 @@
+[gd_scene load_steps=6 format=3 uid="uid://dmx5xegk4ow60"]
+
+[ext_resource type="Script" path="res://scripts/tower_upper_button.gd" id="1_iq40s"]
+[ext_resource type="Texture2D" uid="uid://dsebm2fhfa5jo" path="res://assets/sprites/icons/bow-icon-round-border-1.png" id="2_6w52a"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_acdda"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_plp5k"]
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.552941, 0.682353, 0.803922, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="Theme" id="Theme_ywybh"]
+resource_local_to_scene = true
+TextureButton/colors/modulate = Color(0, 0, 0, 1)
+
+[node name="TowerUpperButton" type="PanelContainer"]
+y_sort_enabled = true
+size_flags_horizontal = 6
+size_flags_vertical = 4
+tooltip_text = "Hire an archer for this tower"
+theme_override_styles/panel = SubResource("StyleBoxEmpty_acdda")
+script = ExtResource("1_iq40s")
+
+[node name="ButtonBorder" type="Panel" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(22, 22)
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_plp5k")
+
+[node name="ButtonMargin" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 1
+theme_override_constants/margin_top = 1
+theme_override_constants/margin_right = 1
+theme_override_constants/margin_bottom = 1
+
+[node name="TextureButton" type="TextureButton" parent="ButtonMargin"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_default_cursor_shape = 2
+theme = SubResource("Theme_ywybh")
+texture_normal = ExtResource("2_6w52a")
+ignore_texture_size = true
+stretch_mode = 4
+
+[connection signal="pressed" from="ButtonMargin/TextureButton" to="." method="_on_texture_button_pressed"]

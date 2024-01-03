@@ -1,0 +1,32 @@
+[gd_scene load_steps=4 format=3 uid="uid://dlrrwp0lpmc13"]
+
+[ext_resource type="Script" path="res://scripts/tower_upper_buttons.gd" id="1_7uuu0"]
+[ext_resource type="PackedScene" uid="uid://dmx5xegk4ow60" path="res://scenes/tower_upper_button.tscn" id="1_wx0rq"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_cyjss"]
+
+[node name="TowerUpperButtons" type="PanelContainer"]
+y_sort_enabled = true
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -11.0
+offset_top = -110.0
+offset_right = 11.0
+offset_bottom = -88.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxEmpty_cyjss")
+script = ExtResource("1_7uuu0")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="TowerUpperButton" parent="HBoxContainer" instance=ExtResource("1_wx0rq")]
+layout_mode = 2

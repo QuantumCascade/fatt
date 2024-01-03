@@ -1,18 +1,33 @@
-[gd_scene load_steps=3 format=3 uid="uid://eecndwmx724m"]
+[gd_scene load_steps=5 format=3 uid="uid://eecndwmx724m"]
 
 [ext_resource type="Texture2D" uid="uid://brsum2svio828" path="res://assets/sprites/buildings/city-with-wall.webp" id="1_71e3u"]
+[ext_resource type="Script" path="res://scripts/castle.gd" id="1_l6cku"]
+[ext_resource type="PackedScene" uid="uid://cr87fdyx5cywf" path="res://scenes/hitbox.tscn" id="2_3f8vg"]
+[ext_resource type="PackedScene" uid="uid://d22ttfbgqyq0f" path="res://scenes/hp_bar.tscn" id="3_1wlj7"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_skvsl"]
-radius = 56.0
-height = 182.0
+[node name="Castle" type="StaticBody2D" groups=["castle"]]
+script = ExtResource("1_l6cku")
 
-[node name="Castle" type="StaticBody2D"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(45, -64, -41, -63, -131, -11, -137, 38, -44, 94, 46, 97, 142, 41, 141, -9)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 5)
-rotation = 1.5708
-shape = SubResource("CapsuleShape2D_skvsl")
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite" type="Sprite2D" parent="."]
+scale = Vector2(1.5, 1.5)
 texture = ExtResource("1_71e3u")
 flip_h = true
+
+[node name="Hitbox" parent="." groups=["castle"] instance=ExtResource("2_3f8vg")]
+unique_name_in_owner = true
+visible = false
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Hitbox"]
+polygon = PackedVector2Array(44, -69, -45, -65, -140, -15, -143, 41, -47, 102, 47, 105, 146, 44, 145, -11)
+
+[node name="HpBar" parent="." instance=ExtResource("3_1wlj7")]
+unique_name_in_owner = true
+offset_left = -40.0
+offset_top = -105.0
+offset_right = 41.0
+offset_bottom = -101.0

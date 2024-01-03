@@ -4,9 +4,11 @@ extends Node
 
 var building_materials: float = 1000
 var spawn_materials: float = 1000
-var population: float = 2
-
-
+var gold: float = 1000
+var population: float = 5
+var init_minions: Dictionary = {
+	"builder": 1
+}
 
 func init_from_dict(dict: Dictionary):
 	for prop in get_property_list():

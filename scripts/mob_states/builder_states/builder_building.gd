@@ -1,11 +1,18 @@
 class_name BuilderBuilding
 extends BuilderState
 
+var audio_player: AudioStreamPlayer2D
 
 func enter() -> void:
-	builder.anim_player.play("idle")
+	builder.play_anim("hammer")
+	if not audio_player:
+		audio_player = AudioStreamPlayer2D.new()
+		add_child(audio_player)
+	audio_player.stream = preload("res://assets/sounds/hammering-on-wood_1-2-106583.mp3")
+	audio_player.play()
 
 func exit():
+	audio_player.stop()
 	pass
 
 func physics_process(delta: float):

@@ -5,5 +5,4 @@
 [node name="NavAgent" type="NavigationAgent2D"]
 avoidance_enabled = true
 neighbor_distance = 200.0
-debug_enabled = true
 script = ExtResource("1_naxee")

@@ -1,5 +1,5 @@
-extends Node
 class_name StateMachine
+extends Node
 
 @export var initial_state: State
 
@@ -15,6 +15,8 @@ func setup(an_actor: Node):
 			remove_child(state)
 			state.setup(actor)
 			state.state_transition.connect(on_state_transition)
+			if not initial_state:
+				initial_state = state
 	if initial_state:
 		set_state(initial_state.name)
 

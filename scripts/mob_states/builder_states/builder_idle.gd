@@ -1,24 +1,34 @@
 class_name BuilderIdle
 extends BuilderState
 
-var building_area_dist: float = 50
+
+var resting_time_on_idle: float = 0.75
+# if resting then wait for a while before looking for new opportunities
+var resting_time: float
+
 
 func enter() -> void:
-	builder.anim_player.play("idle")
+	builder.play_anim("idle")
+	resting_time = resting_time_on_idle
 
 
 func exit():
 	pass
 
 
-func physics_process(_delta: float):
+func physics_process(delta: float):
 	
 	if mob.stats.hp <= 0:
 		state_transition.emit(self, "Dying")
 		return
 	
+	resting_time = max(resting_time - delta, 0)
+	
+	if resting_time > 0:
+		return
+
 	if builder.movement_target != Vector2.ZERO:
-		print("got new order - move to %s" % builder.movement_target)
+		print("%s got new order - move to %s" % [builder, builder.movement_target])
 		state_transition.emit(self, "Walking")
 		return
 	
@@ -36,7 +46,7 @@ func physics_process(_delta: float):
 			else:
 				builder.building_target = null
 
-	var spawn_area: SpawnArea = get_tree().get_first_node_in_group("player_spawn_area") as SpawnArea
+	var spawn_area: PlayerSpawnArea = _spawn_area()
 	if spawn_area && !spawn_area.get_overlapping_bodies().has(builder):
 		builder.movement_target = spawn_area.global_position
 		print("going home")

@@ -1,7 +1,7 @@
 shader_type canvas_item;
 
 const float scale = 50.0;
-const float speed = 0.4;
+const float speed = 0.1;
 
 void vertex() {
 	if (VERTEX.y < 0.0 && VERTEX.x < 0.0) {

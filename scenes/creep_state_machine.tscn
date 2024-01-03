@@ -1,0 +1,22 @@
+[gd_scene load_steps=6 format=3 uid="uid://b61bvqs0u0k5d"]
+
+[ext_resource type="Script" path="res://scripts/state_machine.gd" id="1_pvvpc"]
+[ext_resource type="Script" path="res://scripts/mob_states/creep_states/creep_idle.gd" id="2_17rla"]
+[ext_resource type="Script" path="res://scripts/mob_states/creep_states/creep_moving.gd" id="3_xppck"]
+[ext_resource type="Script" path="res://scripts/mob_states/creep_states/creep_attacking.gd" id="4_e2sms"]
+[ext_resource type="Script" path="res://scripts/mob_states/creep_states/creep_dying.gd" id="5_17ccs"]
+
+[node name="StateMachine" type="Node"]
+script = ExtResource("1_pvvpc")
+
+[node name="Idle" type="Node" parent="."]
+script = ExtResource("2_17rla")
+
+[node name="Moving" type="Node" parent="."]
+script = ExtResource("3_xppck")
+
+[node name="Attacking" type="Node" parent="."]
+script = ExtResource("4_e2sms")
+
+[node name="Dying" type="Node" parent="."]
+script = ExtResource("5_17ccs")

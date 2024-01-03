@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bwxf8wopx7a8m"]
+
+[ext_resource type="Script" path="res://scripts/mob_sprite.gd" id="1_sm4l0"]
+
+[node name="Sprite" type="Sprite2D"]
+script = ExtResource("1_sm4l0")

@@ -7,16 +7,19 @@ signal tower_pos_chosen
 
 
 var tower_placeholder: TowerPlaceholder
-
+var cam: Cam
 
 func _ready():
 	tower_placeholder = preload("res://scenes/tower_placeholder.tscn").instantiate()
 	tower_placeholder.hide()
 	add_child(tower_placeholder)
+	cam = get_tree().get_first_node_in_group("cam") as Cam
 
 
-func _input(event: InputEvent):
-	if event.is_action_pressed("click"):
+func _unhandled_input(event: InputEvent):
+	if cam.is_dragging():
+		return
+	if event.is_action_released("click"):
 		if not tower_placeholder.visible:
 			return
 		tower_placeholder.hide()

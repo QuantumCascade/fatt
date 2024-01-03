@@ -1,7 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://b2g5yc414kg6g"]
+[gd_scene load_steps=8 format=3 uid="uid://b2g5yc414kg6g"]
 
 [ext_resource type="Script" path="res://scripts/tower.gd" id="1_skhl3"]
 [ext_resource type="Texture2D" uid="uid://cundacks05h02" path="res://assets/sprites/buildings/tower-wooden-1.png" id="2_jjp8u"]
+[ext_resource type="PackedScene" uid="uid://mk64wabl8fv4" path="res://scenes/attack_area.tscn" id="3_234ij"]
+[ext_resource type="PackedScene" uid="uid://dlrrwp0lpmc13" path="res://scenes/tower_upper_buttons.tscn" id="4_8v17h"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_27a7u"]
 radius = 50.0
@@ -9,7 +11,11 @@ radius = 50.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_85ria"]
 radius = 30.2655
 
-[node name="Tower" type="Node2D"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_vwg8t"]
+resource_local_to_scene = true
+radius = 200.0
+
+[node name="Tower" type="Node2D" groups=["towers"]]
 y_sort_enabled = true
 script = ExtResource("1_skhl3")
 
@@ -17,12 +23,16 @@ script = ExtResource("1_skhl3")
 unique_name_in_owner = true
 collision_mask = 33
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody"]
+[node name="CollisionShape" type="CollisionPolygon2D" parent="StaticBody"]
+unique_name_in_owner = true
+modulate = Color(0, 0, 0.290196, 0.368627)
+position = Vector2(0, -4)
 polygon = PackedVector2Array(-28, 5, -1, 20, 27, 4, 0, -8)
 
 [node name="Sprite" type="Sprite2D" parent="."]
 unique_name_in_owner = true
 y_sort_enabled = true
+position = Vector2(0, -4)
 texture = ExtResource("2_jjp8u")
 offset = Vector2(6, -15)
 
@@ -31,9 +41,14 @@ unique_name_in_owner = true
 collision_layer = 16
 collision_mask = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="BuildingArea"]
+[node name="BuildingZone" type="CollisionShape2D" parent="BuildingArea"]
+unique_name_in_owner = true
 shape = SubResource("CircleShape2D_27a7u")
 debug_color = Color(0, 0.6, 0.701961, 0.0862745)
+
+[node name="TowerUpperButtons" parent="." instance=ExtResource("4_8v17h")]
+unique_name_in_owner = true
+z_index = 1
 
 [node name="ProgressBar" type="ProgressBar" parent="."]
 unique_name_in_owner = true
@@ -48,7 +63,36 @@ value = 45.0
 unique_name_in_owner = true
 collision_layer = 32
 collision_mask = 0
+monitoring = false
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ConstructionSiteArea"]
+[node name="ConstructionZone" type="CollisionShape2D" parent="ConstructionSiteArea"]
+unique_name_in_owner = true
 shape = SubResource("CircleShape2D_85ria")
 debug_color = Color(0, 0.6, 0.701961, 0.0823529)
+
+[node name="LaunchMarker" type="Marker2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(10, -55)
+
+[node name="AttackArea" parent="." instance=ExtResource("3_234ij")]
+unique_name_in_owner = true
+collision_mask = 4
+
+[node name="AttackRange" type="CollisionShape2D" parent="AttackArea"]
+unique_name_in_owner = true
+position = Vector2(-16, -7)
+shape = SubResource("CircleShape2D_vwg8t")
+debug_color = Color(0.882353, 0.215686, 0.219608, 0.0862745)
+
+[node name="AudioPlayer" type="AudioStreamPlayer2D" parent="."]
+unique_name_in_owner = true
+
+[node name="LoadingArea" type="Area2D" parent="."]
+unique_name_in_owner = true
+collision_layer = 0
+monitorable = false
+
+[node name="LoadingZone" type="CollisionPolygon2D" parent="LoadingArea"]
+unique_name_in_owner = true
+modulate = Color(0, 1, 0, 0.670588)
+polygon = PackedVector2Array(0, 25, 41, 0, 0, -22, -43, 0)

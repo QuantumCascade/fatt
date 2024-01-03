@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://d22ttfbgqyq0f"]
+
+[ext_resource type="Script" path="res://scripts/hp_bar.gd" id="1_g6tx8"]
+
+[node name="HpBar" type="ProgressBar"]
+modulate = Color(0, 1, 0, 1)
+offset_left = -10.0
+offset_top = -27.0
+offset_right = 11.0
+offset_bottom = -23.0
+value = 75.0
+show_percentage = false
+script = ExtResource("1_g6tx8")
+
+[connection signal="value_changed" from="." to="." method="_on_value_changed"]

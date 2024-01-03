@@ -1,0 +1,97 @@
+[gd_scene load_steps=15 format=3 uid="uid://duyt830e30y3e"]
+
+[ext_resource type="Script" path="res://scripts/snake.gd" id="1_jrfgq"]
+[ext_resource type="PackedScene" uid="uid://bh3n8ic3i2gsw" path="res://scenes/snake_sprite.tscn" id="2_5fb6h"]
+[ext_resource type="PackedScene" uid="uid://cr87fdyx5cywf" path="res://scenes/hitbox.tscn" id="3_3jprx"]
+[ext_resource type="PackedScene" uid="uid://d22ttfbgqyq0f" path="res://scenes/hp_bar.tscn" id="4_1a56b"]
+[ext_resource type="PackedScene" uid="uid://mk64wabl8fv4" path="res://scenes/attack_area.tscn" id="5_ar5j0"]
+[ext_resource type="PackedScene" uid="uid://c6vldeo6sa1k8" path="res://scenes/vision_area.tscn" id="6_244y4"]
+[ext_resource type="PackedScene" uid="uid://ck5j4uyt7yhnn" path="res://scenes/navigation_agent.tscn" id="7_gt8dk"]
+[ext_resource type="PackedScene" uid="uid://c64kdkeybuyfm" path="res://scenes/steering.tscn" id="8_3uymt"]
+[ext_resource type="PackedScene" uid="uid://b61bvqs0u0k5d" path="res://scenes/creep_state_machine.tscn" id="9_6v6bg"]
+[ext_resource type="PackedScene" uid="uid://cbjolscy1xdfc" path="res://scenes/audible.tscn" id="10_oe473"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ogv6y"]
+radius = 3.0
+height = 24.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2544u"]
+radius = 3.0
+height = 20.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ljxes"]
+resource_local_to_scene = true
+radius = 13.5093
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0h7v4"]
+resource_local_to_scene = true
+radius = 100.0
+
+[node name="SnakeCreep" type="CharacterBody2D"]
+y_sort_enabled = true
+script = ExtResource("1_jrfgq")
+
+[node name="Sprite" parent="." instance=ExtResource("2_5fb6h")]
+unique_name_in_owner = true
+scale = Vector2(2, 2)
+
+[node name="CollisionShape" type="CollisionShape2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(1, -3)
+rotation = -1.5708
+shape = SubResource("CapsuleShape2D_ogv6y")
+debug_color = Color(0, 0.6, 0.701961, 0.247059)
+
+[node name="Hitbox" parent="." instance=ExtResource("3_3jprx")]
+unique_name_in_owner = true
+position = Vector2(0, -4)
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+
+[node name="HitboxShape" type="CollisionShape2D" parent="Hitbox"]
+unique_name_in_owner = true
+position = Vector2(0, 1)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_2544u")
+
+[node name="HpBar" parent="." instance=ExtResource("4_1a56b")]
+unique_name_in_owner = true
+visible = false
+offset_top = -35.0
+offset_bottom = -31.0
+
+[node name="AttackArea" parent="." instance=ExtResource("5_ar5j0")]
+unique_name_in_owner = true
+position = Vector2(0, -8)
+collision_mask = 2
+
+[node name="AttackRange" type="CollisionShape2D" parent="AttackArea"]
+unique_name_in_owner = true
+shape = SubResource("CircleShape2D_ljxes")
+debug_color = Color(0.854902, 0.113725, 0.843137, 0.0117647)
+
+[node name="VisionArea" parent="." instance=ExtResource("6_244y4")]
+unique_name_in_owner = true
+position = Vector2(0, -11)
+collision_mask = 2
+
+[node name="VisionRange" type="CollisionShape2D" parent="VisionArea"]
+unique_name_in_owner = true
+shape = SubResource("CircleShape2D_0h7v4")
+debug_color = Color(0.741176, 0.462745, 0.0470588, 0.0313726)
+
+[node name="StateMachine" parent="." instance=ExtResource("9_6v6bg")]
+unique_name_in_owner = true
+
+[node name="Audible" parent="." instance=ExtResource("10_oe473")]
+unique_name_in_owner = true
+
+[node name="NavAgent" parent="." instance=ExtResource("7_gt8dk")]
+unique_name_in_owner = true
+avoidance_enabled = false
+debug_enabled = true
+
+[node name="Steering" parent="." instance=ExtResource("8_3uymt")]
+unique_name_in_owner = true
+position = Vector2(0, -2)

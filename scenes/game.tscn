@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://c07cic3w8csc2"]
+[gd_scene load_steps=14 format=3 uid="uid://c07cic3w8csc2"]
 
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_1a6y0"]
 [ext_resource type="PackedScene" uid="uid://e2ft0lem6hph" path="res://scenes/map.tscn" id="3_7ilo6"]
@@ -8,45 +8,71 @@
 [ext_resource type="Script" path="res://scripts/camera.gd" id="6_qeogq"]
 [ext_resource type="PackedScene" uid="uid://b88a5krlaxdg1" path="res://scenes/player.tscn" id="7_l61vt"]
 [ext_resource type="PackedScene" uid="uid://bqej0do2t2xbl" path="res://scenes/spawn_area.tscn" id="8_up4ck"]
+[ext_resource type="Texture2D" uid="uid://iv4bkh6epimk" path="res://assets/sprites/buildings/mine.png" id="9_5h5li"]
+[ext_resource type="PackedScene" uid="uid://o771we7rxeqr" path="res://scenes/enemy.tscn" id="9_tmf3h"]
+[ext_resource type="Script" path="res://scripts/player_spawn_area.gd" id="10_20mfo"]
+[ext_resource type="PackedScene" uid="uid://lqnknk6ie6g4" path="res://scenes/status_panel.tscn" id="12_woh1u"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ixepg"]
-radius = 20.0
+radius = 11.0454
 
 [node name="Game" type="Node2D"]
 y_sort_enabled = true
 script = ExtResource("1_1a6y0")
 
 [node name="Map" parent="." instance=ExtResource("3_7ilo6")]
+unique_name_in_owner = true
 
 [node name="MusicController" parent="." instance=ExtResource("3_p2e6e")]
+unique_name_in_owner = true
 
 [node name="BuilderAssistant" parent="." instance=ExtResource("4_ycgkk")]
+unique_name_in_owner = true
 y_sort_enabled = true
 
 [node name="BuilderMenu" parent="." instance=ExtResource("5_rapum")]
+unique_name_in_owner = true
 initial_position = 1
 visible = false
 
 [node name="Camera2D" type="Camera2D" parent="." groups=["cam"]]
-zoom = Vector2(2, 2)
 limit_left = 0
 limit_top = 0
 limit_right = 1920
 limit_bottom = 980
+editor_draw_limits = true
 script = ExtResource("6_qeogq")
 
 [node name="Player" parent="." groups=["player"] instance=ExtResource("7_l61vt")]
+unique_name_in_owner = true
 
-[node name="SpawnArea" parent="." groups=["player_spawn_area"] instance=ExtResource("8_up4ck")]
-position = Vector2(245, 209)
-collision_layer = 0
+[node name="Enemy" parent="." instance=ExtResource("9_tmf3h")]
+unique_name_in_owner = true
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="SpawnArea"]
+[node name="PlayerSpawnArea" parent="." groups=["player_spawn_area"] instance=ExtResource("8_up4ck")]
+position = Vector2(259, 214)
+collision_mask = 1
+input_pickable = false
+monitorable = false
+script = ExtResource("10_20mfo")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="PlayerSpawnArea"]
 shape = SubResource("CircleShape2D_ixepg")
 
+[node name="Mine" type="Sprite2D" parent="PlayerSpawnArea"]
+y_sort_enabled = true
+position = Vector2(1724, 675)
+texture = ExtResource("9_5h5li")
+
 [node name="EnemySpawnArea" parent="." groups=["enemy_spawn_area"] instance=ExtResource("8_up4ck")]
-position = Vector2(1833, 814)
-collision_layer = 0
+position = Vector2(1776, 712)
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="EnemySpawnArea"]
 shape = SubResource("CircleShape2D_ixepg")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="StatusPanel" parent="CanvasLayer" instance=ExtResource("12_woh1u")]
+unique_name_in_owner = true
+
+[connection signal="body_entered" from="PlayerSpawnArea" to="PlayerSpawnArea" method="_on_body_entered"]

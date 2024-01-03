@@ -1,6 +1,8 @@
 class_name TowerPanel
 extends Panel
 
+## Container with available towers to build
+
 signal clicked
 
 var id
@@ -15,15 +17,21 @@ var range_icon = preload("res://assets/sprites/icons/aim-icon-1.png")
 var clock_icon = preload("res://assets/sprites/icons/clock-icon-1.png")
 var wood_icon = preload("res://assets/sprites/icons/wood-icon-1.png")
 
+@onready var texture_rect: TextureRect = %TextureRect
+@onready var label: RichTextLabel = %Label
+
+
 func _ready():
 	if not get_parent():
 		# just debug current scene
-		setup(GameStats.tower_stats[0])
+		setup(TowerStats.from_tower_dict(GameStats.tower_stats_list[0]))
 
 func setup(a_stats: TowerStats):
 	self.stats = a_stats
 	self.id = stats.id
-	$HBoxContainer/TextureRect.texture = stats.img
+	print("%s with id=%s" % [stats.name, stats.id])
+
+	texture_rect.texture = stats.img
 	
 	var txt = "%s [img=15x15]%s[/img]" % [stats.name, stats.icon.resource_path]
 	
@@ -50,8 +58,7 @@ func setup(a_stats: TowerStats):
 	if stats.get("description"):
 		txt += "\n[color=yellow][i]%s[/i][/color]" % stats.description
 			
-	var lbl: RichTextLabel = $HBoxContainer/Label
-	lbl.text = txt
+	label.text = txt
 
 func _on_mouse_entered():
 	theme = highlighted_theme
@@ -70,4 +77,5 @@ func _input(event):
 	if not theme == highlighted_theme:
 		return
 	if event.is_action_pressed("click"):
+		print("clicked on %s" % id)
 		clicked.emit(id)

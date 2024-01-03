@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://cxt50o7lsh0j5"]
+
+[ext_resource type="Script" path="res://scripts/creep.gd" id="1_hqeny"]
+
+[node name="Creep" type="CharacterBody2D"]
+y_sort_enabled = true
+script = ExtResource("1_hqeny")

@@ -1,7 +1,7 @@
-[gd_scene load_steps=37 format=3 uid="uid://e2ft0lem6hph"]
+[gd_scene load_steps=38 format=3 uid="uid://e2ft0lem6hph"]
 
 [ext_resource type="Script" path="res://scripts/map.gd" id="1_g0rxc"]
-[ext_resource type="Texture2D" uid="uid://brsum2svio828" path="res://assets/sprites/buildings/city-with-wall.webp" id="2_gjh33"]
+[ext_resource type="PackedScene" uid="uid://eecndwmx724m" path="res://scenes/castle.tscn" id="2_hiu82"]
 [ext_resource type="Texture2D" uid="uid://ds0lf7fa0djbv" path="res://assets/sprites/terrain/grass.jpeg" id="3_bln6a"]
 [ext_resource type="Texture2D" uid="uid://b7jp4msowwihv" path="res://assets/sprites/mountains/mnt6.webp" id="4_h5r7f"]
 [ext_resource type="Texture2D" uid="uid://ge60j2o146af" path="res://assets/sprites/mountains/mnt7.webp" id="5_oud83"]
@@ -18,6 +18,7 @@
 [ext_resource type="Texture2D" uid="uid://c75bbxff475rr" path="res://assets/sprites/trees/green-tree-4.webp" id="18_cjxp5"]
 [ext_resource type="Texture2D" uid="uid://1idbxnkunei2" path="res://assets/sprites/trees/green-tree-5.webp" id="19_oxxsa"]
 [ext_resource type="Shader" path="res://shaders/smoke.gdshader" id="20_jw2id"]
+[ext_resource type="Texture2D" uid="uid://iv4bkh6epimk" path="res://assets/sprites/buildings/mine.png" id="21_pptv6"]
 [ext_resource type="Texture2D" uid="uid://dp7sjn8o0jgo3" path="res://assets/sprites/particles/smoke_01.png" id="21_ufaty"]
 [ext_resource type="Texture2D" uid="uid://vvig1wlvcmem" path="res://assets/sprites/grid.png" id="22_o3amg"]
 
@@ -384,6 +385,7 @@ vertices = PackedVector2Array(2064, 1295, -82, 1293, -54, -45, 2056, -54)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(-64, -55, 2066, -65, 2075, 1306, -93, 1303)])
 source_geometry_group_name = &"navigation_polygon_source_group"
+agent_radius = 4.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_qocfb"]
 shader = ExtResource("14_17wps")
@@ -398,13 +400,8 @@ shader = ExtResource("20_jw2id")
 y_sort_enabled = true
 script = ExtResource("1_g0rxc")
 
-[node name="CityWithWall" type="Sprite2D" parent="."]
-unique_name_in_owner = true
-y_sort_enabled = true
-position = Vector2(167, 147)
-scale = Vector2(1.2, 1.2)
-texture = ExtResource("2_gjh33")
-flip_h = true
+[node name="Castle" parent="." instance=ExtResource("2_hiu82")]
+position = Vector2(150, 132)
 
 [node name="GroundTileMap" type="TileMap" parent="."]
 unique_name_in_owner = true
@@ -420,34 +417,27 @@ tile_set = SubResource("TileSet_ixlgv")
 format = 2
 layer_0/y_sort_enabled = true
 layer_0/navigation_enabled = false
-layer_0/tile_data = PackedInt32Array(196651, 0, 0, 262168, 5, 0, 131123, 5, 0, 3932252, 5, 0, 3604546, 5, 0, 3932210, 5, 0, 3670042, 5, 0, 3276807, 5, 0, 393289, 5, 0, 327776, 5, 0, 1179686, 5, 0, 1310781, 5, 0, 2424946, 5, 0, 1048688, 5, 0, 1245256, 6, 0, 1376287, 6, 0, 1572979, 6, 0, 2228327, 6, 0, 1310800, 7, 0, 524392, 7, 0, 2162780, 7, 0, 1310766, 7, 0, 2293808, 7, 0, 3866681, 7, 0, 2949129, 7, 0, 1572871, 7, 0, 131104, 7, 0, 3866660, 6, 0, 3801171, 6, 0, 2686980, 6, 0, 1245207, 6, 0, 2490402, 6, 0, 1900549, 6, 0, 1310774, 6, 0, 3801100, 6, 0, 3866696, 6, 0, 2228310, 6, 0, 2031728, 9, 0, 2490411, 9, 0, 2490445, 9, 0, 327763, 9, 0, 262185, 9, 0, 1376270, 10, 0, 196674, 10, 0, 2359364, 10, 0, 2359352, 11, 0, 1310811, 11, 0, 2424860, 11, 0, 2687027, 11, 0, 2556010, 11, 0, 2621533, 12, 0, 2293765, 12, 0, 2490455, 10, 0, 2424930, 10, 0, 721008, 10, 0, 4194346, 5, 0, 4063297, 5, 0, 4194389, 5, 0, 4325382, 5, 0, 4128782, 5, 0, 4194335, 5, 0, 4194337, 6, 0, 4194319, 6, 0, 4194378, 6, 0, 4194359, 7, 0, 4194401, 7, 0)
+layer_0/tile_data = PackedInt32Array(196651, 0, 0, 262168, 5, 0, 131123, 5, 0, 3932252, 5, 0, 3604546, 5, 0, 3932210, 5, 0, 3670042, 5, 0, 3276807, 5, 0, 393289, 5, 0, 327776, 5, 0, 1179686, 5, 0, 1310781, 5, 0, 2424946, 5, 0, 1048688, 5, 0, 1245256, 6, 0, 1376287, 6, 0, 1572979, 6, 0, 2228327, 6, 0, 1310800, 7, 0, 524392, 7, 0, 2162780, 7, 0, 1310766, 7, 0, 2293808, 7, 0, 3866681, 7, 0, 2949129, 7, 0, 1572871, 7, 0, 131104, 7, 0, 3866660, 6, 0, 3801171, 6, 0, 2686980, 6, 0, 1245207, 6, 0, 2490402, 6, 0, 1900549, 6, 0, 1310774, 6, 0, 3801100, 6, 0, 3866696, 6, 0, 2228310, 6, 0, 2031728, 9, 0, 2490411, 9, 0, 2490445, 9, 0, 327763, 9, 0, 262185, 9, 0, 1376270, 10, 0, 196674, 10, 0, 2359364, 10, 0, 2359352, 11, 0, 1310811, 11, 0, 2424860, 11, 0, 2687027, 11, 0, 2556010, 11, 0, 2621533, 12, 0, 2293765, 12, 0, 2490455, 10, 0, 2424930, 10, 0, 721008, 10, 0, 4194346, 5, 0, 4063297, 5, 0, 4194389, 5, 0, 4325382, 5, 0, 4128782, 5, 0, 4194335, 5, 0, 4194337, 6, 0, 4194319, 6, 0, 4194378, 6, 0, 4194359, 7, 0, 4194401, 7, 0, 1310839, 5, 0, 88, 5, 0, 1638403, 5, 0, 2424838, 5, 0, 3080204, 6, 0, 3538954, 6, 0, 3735570, 6, 0, 2752632, 7, 0, 3014776, 12, 0, 3211384, 11, 0, 3473528, 10, 0, 3735673, 9, 0, 4128888, 9, 0, 4194414, 9, 0, 65594, 12, 0, 17, 12, 0, 3932284, 7, 0)
 
 [node name="NavigationRegion" type="NavigationRegion2D" parent="."]
 unique_name_in_owner = true
+visible = false
 navigation_polygon = SubResource("NavigationPolygon_hw3c2")
-
-[node name="AiBaseSpot" type="Marker2D" parent="."]
-unique_name_in_owner = true
-position = Vector2(1811, 819)
-
-[node name="AiGatheringSpot" type="Marker2D" parent="."]
-unique_name_in_owner = true
-position = Vector2(1811, 819)
 
 [node name="TowerLines" type="Node" parent="."]
 unique_name_in_owner = true
 
 [node name="TowersLine1" type="Line2D" parent="TowerLines"]
 visible = false
-points = PackedVector2Array(532, 110, 680, 151, 774, 144, 786, 119, 825, 116, 897, 121, 964, 131, 1027, 116, 1063, 160, 1112, 167, 1201, 178, 1287, 163, 1383, 171, 1488, 176, 1532, 157, 1579, 188, 1655, 196)
+points = PackedVector2Array(466, 138, 511, 131, 545, 110, 680, 151, 765, 146, 786, 119, 825, 116, 897, 121, 964, 131, 1027, 116, 1063, 160, 1112, 167, 1201, 178, 1287, 163, 1383, 171, 1488, 176, 1532, 157, 1579, 188, 1661, 192, 1703, 241)
 
 [node name="TowersLine2" type="Line2D" parent="TowerLines"]
 visible = false
-points = PackedVector2Array(448, 262, 555, 267, 627, 250, 707, 273, 812, 283, 876, 262, 934, 290, 998, 269, 1066, 280, 1158, 257, 1259, 279, 1420, 277)
+points = PackedVector2Array(297, 281, 430, 273, 489, 291, 555, 267, 627, 250, 707, 273, 812, 283, 876, 262, 934, 290, 998, 269, 1066, 280, 1158, 257, 1259, 279, 1371, 283)
 
 [node name="TowersLine3" type="Line2D" parent="TowerLines"]
 visible = false
-points = PackedVector2Array(397, 401, 519, 416, 659, 391, 774, 401, 934, 404, 1105, 388, 1238, 389, 1336, 399, 1498, 390)
+points = PackedVector2Array(397, 401, 519, 416, 659, 391, 774, 401, 934, 404, 1105, 388, 1238, 389, 1336, 399, 1424, 392)
 
 [node name="Trees" type="Node2D" parent="."]
 unique_name_in_owner = true
@@ -536,7 +526,7 @@ texture = ExtResource("15_80vhb")
 
 [node name="Green-tree-16" type="Sprite2D" parent="Trees"]
 material = SubResource("ShaderMaterial_qocfb")
-position = Vector2(748, 77)
+position = Vector2(734, 72)
 texture = ExtResource("19_oxxsa")
 
 [node name="Green-tree-17" type="Sprite2D" parent="Trees"]
@@ -571,13 +561,8 @@ texture = ExtResource("19_oxxsa")
 
 [node name="Green-tree-23" type="Sprite2D" parent="Trees"]
 material = SubResource("ShaderMaterial_qocfb")
-position = Vector2(1531, 901)
+position = Vector2(1563, 912)
 texture = ExtResource("15_80vhb")
-
-[node name="Green-tree-24" type="Sprite2D" parent="Trees"]
-material = SubResource("ShaderMaterial_qocfb")
-position = Vector2(1829, 673)
-texture = ExtResource("16_o803y")
 
 [node name="Green-tree-25" type="Sprite2D" parent="Trees"]
 material = SubResource("ShaderMaterial_qocfb")
@@ -586,62 +571,37 @@ texture = ExtResource("17_ovuki")
 
 [node name="Green-tree-26" type="Sprite2D" parent="Trees"]
 material = SubResource("ShaderMaterial_qocfb")
-position = Vector2(1661, 970)
+position = Vector2(1672, 1047)
 texture = ExtResource("18_cjxp5")
-
-[node name="Green-tree-27" type="Sprite2D" parent="Trees"]
-material = SubResource("ShaderMaterial_qocfb")
-position = Vector2(1889, 785)
-texture = ExtResource("19_oxxsa")
-
-[node name="Green-tree-42" type="Sprite2D" parent="Trees"]
-material = SubResource("ShaderMaterial_qocfb")
-position = Vector2(1769, 1042)
-texture = ExtResource("19_oxxsa")
 
 [node name="Green-tree-28" type="Sprite2D" parent="Trees"]
 material = SubResource("ShaderMaterial_qocfb")
-position = Vector2(1810, 904)
+position = Vector2(1849, 929)
 texture = ExtResource("18_cjxp5")
 
 [node name="Green-tree-29" type="Sprite2D" parent="Trees"]
 material = SubResource("ShaderMaterial_qocfb")
-position = Vector2(1848, 761)
-texture = ExtResource("17_ovuki")
-
-[node name="Green-tree-41" type="Sprite2D" parent="Trees"]
-material = SubResource("ShaderMaterial_qocfb")
-position = Vector2(1701, 1046)
+position = Vector2(1812, 797)
 texture = ExtResource("17_ovuki")
 
 [node name="Green-tree-30" type="Sprite2D" parent="Trees"]
 material = SubResource("ShaderMaterial_qocfb")
-position = Vector2(1728, 956)
+position = Vector2(1715, 957)
 texture = ExtResource("17_ovuki")
 
 [node name="Green-tree-31" type="Sprite2D" parent="Trees"]
 material = SubResource("ShaderMaterial_qocfb")
-position = Vector2(1598, 938)
-texture = ExtResource("16_o803y")
-
-[node name="Green-tree-43" type="Sprite2D" parent="Trees"]
-material = SubResource("ShaderMaterial_qocfb")
-position = Vector2(1837, 1032)
+position = Vector2(1628, 953)
 texture = ExtResource("16_o803y")
 
 [node name="Green-tree-32" type="Sprite2D" parent="Trees"]
 material = SubResource("ShaderMaterial_qocfb")
-position = Vector2(1854, 856)
+position = Vector2(1844, 860)
 texture = ExtResource("16_o803y")
-
-[node name="Green-tree-33" type="Sprite2D" parent="Trees"]
-material = SubResource("ShaderMaterial_qocfb")
-position = Vector2(1867, 957)
-texture = ExtResource("15_80vhb")
 
 [node name="Green-tree-34" type="Sprite2D" parent="Trees"]
 material = SubResource("ShaderMaterial_qocfb")
-position = Vector2(1795, 976)
+position = Vector2(1801, 924)
 texture = ExtResource("16_o803y")
 
 [node name="Green-tree-35" type="Sprite2D" parent="Trees"]
@@ -676,5 +636,11 @@ texture = ExtResource("19_oxxsa")
 
 [node name="Smoke" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_ifpkk")
-position = Vector2(130, 106)
+position = Vector2(120, 105)
 texture = ExtResource("21_ufaty")
+
+[node name="Mine" type="Sprite2D" parent="."]
+y_sort_enabled = true
+position = Vector2(1781, 710)
+scale = Vector2(1, 1.00625)
+texture = ExtResource("21_pptv6")

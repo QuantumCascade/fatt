@@ -2,7 +2,7 @@ class_name Map
 extends Node2D
 
 ## Maximum squared distance from mouse cursor to tower lane to display a tower placeholder
-@export var max_sq_dist_to_tower_point: float = 2500
+@export var max_sq_dist_to_tower_point: float = 625
 
 # Emitted when mouse cursor close to a tower lane
 signal pointed_tower_lane_pos
@@ -94,14 +94,17 @@ func find_collisionshapes(root_node: Node, outlines: Array[PackedVector2Array] =
 	for node in root_node.get_children():
 		if node is Node and node.get_child_count() > 0:
 			find_collisionshapes(node, outlines)
-		if node is CollisionPolygon2D:
-			# TODO: check if collision layer is what we need (currently we use 1)
-			var collision_poly: CollisionPolygon2D = node as CollisionPolygon2D
-			var collisionpolygon_transform: Transform2D = node.get_global_transform()
-			var collisionpolygon: PackedVector2Array = collision_poly.polygon
-			var new_collision_outline: PackedVector2Array = collisionpolygon_transform * collisionpolygon
-			#print("found collision obstacle %s" % [new_collision_outline])
-			outlines.append(new_collision_outline)
+		if not (node is CollisionPolygon2D):
+			continue
+		if node.get_parent() is Area2D:
+			continue
+		# TODO: check if collision layer is what we need (currently we use 1)
+		var collision_poly: CollisionPolygon2D = node as CollisionPolygon2D
+		var collisionpolygon_transform: Transform2D = node.get_global_transform()
+		var collisionpolygon: PackedVector2Array = collision_poly.polygon
+		var new_collision_outline: PackedVector2Array = collisionpolygon_transform * collisionpolygon
+		#print("found collision obstacle %s" % [new_collision_outline])
+		outlines.append(new_collision_outline)
 	return outlines
 
 

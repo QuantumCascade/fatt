@@ -1,29 +1,31 @@
 class_name Builder
-extends Mob
+extends Minion
 
-@onready var anim_player = %AnimationPlayer
-@onready var hp_bar: HpBar = %HpBar
-@onready var hitbox: Hitbox = %Hitbox
-@onready var state_machine: StateMachine = %StateMachine
-@onready var nav_agent: NavAgent = %NavAgent
-@onready var steering: Steering = %Steering
-@onready var sprite: Sprite2D = %Sprite
 
 @export var building_target: Tower
 
-var building_area_dist: float = 50
-
 
 func _ready():
+	
+	# Init Mob common components
+	state_machine = %BuilderStateMachine
+	steering = %Steering
+	nav_agent = %NavAgent
+	audible = %Audible
+	
+	# Init Minion personal components 
+	hp_bar = %HpBar
+	hitbox = %Hitbox
+	sprite = %Sprite
+	vision_area = %VisionArea
+
+
+func setup(new_stats: MobStats):
+	stats = new_stats.clone()
 	hp_bar.max_value = stats.max_hp
 	hp_bar.value = stats.hp
 	state_machine.setup(self)
 
-func get_nav_agent() -> NavAgent:
-	return nav_agent
-
-func get_steering() -> Steering:
-	return steering
 
 func check_pending_towers():
 	if building_target && building_target.stats.building_time > 0:
@@ -46,3 +48,12 @@ func in_building_area() -> bool:
 
 func _on_nav_agent_velocity_computed(safe_velocity: Vector2):
 	super._on_nav_agent_velocity_computed(safe_velocity)
+
+
+func hiding_in_castle():
+	super.hiding_in_castle()
+	building_target = null
+
+
+func _to_string():
+	return "builder @ %s" % global_position

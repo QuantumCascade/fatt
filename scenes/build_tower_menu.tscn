@@ -10,6 +10,7 @@ content_scale_aspect = 1
 script = ExtResource("2_cto2i")
 
 [node name="BoxContainer" type="HBoxContainer" parent="."]
+unique_name_in_owner = true
 offset_left = 4.0
 offset_top = 4.0
 offset_right = 904.0

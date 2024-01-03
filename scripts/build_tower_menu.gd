@@ -11,11 +11,15 @@ signal build_tower_selected
 signal build_tower_confirmed
 signal build_tower_closed
 
-@onready var box_container = $BoxContainer
+
+@onready var box_container: BoxContainer = %BoxContainer
 
 
 func _ready():
-	setup(GameStats.tower_stats)
+	var list: Array[TowerStats] = []
+	for dict in GameStats.tower_stats_list:
+		list.append(TowerStats.from_tower_dict(dict))
+	setup(list)
 
 
 func setup(stats: Array[TowerStats]):
@@ -24,9 +28,9 @@ func setup(stats: Array[TowerStats]):
 		box_container.remove_child(child)
 	for tower_stats in stats:
 		var tower_panel: TowerPanel = preload("res://scenes/tower_panel.tscn").instantiate()
-		tower_panel.setup(tower_stats)
 		tower_panel.clicked.connect(_on_id_pressed)
 		box_container.add_child(tower_panel)
+		tower_panel.setup(tower_stats)
 		menu_options.append(tower_stats)
 	size.x = 300 * menu_options.size()
 	size.y = 250
@@ -48,16 +52,13 @@ func zoom_at_placeholder():
 		return
 	var delta: float = 50
 	var cam: Cam = get_tree().get_first_node_in_group("cam") as Cam
-	if cam:
-		cam.zoom_target = Vector2(2, 2)
-		cam.position = tower_placeholder.global_position + Vector2(0, delta*2)
+	cam.smoothly_zoom(Vector2(2, 2))
+	#cam.position = tower_placeholder.global_position + Vector2(0, delta*2)
 
 
 func unzoom():
 	var cam: Cam = get_tree().get_first_node_in_group("cam") as Cam
-	if cam:
-		cam.zoom_target = Vector2.ONE
-		cam.position = Vector2.ZERO
+	cam.unzoom()
 
 
 func _on_popup_hide():
@@ -68,8 +69,12 @@ func _on_popup_hide():
 
 
 func _on_id_pressed(id: int):
+	print("pressed on %s" % id)
+	if selected_tower_id == id:
+		print("confirmed tower %s" % id)
+		if tower_placeholder:
+			build_tower_confirmed.emit(selected_tower_id, tower_placeholder.global_position)
+		self.hide()
 	selected_tower_id = id
 	build_tower_selected.emit(id)
-	build_tower_confirmed.emit(selected_tower_id, tower_placeholder.global_position)
-	self.hide()
 

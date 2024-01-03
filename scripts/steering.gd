@@ -21,8 +21,8 @@ func _ready():
 	for dir in Vectors.directions:
 		var ray: RayCast2D = RayCast2D.new()
 		ray.target_position = dir
-		ray.collide_with_areas = true
-		#ray.visible = true
+		#ray.collide_with_areas = true
+		ray.visible = true
 		add_child(ray)
 		directions.append(ray)
 	setup_directions()
