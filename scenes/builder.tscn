@@ -10,16 +10,17 @@
 [ext_resource type="Script" path="res://scripts/mob_states/builder_states/builder_building.gd" id="8_n5mbf"]
 [ext_resource type="PackedScene" uid="uid://c64kdkeybuyfm" path="res://scenes/steering.tscn" id="9_0q24m"]
 [ext_resource type="PackedScene" uid="uid://ck5j4uyt7yhnn" path="res://scenes/navigation_agent.tscn" id="12_8yscr"]
-[ext_resource type="PackedScene" uid="uid://i4yobpl4fcka" path="res://scenes/builder_sprite.tscn" id="12_gqmlq"]
 [ext_resource type="PackedScene" uid="uid://c6vldeo6sa1k8" path="res://scenes/vision_area.tscn" id="12_jpbvs"]
 [ext_resource type="PackedScene" uid="uid://cbjolscy1xdfc" path="res://scenes/audible.tscn" id="13_jx1a3"]
+[ext_resource type="PackedScene" uid="uid://che2c6tqo8da5" path="res://scenes/builder3_sprite.tscn" id="14_4nbne"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_f63b6"]
-radius = 8.0
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_cflih"]
+radius = 5.0
+height = 26.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_gpv4s"]
 radius = 7.0
-height = 48.0
+height = 52.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_yjj65"]
 radius = 21.0238
@@ -32,7 +33,9 @@ script = ExtResource("1_d0omy")
 
 [node name="CollisionShape" type="CollisionShape2D" parent="."]
 unique_name_in_owner = true
-shape = SubResource("CircleShape2D_f63b6")
+position = Vector2(2, 0)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_cflih")
 debug_color = Color(0, 0.6, 0.701961, 0.0509804)
 
 [node name="Hitbox" parent="." instance=ExtResource("2_dnb7x")]
@@ -44,14 +47,14 @@ monitoring = false
 
 [node name="HitboxShape" type="CollisionShape2D" parent="Hitbox"]
 unique_name_in_owner = true
-position = Vector2(0, -10)
+position = Vector2(-1, -14)
 shape = SubResource("CapsuleShape2D_gpv4s")
 
 [node name="HpBar" parent="." instance=ExtResource("4_gh1bu")]
 unique_name_in_owner = true
 offset_left = -12.0
-offset_top = -49.0
-offset_bottom = -45.0
+offset_top = -52.0
+offset_bottom = -48.0
 
 [node name="BuilderStateMachine" type="Node" parent="."]
 unique_name_in_owner = true
@@ -71,7 +74,7 @@ script = ExtResource("8_n5mbf")
 
 [node name="WorkingArea" type="Area2D" parent="."]
 unique_name_in_owner = true
-position = Vector2(0, -2)
+position = Vector2(0, -14)
 collision_layer = 0
 collision_mask = 32
 monitorable = false
@@ -95,9 +98,6 @@ debug_color = Color(0, 0.6, 0.701961, 0.0235294)
 [node name="Audible" parent="." instance=ExtResource("13_jx1a3")]
 unique_name_in_owner = true
 
-[node name="Sprite" parent="." instance=ExtResource("12_gqmlq")]
-unique_name_in_owner = true
-
 [node name="NavAgent" parent="." instance=ExtResource("12_8yscr")]
 unique_name_in_owner = true
 path_desired_distance = 10.0
@@ -108,5 +108,10 @@ max_speed = 200.0
 
 [node name="Steering" parent="." instance=ExtResource("9_0q24m")]
 unique_name_in_owner = true
+
+[node name="Sprite" parent="." instance=ExtResource("14_4nbne")]
+unique_name_in_owner = true
+position = Vector2(1, -27)
+scale = Vector2(0.25, 0.25)
 
 [connection signal="velocity_computed" from="NavAgent" to="." method="_on_nav_agent_velocity_computed"]

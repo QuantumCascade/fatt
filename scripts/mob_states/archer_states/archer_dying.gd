@@ -15,9 +15,12 @@ func enter():
 
 
 func _physics_process(delta: float):
-	if not mob:
+	if not archer:
 		return
-	if archer.sprite.modulate.a > 0:
-		archer.sprite.modulate.a -= max(0, delta / decay_speed)
-	else:
+	
+	if archer.sprite.dissolve(delta / decay_speed) == 0:
 		archer.finally_decayed()
+	#if archer.sprite.modulate.a > 0:
+		#archer.sprite.modulate.a -= max(0, delta / decay_speed)
+	#else:
+		#archer.finally_decayed()

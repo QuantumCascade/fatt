@@ -1,23 +1,39 @@
 class_name MobSprite
 extends Sprite2D
 
+static var noise_dict: Dictionary = {}
 
 signal attack_animation_performed # moment when attack hits target
 signal attack_animation_complete # attack animation finished
 signal death_animation_performed
 
+signal animation_complete
+
 var dissolving: float = -1
+
+
+func gen_noise(size: Vector2):
+	var noise_texture: NoiseTexture2D = NoiseTexture2D.new()
+	noise_texture.width = int(size.x * 4)
+	noise_texture.height = int(size.y * 4)
+	var noise: FastNoiseLite = FastNoiseLite.new()
+	noise.noise_type = FastNoiseLite.TYPE_SIMPLEX
+	noise.seed = randi()
+	noise_texture.noise = noise
+	var pool: Array = noise_dict.get(size, [])
+	pool.append(noise_texture)
+	noise_dict[size] = pool
 
 func dissolve(delta: float) -> float:
 	if dissolving < 0:
-		var noise_texture: NoiseTexture2D = NoiseTexture2D.new();
-		noise_texture.width = self.texture.get_width() * 10
-		noise_texture.height = self.texture.get_height() * 10
-		var noise: FastNoiseLite = FastNoiseLite.new()
-		noise.noise_type = FastNoiseLite.TYPE_SIMPLEX
-		noise_texture.noise = noise
+		var size: Vector2 = self.texture.get_size()
+		if noise_dict.get(size, []).size() < 2:
+			print("gen noise for %s" % [size])
+			gen_noise(size)
 		var shader_material: ShaderMaterial = ShaderMaterial.new()
 		shader_material.shader = preload("res://shaders/dissolve.gdshader")
+		var pool: Array = noise_dict[texture.get_size()]
+		var noise_texture: NoiseTexture2D = pool[randi_range(0, pool.size() - 1)] as NoiseTexture2D
 		shader_material.set_shader_parameter("noise_texture", noise_texture)
 		dissolving = 1
 		material = shader_material

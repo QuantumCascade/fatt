@@ -2,17 +2,21 @@ class_name BuilderBuilding
 extends BuilderState
 
 var audio_player: AudioStreamPlayer2D
+var building_finished: bool
 
 func enter() -> void:
+	building_finished = false
+	if (builder.sprite as Builder3Sprite).hammer_animation_performed.is_connected(switch_to_idle):
+		(builder.sprite as Builder3Sprite).hammer_animation_performed.disconnect(switch_to_idle)
 	builder.play_anim("hammer")
-	if not audio_player:
-		audio_player = AudioStreamPlayer2D.new()
-		add_child(audio_player)
-	audio_player.stream = preload("res://assets/sounds/hammering-on-wood_1-2-106583.mp3")
-	audio_player.play()
 
 func exit():
-	audio_player.stop()
+	if (builder.sprite as Builder3Sprite).hammer_animation_performed.is_connected(switch_to_idle):
+		(builder.sprite as Builder3Sprite).hammer_animation_performed.disconnect(switch_to_idle)
+	pass
+
+func switch_to_idle():
+	state_transition.emit(self, "Idle")
 	pass
 
 func physics_process(delta: float):
@@ -23,7 +27,9 @@ func physics_process(delta: float):
 		state_transition.emit(self, "Idle")
 		return
 	if builder.building_target.stats.building_time <= 0:
-		state_transition.emit(self, "Idle")
+		if not building_finished:
+			building_finished = true
+			(builder.sprite as Builder3Sprite).hammer_animation_performed.connect(switch_to_idle)
 		return
 	if builder.movement_target != Vector2.ZERO:
 		state_transition.emit(self, "Idle")

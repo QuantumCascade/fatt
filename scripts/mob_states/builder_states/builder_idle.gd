@@ -6,10 +6,27 @@ var resting_time_on_idle: float = 0.75
 # if resting then wait for a while before looking for new opportunities
 var resting_time: float
 
+var anim_timer: Timer
 
 func enter() -> void:
-	builder.play_anim("idle")
 	resting_time = resting_time_on_idle
+	builder.play_anim("idle_2")
+	setup_anim_timer()
+
+
+func setup_anim_timer():
+	if anim_timer:
+		anim_timer.queue_free()
+	anim_timer = Timer.new()
+	anim_timer = disposable_timer(play_idle_anim, randf_range(5, 20))
+	add_child(anim_timer)
+
+
+func play_idle_anim():
+	if not is_inside_tree():
+		return # if detached from state machine then ignore timer signal
+	builder.play_anim("idle")
+	setup_anim_timer()
 
 
 func exit():

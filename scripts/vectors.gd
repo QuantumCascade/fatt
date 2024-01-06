@@ -2,15 +2,15 @@ extends Node
 class_name Vectors
 
 const up = Vector2(0, -1)
-const up_right = Vector2(1, -1)
+static var up_right = Vector2(1, -1).normalized()
 const right = Vector2(1, 0)
-const down_right = Vector2(1, 1)
+static var down_right = Vector2(1, 1).normalized()
 const down = Vector2(0, 1)
-const down_left = Vector2(-1, 1)
+static var down_left = Vector2(-1, 1).normalized()
 const left = Vector2(-1, 0)
-const up_left = Vector2(-1, -1)
+static var up_left = Vector2(-1, -1).normalized()
 
-const directions: Array[Vector2] = [
+static var directions: Array[Vector2] = [
 	up,
 	up_right,
 	right,

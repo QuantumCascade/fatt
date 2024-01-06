@@ -11,9 +11,10 @@ func enter():
 	creep.sprite.attack_animation_complete.connect(_on_attack_animation_complete)
 	attacks_performed = 0
 	init_attack_action()
-
+	creep.switch_attack(true)
 
 func exit():
+	creep.switch_attack(false)
 	creep.sprite.attack_animation_complete.disconnect(_on_attack_animation_complete)
 
 

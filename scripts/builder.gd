@@ -30,16 +30,14 @@ func setup(new_stats: MobStats):
 func check_pending_towers():
 	if building_target && building_target.stats.building_time > 0:
 		return
+	var pending_towers: Array[Tower] = []
 	for _tower in get_tree().get_nodes_in_group("towers"):
 		var tower = _tower as Tower
 		if tower.stats.building_time > 0:
-			building_target = tower
-			return
-
-
-func take_dmg(dmg: float):
-	super.take_dmg(dmg)
-	hp_bar.value = stats.hp
+			pending_towers.append(tower)
+	if not pending_towers.is_empty():
+		pending_towers.sort_custom(choose_closest)
+		building_target = pending_towers[0]
 
 
 func in_building_area() -> bool:

@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://bh3n8ic3i2gsw"]
+[gd_scene load_steps=13 format=3 uid="uid://bh3n8ic3i2gsw"]
 
 [ext_resource type="Texture2D" uid="uid://brkqbed0xcb3" path="res://assets/sprites/characters/snake/snake_idle_72f.png" id="1_2euga"]
 [ext_resource type="Texture2D" uid="uid://8s4veap15px5" path="res://assets/sprites/characters/snake/snake_move_17f.png" id="1_kog4c"]
@@ -31,6 +31,30 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [1.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("DmgArea:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -10)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("DmgArea:monitoring")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
 }
 
 [sub_resource type="Animation" id="Animation_y0xef"]
@@ -101,6 +125,30 @@ tracks/4/keys = {
 "update": 1,
 "values": [17]
 }
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("DmgArea:monitoring")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 1.7),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("DmgArea:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 0.8, 1.6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, -10), Vector2(12, -8), Vector2(0, -10)]
+}
 
 [sub_resource type="Animation" id="Animation_prye1"]
 resource_name = "die"
@@ -167,6 +215,30 @@ tracks/4/keys = {
 "update": 1,
 "values": [18]
 }
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("DmgArea:monitoring")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("DmgArea:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -10)]
+}
 
 [sub_resource type="Animation" id="Animation_36bp6"]
 resource_name = "idle"
@@ -219,6 +291,30 @@ tracks/3/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [72]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("DmgArea:monitoring")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("DmgArea:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -10)]
 }
 
 [sub_resource type="Animation" id="Animation_jloxf"]
@@ -273,6 +369,30 @@ tracks/3/keys = {
 "update": 1,
 "values": [17]
 }
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("DmgArea:monitoring")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("DmgArea:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -10)]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_jlxyw"]
 _data = {
@@ -283,10 +403,13 @@ _data = {
 "move": SubResource("Animation_jloxf")
 }
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_uvr08"]
+radius = 5.0
+
 [node name="Sprite" type="Sprite2D"]
 y_sort_enabled = true
-texture = ExtResource("1_2euga")
-hframes = 72
+texture = ExtResource("1_kog4c")
+hframes = 17
 script = ExtResource("2_g5fts")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -294,3 +417,14 @@ unique_name_in_owner = true
 libraries = {
 "": SubResource("AnimationLibrary_jlxyw")
 }
+
+[node name="DmgArea" type="Area2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(0, -10)
+collision_layer = 0
+collision_mask = 2
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DmgArea"]
+shape = SubResource("CircleShape2D_uvr08")

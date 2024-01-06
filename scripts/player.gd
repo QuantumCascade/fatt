@@ -27,11 +27,18 @@ func create_initial_minions(init_minions: Dictionary):
 			hide_minion_in_castle(minion)
 
 
-func _physics_process(_delta: float):
+func _physics_process(delta: float):
 	
 	check_towers_for_builders()
 	
 	check_assigned_towers()
+	
+	gather_resources(delta)
+
+
+func gather_resources(delta: float):
+	stats.building_materials += delta * stats.building_materials_mining_speed
+	stats.gold += delta * stats.gold_mining_speed
 
 
 func hire_minion(wanted_minion_name: String) -> Minion:

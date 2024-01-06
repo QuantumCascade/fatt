@@ -30,14 +30,20 @@ func flip_to(target: Vector2):
 		if sprite.is_flipped_h():
 			sprite.flip_h = false
 
+
 func hiding_in_castle():
 	movement_target = Vector2()
 	state_machine.set_state("Idle")
 
+
+func take_dmg(dmg: float):
+	super.take_dmg(dmg)
+	hp_bar.value = stats.hp
+
+
 func _on_death_animation_performed():
 	print("%s dead" % self)
 	death_animation_performed.emit(self)
-
 
 
 func _spawn_area() -> PlayerSpawnArea:

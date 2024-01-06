@@ -5,6 +5,6 @@ uniform sampler2D noise_texture;
 
 void fragment() {
 	if (COLOR.a == 1.0 && texture(noise_texture, UV).r > value) {
-		COLOR.a = 0.0;
+		COLOR.a = max(value - 0.5, 0.1);
 	}
 }

@@ -10,4 +10,6 @@ func setup(an_actor: Node):
 
 
 func _spawn_area() -> PlayerSpawnArea:
+	if not get_tree():
+		return null
 	return get_tree().get_first_node_in_group("player_spawn_area") as PlayerSpawnArea

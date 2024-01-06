@@ -1,8 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://lqnknk6ie6g4"]
+[gd_scene load_steps=6 format=3 uid="uid://lqnknk6ie6g4"]
 
 [ext_resource type="Texture2D" uid="uid://stsrleybbwmr" path="res://assets/sprites/icons/hammer-icon-128.png" id="1_3o6w8"]
 [ext_resource type="Script" path="res://scripts/status_panel.gd" id="1_4i518"]
 [ext_resource type="Texture2D" uid="uid://dkeh5enpm5aju" path="res://assets/sprites/icons/people-icon-1.png" id="2_7n123"]
+[ext_resource type="Texture2D" uid="uid://cklbw4q8wbohl" path="res://assets/sprites/icons/wood-icon-1.png" id="4_wrapp"]
+[ext_resource type="Texture2D" uid="uid://da4s3jl2pukhs" path="res://assets/sprites/icons/coin.png" id="5_xsipe"]
 
 [node name="PanelContainer" type="PanelContainer"]
 anchors_preset = 1
@@ -15,10 +17,10 @@ script = ExtResource("1_4i518")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2
-theme_override_constants/margin_left = 3
-theme_override_constants/margin_top = 3
-theme_override_constants/margin_right = 3
-theme_override_constants/margin_bottom = 3
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
 layout_mode = 2
@@ -52,5 +54,35 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
 theme_override_font_sizes/font_size = 32
-text = "1
+text = "5"
+
+[node name="WoodIcon" type="TextureRect" parent="MarginContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+texture = ExtResource("4_wrapp")
+expand_mode = 2
+stretch_mode = 4
+
+[node name="BuildingMaterialsLabel" type="Label" parent="MarginContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_font_sizes/font_size = 32
+text = "250"
+
+[node name="GoldIcon" type="TextureRect" parent="MarginContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+texture = ExtResource("5_xsipe")
+expand_mode = 2
+stretch_mode = 4
+
+[node name="GoldLabel" type="Label" parent="MarginContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_font_sizes/font_size = 32
+text = "100
 "

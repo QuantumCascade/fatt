@@ -1,7 +1,7 @@
 class_name Archer
 extends Minion
 
-const ArcHeight: float = 75
+const ArcHeight: float = 15
 
 @export var assigned_tower: Tower
 

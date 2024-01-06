@@ -50,7 +50,7 @@ func zoom_at_placeholder():
 	if not tower_placeholder:
 		unzoom()
 		return
-	var delta: float = 50
+	#var delta: float = 50
 	var cam: Cam = get_tree().get_first_node_in_group("cam") as Cam
 	cam.smoothly_zoom(Vector2(2, 2))
 	#cam.position = tower_placeholder.global_position + Vector2(0, delta*2)

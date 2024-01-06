@@ -28,7 +28,11 @@ func _ready():
 
 func _physics_process(delta: float):
 	status_panel.update_vals({
-		"population": player.stats.population,
+		"gold": int(player.stats.gold),
+		"gold_mining_speed": int(player.stats.gold_mining_speed * 60),
+		"building_materials": int(player.stats.building_materials),
+		"building_materials_mining_speed": int(player.stats.building_materials_mining_speed * 60),
+		"population": int(player.stats.population),
 		"builders": player.calc_minions("builder"),
 	})
 	match state:

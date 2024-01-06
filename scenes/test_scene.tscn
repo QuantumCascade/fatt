@@ -1,17 +1,33 @@
-[gd_scene load_steps=8 format=3 uid="uid://cpvj4g13ugmjm"]
+[gd_scene load_steps=14 format=3 uid="uid://cpvj4g13ugmjm"]
 
 [ext_resource type="Script" path="res://scripts/test_scene.gd" id="1_bwdub"]
 [ext_resource type="PackedScene" uid="uid://duf6fdpme1wuv" path="res://scenes/builder.tscn" id="2_7456c"]
+[ext_resource type="Texture2D" uid="uid://ds0lf7fa0djbv" path="res://assets/sprites/terrain/grass.jpeg" id="2_kww87"]
 [ext_resource type="PackedScene" uid="uid://b2g5yc414kg6g" path="res://scenes/tower.tscn" id="3_ubitd"]
 [ext_resource type="PackedScene" uid="uid://duyt830e30y3e" path="res://scenes/snake.tscn" id="4_k364p"]
 [ext_resource type="PackedScene" uid="uid://df3xa33jknkjk" path="res://scenes/archer.tscn" id="5_7jckn"]
-[ext_resource type="Texture2D" uid="uid://bj8cnejq5es5y" path="res://assets/sprites/mountains/mnt1.webp" id="6_sdnxv"]
+[ext_resource type="Shader" path="res://shaders/tree.gdshader" id="7_0dndr"]
+[ext_resource type="Texture2D" uid="uid://cppf76hhy65gh" path="res://assets/sprites/trees/green-tree-1.webp" id="8_1owl4"]
+[ext_resource type="Texture2D" uid="uid://2hfpefp5g6a2" path="res://assets/sprites/buildings/castle-2.webp" id="8_35fqa"]
+[ext_resource type="Shader" path="res://shaders/glitch.gdshader" id="8_pleg4"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_kwsxk"]
 vertices = PackedVector2Array(1463, 639, 601, 638, 611, 162, 1455, 152)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(602, 153, 1465, 142, 1474, 650, 591, 648)])
 source_geometry_group_name = &"navigation_polygon_source_group"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_77ue8"]
+shader = ExtResource("7_0dndr")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_n13o3"]
+resource_local_to_scene = true
+shader = ExtResource("8_pleg4")
+shader_parameter/shake_power = 0.03
+shader_parameter/shake_rate = 0.2
+shader_parameter/shake_speed = 5.0
+shader_parameter/shake_block_size = 30.5
+shader_parameter/shake_color_rate = 0.01
 
 [node name="TestScene" type="Node2D"]
 y_sort_enabled = true
@@ -31,12 +47,30 @@ visible = false
 modulate = Color(1, 0.160784, 1, 0.145098)
 navigation_polygon = SubResource("NavigationPolygon_kwsxk")
 
+[node name="Node" type="Node2D" parent="."]
+
+[node name="Grass" type="Sprite2D" parent="Node"]
+position = Vector2(1217, 401)
+texture = ExtResource("2_kww87")
+
+[node name="Grass2" type="Sprite2D" parent="Node"]
+position = Vector2(961, 401)
+texture = ExtResource("2_kww87")
+
+[node name="Grass3" type="Sprite2D" parent="Node"]
+position = Vector2(955, 152)
+texture = ExtResource("2_kww87")
+
+[node name="Grass4" type="Sprite2D" parent="Node"]
+position = Vector2(1213, 150)
+texture = ExtResource("2_kww87")
+
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(1016, 341)
 zoom = Vector2(3, 3)
 
 [node name="SnakeCreep" parent="." instance=ExtResource("4_k364p")]
-position = Vector2(835, 303)
+position = Vector2(817, 302)
 
 [node name="Builder" parent="." instance=ExtResource("2_7456c")]
 position = Vector2(1172, 465)
@@ -44,11 +78,36 @@ position = Vector2(1172, 465)
 [node name="Tower" parent="." instance=ExtResource("3_ubitd")]
 position = Vector2(1236, 361)
 
+[node name="Tower2" parent="." instance=ExtResource("3_ubitd")]
+position = Vector2(1117, 517)
+
 [node name="Archer" parent="." instance=ExtResource("5_7jckn")]
 position = Vector2(1036, 476)
 
-[node name="Mnt1" type="Sprite2D" parent="."]
-position = Vector2(1319, 266)
-texture = ExtResource("6_sdnxv")
+[node name="Archer2" parent="." instance=ExtResource("5_7jckn")]
+position = Vector2(1167, 425)
+
+[node name="Archer4" parent="." instance=ExtResource("5_7jckn")]
+position = Vector2(1212, 452)
+
+[node name="Archer5" parent="." instance=ExtResource("5_7jckn")]
+position = Vector2(1101, 393)
+
+[node name="Archer8" parent="." instance=ExtResource("5_7jckn")]
+position = Vector2(1194, 436)
+
+[node name="Green-tree-1" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_77ue8")
+position = Vector2(941, 222)
+texture = ExtResource("8_1owl4")
+
+[node name="Castle-3" type="Sprite2D" parent="."]
+position = Vector2(1157, 233)
+texture = ExtResource("8_35fqa")
+
+[node name="Castle-2" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_n13o3")
+position = Vector2(1157, 233)
+texture = ExtResource("8_35fqa")
 
 [connection signal="pressed" from="CanvasLayer/Button" to="." method="_on_button_pressed"]

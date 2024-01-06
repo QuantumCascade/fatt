@@ -1,7 +1,6 @@
 [gd_scene load_steps=19 format=3 uid="uid://df3xa33jknkjk"]
 
 [ext_resource type="Script" path="res://scripts/archer.gd" id="1_8cxjs"]
-[ext_resource type="PackedScene" uid="uid://bjs6t65ydgx3m" path="res://scenes/archer_sprite.tscn" id="2_54qn4"]
 [ext_resource type="Script" path="res://scripts/state_machine.gd" id="2_h4ibt"]
 [ext_resource type="Script" path="res://scripts/mob_states/archer_states/archer_idle.gd" id="3_f2dop"]
 [ext_resource type="PackedScene" uid="uid://cr87fdyx5cywf" path="res://scenes/hitbox.tscn" id="3_x5sbf"]
@@ -12,24 +11,25 @@
 [ext_resource type="PackedScene" uid="uid://ck5j4uyt7yhnn" path="res://scenes/navigation_agent.tscn" id="6_p0w17"]
 [ext_resource type="Script" path="res://scripts/mob_states/archer_states/archer_dying.gd" id="6_vmyib"]
 [ext_resource type="PackedScene" uid="uid://mk64wabl8fv4" path="res://scenes/attack_area.tscn" id="7_phv2n"]
+[ext_resource type="PackedScene" uid="uid://b7r4oasomokr7" path="res://scenes/archer_b_sprite.tscn" id="7_qt3u5"]
 [ext_resource type="PackedScene" uid="uid://c6vldeo6sa1k8" path="res://scenes/vision_area.tscn" id="8_4idgj"]
 [ext_resource type="PackedScene" uid="uid://cbjolscy1xdfc" path="res://scenes/audible.tscn" id="12_uwm8q"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1vs7e"]
 radius = 5.0
-height = 16.0
+height = 24.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_af8gq"]
-radius = 7.0
-height = 46.0
+radius = 6.0
+height = 56.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_2hidk"]
 resource_local_to_scene = true
-radius = 180.0
+radius = 200.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_vf4t7"]
 resource_local_to_scene = true
-radius = 200.0
+radius = 250.0
 
 [node name="Archer" type="CharacterBody2D"]
 script = ExtResource("1_8cxjs")
@@ -50,10 +50,16 @@ script = ExtResource("5_6ce6f")
 [node name="Dying" type="Node" parent="ArcherStateMachine"]
 script = ExtResource("6_vmyib")
 
-[node name="Sprite" parent="." instance=ExtResource("2_54qn4")]
+[node name="HpBar" parent="." instance=ExtResource("4_h8x50")]
 unique_name_in_owner = true
-position = Vector2(0, -26)
-flip_h = true
+offset_top = -58.0
+offset_right = 12.0
+offset_bottom = -54.0
+
+[node name="Sprite" parent="." instance=ExtResource("7_qt3u5")]
+unique_name_in_owner = true
+position = Vector2(-1, -32)
+scale = Vector2(0.35, 0.35)
 
 [node name="CollisionShape" type="CollisionShape2D" parent="."]
 unique_name_in_owner = true
@@ -69,14 +75,9 @@ collision_layer = 2
 collision_mask = 0
 
 [node name="HitboxShape" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(-1, -6)
 shape = SubResource("CapsuleShape2D_af8gq")
 debug_color = Color(0, 0.6, 0.701961, 0.141176)
-
-[node name="HpBar" parent="." instance=ExtResource("4_h8x50")]
-unique_name_in_owner = true
-offset_left = -11.0
-offset_top = -50.0
-offset_bottom = -46.0
 
 [node name="AttackArea" parent="." instance=ExtResource("7_phv2n")]
 unique_name_in_owner = true
@@ -85,7 +86,7 @@ collision_mask = 4
 
 [node name="AttackRange" type="CollisionShape2D" parent="AttackArea"]
 shape = SubResource("CircleShape2D_2hidk")
-debug_color = Color(0.886275, 0.156863, 0.709804, 0.0666667)
+debug_color = Color(0.886275, 0.156863, 0.709804, 0)
 
 [node name="VisionArea" parent="." instance=ExtResource("8_4idgj")]
 unique_name_in_owner = true

@@ -99,6 +99,7 @@ func _on_hire_minion_button_pressed(_button):
 
 
 func set_new_state(new_state: TowerState):
+	print("%s: %s -> %s" % [self, state, new_state])
 	state = new_state
 	match state:
 		TowerState.PLACEHOLDER:

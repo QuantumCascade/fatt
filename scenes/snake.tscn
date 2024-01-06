@@ -19,13 +19,13 @@ height = 24.0
 radius = 3.0
 height = 20.0
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_ljxes"]
-resource_local_to_scene = true
-radius = 13.5093
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_amdvt"]
+radius = 16.0
+height = 60.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_0h7v4"]
 resource_local_to_scene = true
-radius = 100.0
+radius = 50.0
 
 [node name="SnakeCreep" type="CharacterBody2D"]
 y_sort_enabled = true
@@ -68,7 +68,9 @@ collision_mask = 2
 
 [node name="AttackRange" type="CollisionShape2D" parent="AttackArea"]
 unique_name_in_owner = true
-shape = SubResource("CircleShape2D_ljxes")
+position = Vector2(2, -9)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_amdvt")
 debug_color = Color(0.854902, 0.113725, 0.843137, 0.0117647)
 
 [node name="VisionArea" parent="." instance=ExtResource("6_244y4")]
@@ -90,7 +92,6 @@ unique_name_in_owner = true
 [node name="NavAgent" parent="." instance=ExtResource("7_gt8dk")]
 unique_name_in_owner = true
 avoidance_enabled = false
-debug_enabled = true
 
 [node name="Steering" parent="." instance=ExtResource("8_3uymt")]
 unique_name_in_owner = true

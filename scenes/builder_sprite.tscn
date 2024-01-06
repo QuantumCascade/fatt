@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://i4yobpl4fcka"]
+[gd_scene load_steps=10 format=3 uid="uid://i4yobpl4fcka"]
 
 [ext_resource type="Texture2D" uid="uid://cj7u2xikb8u5l" path="res://assets/sprites/characters/builder.png" id="1_tx67q"]
 [ext_resource type="Script" path="res://scripts/builder_sprite.gd" id="2_ly2dy"]
+[ext_resource type="AudioStream" uid="uid://cvl8nb72670gd" path="res://assets/sounds/hammering-on-wood_1.mp3" id="3_5h7gr"]
 
 [sub_resource type="Animation" id="Animation_613qt"]
 length = 0.001
@@ -349,3 +350,8 @@ unique_name_in_owner = true
 libraries = {
 "": SubResource("AnimationLibrary_gkwar")
 }
+
+[node name="AudioPlayer" type="AudioStreamPlayer2D" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("3_5h7gr")
+max_distance = 1000.0

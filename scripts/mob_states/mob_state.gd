@@ -11,3 +11,12 @@ func setup(an_actor: Node):
 
 func _castle() -> Castle:
 	return get_tree().get_first_node_in_group("castle") as Castle
+
+
+func disposable_timer(callback: Callable, wait_time: float) -> Timer:
+	var timer: Timer = Timer.new()
+	timer.one_shot = true
+	timer.autostart = true
+	timer.wait_time = wait_time
+	timer.timeout.connect(callback)
+	return timer

@@ -14,8 +14,14 @@ func enter() -> void:
 
 
 func _physics_process(delta: float):
-	if builder.sprite.modulate.a > 0:
-		builder.sprite.modulate.a -= max(0, delta / decay_speed)
-	else:
+	if not builder:
+		return
+	
+	if builder.sprite.dissolve(delta / decay_speed) == 0:
 		builder.finally_decayed()
+		
+	#if builder.sprite.modulate.a > 0:
+		#builder.sprite.modulate.a -= max(0, delta / decay_speed)
+	#else:
+		#builder.finally_decayed()
 
