@@ -87,7 +87,17 @@ func _on_dmg_area_area_entered(hitbox_area: Hitbox):
 		# this should be cool - stuck into the enemy body ^_^
 		stuck = true
 		call_deferred("deactivate")
-		call_deferred("attach_to", hitbox_area)
+		call_deferred("attach_to", find_attachable(hitbox_area))
+
+
+func find_attachable(node: Node2D) -> Node2D:
+	var a_parent = node.get_parent()
+	if not a_parent:
+		return node
+	var sprite = a_parent.find_child("Sprite")
+	if sprite:
+		return sprite as Node2D
+	return node
 
 
 # when landed and already did damage

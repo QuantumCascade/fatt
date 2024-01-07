@@ -24,12 +24,13 @@ func play_anim(anim_name: String):
 
 
 func flip_to(target: Vector2):
-	if target.x < 0:
-		if not sprite.is_flipped_h():
-			sprite.flip_h = true
-	else:
-		if sprite.is_flipped_h():
-			sprite.flip_h = false
+	sprite.flip_to(target)
+	#if target.x < 0:
+		#if not sprite.is_flipped_h():
+			#sprite.flip_h = true
+	#else:
+		#if sprite.is_flipped_h():
+			#sprite.flip_h = false
 
 
 func hiding_in_castle():

@@ -50,11 +50,15 @@ func play(_anim_name: String) -> void:
 
 func flip_to(target: Vector2):
 	if target.x < 0:
-		if not is_flipped_h():
-			flip_h = true
+		scale.x = -abs(scale.x)
 	else:
-		if is_flipped_h():
-			flip_h = false
+		scale.x = abs(scale.x)
+	#if target.x < 0:
+		#if not is_flipped_h():
+			#flip_h = true
+	#else:
+		#if is_flipped_h():
+			#flip_h = false
 
 
 func _on_attack_animation_complete() -> void:

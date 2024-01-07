@@ -428,3 +428,4 @@ monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DmgArea"]
 shape = SubResource("CircleShape2D_uvr08")
+debug_color = Color(0.980392, 0, 0.380392, 0.266667)

@@ -21,6 +21,7 @@ func exit():
 func init_attack_action():
 	creep.play_anim("attack")
 	creep.play_audio("attack")
+	print("%s attacking [%s] >> %s" % [creep, 1 + attacks_performed, creep.attack_target])
 
 
 func _on_attack_animation_complete():

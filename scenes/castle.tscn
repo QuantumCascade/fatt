@@ -18,9 +18,9 @@ flip_h = true
 
 [node name="Hitbox" parent="." groups=["castle"] instance=ExtResource("2_3f8vg")]
 unique_name_in_owner = true
-visible = false
 collision_layer = 2
 collision_mask = 0
+monitoring = false
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Hitbox"]
 polygon = PackedVector2Array(44, -69, -45, -65, -140, -15, -143, 41, -47, 102, 47, 105, 146, 44, 145, -11)

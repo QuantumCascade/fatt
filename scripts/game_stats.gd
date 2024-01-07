@@ -38,7 +38,7 @@ static var archer_stats: Dictionary = {
 static var snake_stats: Dictionary = {
 	"name": "snake",
 	"movement_speed": 75,
-	"max_hp": 1145,
+	"max_hp": 145,
 	"armor": 0,
 	"dmg": 20,
 	#"atk_spd": 1.0/(1.7/3.0),
