@@ -116,5 +116,13 @@ func hiding_in_castle():
 	enemy_to_attack = null
 
 
+func flip_to(target: Vector2):
+	super.flip_to(target)
+	if target.x < 0:
+		launch_marker.position.x = -abs(launch_marker.position.x)
+	else:
+		launch_marker.position.x = abs(launch_marker.position.x)
+
+
 func _to_string():
 	return "archer @ %s" % global_position

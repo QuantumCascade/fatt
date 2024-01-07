@@ -12,6 +12,7 @@ var vision_area: VisionArea
 
 func setup(new_stats: MobStats):
 	super.setup(new_stats)
+	add_to_group("player_minions")
 	hp_bar.max_value = stats.max_hp
 	hp_bar.value = stats.hp
 	state_machine.setup(self)

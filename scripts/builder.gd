@@ -18,6 +18,8 @@ func _ready():
 	hitbox = %Hitbox
 	sprite = %Sprite
 	vision_area = %VisionArea
+	
+	#mass = 2.
 
 
 func setup(new_stats: MobStats):

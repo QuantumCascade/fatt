@@ -8,7 +8,7 @@ const minor_context_collision_points: float = 0.65
 
 @export var steering_amplifier = 15
 
-@export var radius: float = 25
+@export var radius: float = 15
 	#set(new_radius):
 		#radius = new_radius
 		#setup_directions()

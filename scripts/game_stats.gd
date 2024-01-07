@@ -38,7 +38,7 @@ static var archer_stats: Dictionary = {
 static var snake_stats: Dictionary = {
 	"name": "snake",
 	"movement_speed": 75,
-	"max_hp": 45,
+	"max_hp": 1145,
 	"armor": 0,
 	"dmg": 20,
 	#"atk_spd": 1.0/(1.7/3.0),
@@ -75,7 +75,7 @@ static var tower_stats_list: Array[Dictionary] = [
 		"between_atk_cooldown": 0.3,
 		"atk_range": 200,
 		"arc_height": 75,
-		"building_time": 7,
+		"building_time": 3,
 		"max_minions_in_tower": 2,
 		"wanted_minion_in_tower": "archer",
 	},

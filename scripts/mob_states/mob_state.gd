@@ -14,9 +14,9 @@ func _castle() -> Castle:
 
 
 func disposable_timer(callback: Callable, wait_time: float) -> Timer:
-	var timer: Timer = Timer.new()
-	timer.one_shot = true
-	timer.autostart = true
-	timer.wait_time = wait_time
-	timer.timeout.connect(callback)
-	return timer
+	var t: Timer = Timer.new()
+	t.one_shot = true
+	t.autostart = true
+	t.wait_time = wait_time
+	t.timeout.connect(func(): callback.call(); t.queue_free())
+	return t

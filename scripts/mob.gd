@@ -50,12 +50,12 @@ func take_dmg(dmg: float):
 
 func take_push(force: Vector2):
 	pushed_force += force / mass
+	print("%s pushed with vector: %s" % [self, force])
 
 
 func _physics_process(delta: float):
 	if pushed_force != Vector2.ZERO:
-		var desired_velocity = merge_pushed_force(Vector2.ZERO, delta)
-		move_and_slide_with_velocity(desired_velocity, delta)
+		move_and_slide_with_velocity(merge_pushed_force(Vector2.ZERO, delta), delta)
 		velocity = Vector2.ZERO
 
 
@@ -84,21 +84,37 @@ func navigate(delta: float):
 func move_and_slide_with_velocity(desired_velocity: Vector2, _delta: float):
 	velocity = desired_velocity
 	move_and_slide()
-	if velocity != Vector2.ZERO:
-		var collision:  KinematicCollision2D = get_last_slide_collision()
-		if collision and collision.get_collider() is Mob:
-			var other: Mob = collision.get_collider() as Mob
-			if other.pushed_force == Vector2.ZERO:
-				var disposition: Vector2 = (other.global_position - global_position).normalized()
-				if disposition.dot(desired_velocity.normalized()) > 0.5:
-					var push_dir: Vector2 = desired_velocity.reflect(disposition).normalized()
-					other.take_push(mass * push_dir * 50)
-			if is_friend(other):
-				other.friendly_asked_to_move()
+	push_collided_mobs()
 
 
-func friendly_asked_to_move():
-	pass
+func push_collided_mobs():
+	if velocity == Vector2.ZERO:
+		return
+	var collision:  KinematicCollision2D = get_last_slide_collision()
+	if not collision or not collision.get_collider() is Mob:
+		return
+	var other: Mob = collision.get_collider() as Mob
+	if other.pushed_force != Vector2.ZERO:
+		return
+	var disposition: Vector2 = (other.global_position - global_position)
+	#if disposition.normalized().dot(velocity.normalized()) < 0.1:
+		#return
+	var push_dir: Vector2 = velocity.normalized().reflect(disposition.normalized()).normalized()
+	if is_friend(other):
+		#print("%s friendly asking to move %s" % [self, other])
+		other.friendly_asked_to_move(push_dir * 20)
+		return
+	#Debug.draw_line(global_position, global_position + disposition, get_tree(), Color.MAGENTA)
+	#Debug.draw_line(global_position, global_position + velocity.normalized() * 50, get_tree(), Color.GREEN)
+	#Debug.draw_line(other.global_position, other.global_position + push_dir * 50, get_tree(), Color.RED)
+	#other.take_push(mass * push_dir * 10) # magic number - it just looks ok if masses are equal
+
+
+func friendly_asked_to_move(delta: Vector2):
+	if movement_target != Vector2.ZERO or state_machine.current_state.name != "Idle":
+		return
+	movement_target = global_position + delta
+	add_child(disposable_timer(func(): movement_target = Vector2.ZERO, 1))
 
 
 func is_friend(other: Mob) -> bool:
@@ -106,15 +122,18 @@ func is_friend(other: Mob) -> bool:
 		or is_in_group("enemy_mobs") and other.is_in_group("enemy_mobs")
 
 
-func merge_pushed_force(vec: Vector2, delta: float) -> Vector2:
+func merge_pushed_force(vec: Vector2, _delta: float) -> Vector2:
 	if pushed_force == Vector2.ZERO:
 		return vec
 	if pushed_force.length_squared() < 1:
 		pushed_force = Vector2.ZERO
+		print("%s push resolved" % self)
+		Debug.draw_marker_at(global_position, get_tree())
 		return vec
-	var pushed: Vector2 = delta * pushed_force
-	pushed_force -= pushed
-	return vec + pushed
+	var delta_force = pushed_force
+	pushed_force = Vector2.ZERO
+	print("%s sliding %s" % [self, (vec + delta_force)])
+	return vec + delta_force
 
 
 func _on_nav_agent_velocity_computed(safe_velocity: Vector2):
@@ -142,6 +161,15 @@ func choose_closest(n1: Node2D, n2: Node2D) -> bool:
 	if d1 < d2:
 		return true
 	return false
+
+
+func disposable_timer(callback: Callable, wait_time: float) -> Timer:
+	var t: Timer = Timer.new()
+	t.one_shot = true
+	t.autostart = true
+	t.wait_time = wait_time
+	t.timeout.connect(func(): callback.call(); t.queue_free())
+	return t
 
 
 func _to_string():

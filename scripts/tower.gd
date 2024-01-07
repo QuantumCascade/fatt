@@ -85,17 +85,36 @@ func check_upper_buttons():
 
 
 func _on_hire_minion_button_pressed(_button):
+	var player_minions = get_tree().get_nodes_in_group("player_minions")
+	player_minions.sort_custom(choose_closest)
+	for minion in player_minions:
+		if minion.stats.name == stats.wanted_minion_in_tower and not minion.assigned_tower:
+			print("assign available %s to %s" % [self, minion])
+			minions_on_the_way_to_tower.append(minion)
+			minion.assigned_tower = self
+			tower_upper_buttons.remove_all_buttons()
+			return
 	var player: Player = _player()
-	if not player or not player.check_if_can_hire_minion(stats.wanted_minion_in_tower):
+	if not player:
+		return
+	if not player.check_if_can_hire_minion(stats.wanted_minion_in_tower):
 		return
 	var hired_minion: Minion = player.hire_minion(stats.wanted_minion_in_tower)
 	if not hired_minion:
 		print("err: %s was not hired" % stats.wanted_minion_in_tower)
 		return
-	print("assign %s to %s" % [self, hired_minion])
+	print("assign hired %s to %s" % [self, hired_minion])
 	minions_on_the_way_to_tower.append(hired_minion)
 	hired_minion.assigned_tower = self
 	tower_upper_buttons.remove_all_buttons()
+
+
+func choose_closest(n1: Node2D, n2: Node2D) -> bool:
+	var d1: float = global_position.distance_squared_to(n1.global_position)
+	var d2: float = global_position.distance_squared_to(n2.global_position)
+	if d1 < d2:
+		return true
+	return false
 
 
 func set_new_state(new_state: TowerState):

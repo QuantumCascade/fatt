@@ -36,10 +36,9 @@ script = ExtResource("1_bwdub")
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="Button" type="Button" parent="CanvasLayer"]
-offset_left = 1221.0
-offset_top = 166.0
-offset_right = 1328.0
-offset_bottom = 197.0
+offset_right = 107.0
+offset_bottom = 31.0
+size_flags_horizontal = 0
 text = "GUI buttonw"
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
@@ -82,7 +81,7 @@ position = Vector2(1236, 361)
 position = Vector2(1117, 517)
 
 [node name="Archer" parent="." instance=ExtResource("5_7jckn")]
-position = Vector2(1036, 476)
+position = Vector2(1243, 448)
 
 [node name="Archer2" parent="." instance=ExtResource("5_7jckn")]
 position = Vector2(1167, 425)
@@ -91,10 +90,25 @@ position = Vector2(1167, 425)
 position = Vector2(1212, 452)
 
 [node name="Archer5" parent="." instance=ExtResource("5_7jckn")]
-position = Vector2(1101, 393)
+position = Vector2(1229, 422)
 
 [node name="Archer8" parent="." instance=ExtResource("5_7jckn")]
-position = Vector2(1194, 436)
+position = Vector2(1195, 428)
+
+[node name="Archer9" parent="." instance=ExtResource("5_7jckn")]
+position = Vector2(1215, 405)
+
+[node name="Archer10" parent="." instance=ExtResource("5_7jckn")]
+position = Vector2(1189, 412)
+
+[node name="Archer11" parent="." instance=ExtResource("5_7jckn")]
+position = Vector2(1246, 396)
+
+[node name="Archer12" parent="." instance=ExtResource("5_7jckn")]
+position = Vector2(1212, 438)
+
+[node name="Archer13" parent="." instance=ExtResource("5_7jckn")]
+position = Vector2(1238, 435)
 
 [node name="Green-tree-1" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_77ue8")

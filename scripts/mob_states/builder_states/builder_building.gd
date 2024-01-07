@@ -36,3 +36,7 @@ func physics_process(delta: float):
 		return
 	if builder.in_building_area():
 		builder.building_target.process_building(delta)
+	else:
+		print("%s suddely out of construction zone")
+		state_transition.emit(self, "Idle")
+		

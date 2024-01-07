@@ -14,8 +14,8 @@ var dissolving: float = -1
 
 func gen_noise(size: Vector2):
 	var noise_texture: NoiseTexture2D = NoiseTexture2D.new()
-	noise_texture.width = int(size.x * 4)
-	noise_texture.height = int(size.y * 4)
+	noise_texture.width = int(size.x)
+	noise_texture.height = int(size.y)
 	var noise: FastNoiseLite = FastNoiseLite.new()
 	noise.noise_type = FastNoiseLite.TYPE_SIMPLEX
 	noise.seed = randi()
@@ -24,10 +24,11 @@ func gen_noise(size: Vector2):
 	pool.append(noise_texture)
 	noise_dict[size] = pool
 
+
 func dissolve(delta: float) -> float:
 	if dissolving < 0:
 		var size: Vector2 = self.texture.get_size()
-		if noise_dict.get(size, []).size() < 2:
+		if noise_dict.get(size, []).size() < 3:
 			print("gen noise for %s" % [size])
 			gen_noise(size)
 		var shader_material: ShaderMaterial = ShaderMaterial.new()

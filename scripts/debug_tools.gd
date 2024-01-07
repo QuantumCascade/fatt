@@ -12,3 +12,12 @@ static func draw_marker_at(pos: Vector2, scene_tree: SceneTree):
 	line2.add_point(pos + Vectors.up_right * 2)
 	line2.width = 1
 	scene_tree.current_scene.add_child(line2)
+
+static func draw_line(p1: Vector2, p2: Vector2, scene_tree: SceneTree, color: Color = Color.NAVAJO_WHITE):
+	var line: Line2D = Line2D.new()
+	line.add_point(p1)
+	line.add_point(p2)
+	line.width = 1
+	line.modulate = color
+	scene_tree.current_scene.add_child(line)
+	

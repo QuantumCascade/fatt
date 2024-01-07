@@ -102,7 +102,7 @@ unique_name_in_owner = true
 
 [node name="LaunchMarker" type="Marker2D" parent="."]
 unique_name_in_owner = true
-position = Vector2(0, -25)
+position = Vector2(16, -46)
 
 [node name="NavAgent" parent="." instance=ExtResource("6_p0w17")]
 unique_name_in_owner = true

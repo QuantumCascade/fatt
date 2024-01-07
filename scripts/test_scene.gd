@@ -6,10 +6,12 @@ extends Node2D
 
 func _ready():
 	($Builder as Builder).setup(GameStats.get_mob_stats("builder"))
+	($Builder as Builder).add_to_group("player_minions")
 	($SnakeCreep as Creep).setup(GameStats.get_mob_stats("snake"))
 	for child in get_children():
 		if child is Archer:
 			(child as Archer).setup(GameStats.get_mob_stats("archer"))
+			child.add_to_group("player_minions")
 	for child in get_children():
 		if child is Tower:
 			(child as Tower).setup(GameStats.get_tower_stats(1))
