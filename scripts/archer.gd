@@ -30,31 +30,13 @@ func _ready():
 
 func setup(new_stats: MobStats):
 	super.setup(new_stats)
-	#if stats.atk_range:
-		#attack_area.radius = stats.atk_range
-	#vision_area.radius = stats.vision_range
 	sprite.attack_animation_performed.connect(_on_attack_animation_performed)
-	sprite.attack_animation_complete.connect(_on_attack_animation_complete)
-
-
-func play_anim(anim_name: String):
-	sprite.play(anim_name)
 
 
 func check_enemies_in_attack_area() -> bool:
 	if attack_area.get_overlapping_areas().is_empty():
 		return false
 	var enemy_hitbox: Hitbox = attack_area.get_overlapping_areas()[0] as Hitbox
-	enemy_to_attack = enemy_hitbox.get_parent()
-	if not enemy_to_attack:
-		return false
-	return true
-
-
-func check_visible_enemies() -> bool:
-	if vision_area.get_overlapping_areas().is_empty():
-		return false
-	var enemy_hitbox: Hitbox = vision_area.get_overlapping_areas()[0] as Hitbox
 	enemy_to_attack = enemy_hitbox.get_parent()
 	if not enemy_to_attack:
 		return false
@@ -80,11 +62,6 @@ func is_in_assigned_tower_area() -> bool:
 
 func _on_attack_animation_performed():
 	launch_projectile(enemy_to_attack)
-	pass
-
-
-func _on_attack_animation_complete():
-	pass
 
 
 func launch_projectile(a_target: Node2D):

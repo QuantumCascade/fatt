@@ -298,7 +298,7 @@ unique_name_in_owner = true
 libraries = {
 "": SubResource("AnimationLibrary_kw450")
 }
-speed_scale = 2.0
+speed_scale = 4.0
 
 [node name="AudioPlayer" type="AudioStreamPlayer2D" parent="."]
 unique_name_in_owner = true

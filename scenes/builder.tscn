@@ -113,5 +113,3 @@ unique_name_in_owner = true
 unique_name_in_owner = true
 position = Vector2(1, -27)
 scale = Vector2(0.25, 0.25)
-
-[connection signal="velocity_computed" from="NavAgent" to="." method="_on_nav_agent_velocity_computed"]

@@ -17,6 +17,7 @@ func setup(new_stats: MobStats):
 	hp_bar.value = stats.hp
 	state_machine.setup(self)
 	sprite.death_animation_performed.connect(_on_death_animation_performed)
+	hitbox.input_emitter.connect(_on_emitted_input)
 
 
 func play_anim(anim_name: String):
@@ -31,6 +32,15 @@ func flip_to(target: Vector2):
 	#else:
 		#if sprite.is_flipped_h():
 			#sprite.flip_h = false
+
+
+func check_visible_enemies() -> Node2D:
+	var visible_enemies: Array = vision_area.get_overlapping_areas()
+	if visible_enemies.is_empty():
+		return null
+	visible_enemies.sort_custom(choose_closest)
+	var enemy_hitbox: Hitbox = visible_enemies[0] as Hitbox
+	return enemy_hitbox.get_parent() as Node2D
 
 
 func hiding_in_castle():

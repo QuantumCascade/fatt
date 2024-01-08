@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dym7if71lx7yc"
-path="res://.godot/imported/archer-b-walk.png-ead732add39bf82d7bec57bc654d169e.ctex"
+uid="uid://cap84imm1bbl1"
+path="res://.godot/imported/archer-b-die.png-b0ffca9620723b599f9bad28084c21cf.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/archer-b/archer-b-walk.png"
-dest_files=["res://.godot/imported/archer-b-walk.png-ead732add39bf82d7bec57bc654d169e.ctex"]
+source_file="res://assets/sprites/characters/archer-b/archer-b-die.png"
+dest_files=["res://.godot/imported/archer-b-die.png-b0ffca9620723b599f9bad28084c21cf.ctex"]
 
 [params]
 

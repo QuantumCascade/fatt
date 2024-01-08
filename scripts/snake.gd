@@ -44,3 +44,4 @@ func _on_dmg_area_area_entered(hitbox_area: Hitbox):
 	else:
 		print("err: %s target %s without `take_dmg`" % [self, hitbox_area])
 
+

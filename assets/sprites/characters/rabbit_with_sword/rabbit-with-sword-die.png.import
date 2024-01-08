@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://2li42vxnvgcw"
-path="res://.godot/imported/archer-b-idle2.png-c150da0b55c8666083ee31f5eca59674.ctex"
+uid="uid://ctb6v0vd2aejs"
+path="res://.godot/imported/rabbit-with-sword-die.png-b88fd5628a1bef6fbd986a597efe1617.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/archer-b/archer-b-idle2.png"
-dest_files=["res://.godot/imported/archer-b-idle2.png-c150da0b55c8666083ee31f5eca59674.ctex"]
+source_file="res://assets/sprites/characters/rabbit_with_sword/rabbit-with-sword-die.png"
+dest_files=["res://.godot/imported/rabbit-with-sword-die.png-b88fd5628a1bef6fbd986a597efe1617.ctex"]
 
 [params]
 

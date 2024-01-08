@@ -18,12 +18,22 @@ var pushed_force: Vector2= Vector2.ZERO
 
 # Emits self
 signal death_animation_performed
-
+# Emits InputEvent
+signal input_emitter
 
 func setup(new_stats: MobStats):
 	stats = new_stats.clone()
 	nav_agent.max_speed = stats.movement_speed
 	nav_agent.velocity_computed.connect(_on_nav_agent_velocity_computed)
+
+
+
+# Should be connected to event emitter
+func _on_emitted_input(event: InputEvent):
+	if event.is_action_pressed("click"):
+		print("%s clicked: %s" % [self, event])
+		get_viewport().set_input_as_handled()
+		input_emitter.emit(event)
 
 
 func play_audio(_sound: String):

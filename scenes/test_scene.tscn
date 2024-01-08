@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://cpvj4g13ugmjm"]
+[gd_scene load_steps=15 format=3 uid="uid://cpvj4g13ugmjm"]
 
 [ext_resource type="Script" path="res://scripts/test_scene.gd" id="1_bwdub"]
 [ext_resource type="PackedScene" uid="uid://duf6fdpme1wuv" path="res://scenes/builder.tscn" id="2_7456c"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://cppf76hhy65gh" path="res://assets/sprites/trees/green-tree-1.webp" id="8_1owl4"]
 [ext_resource type="Texture2D" uid="uid://2hfpefp5g6a2" path="res://assets/sprites/buildings/castle-2.webp" id="8_35fqa"]
 [ext_resource type="Shader" path="res://shaders/glitch.gdshader" id="8_pleg4"]
+[ext_resource type="PackedScene" uid="uid://dk6k6kbikpv6s" path="res://scenes/rabbit_with_sword.tscn" id="11_mii0j"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_kwsxk"]
 vertices = PackedVector2Array(1463, 639, 601, 638, 611, 162, 1455, 152)
@@ -84,7 +85,7 @@ position = Vector2(1117, 517)
 position = Vector2(1243, 448)
 
 [node name="Archer2" parent="." instance=ExtResource("5_7jckn")]
-position = Vector2(764, 416)
+position = Vector2(1242, 507)
 
 [node name="Green-tree-1" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_77ue8")
@@ -99,5 +100,8 @@ texture = ExtResource("8_35fqa")
 material = SubResource("ShaderMaterial_n13o3")
 position = Vector2(1157, 233)
 texture = ExtResource("8_35fqa")
+
+[node name="RabbitWithSword" parent="." instance=ExtResource("11_mii0j")]
+position = Vector2(1297, 448)
 
 [connection signal="pressed" from="CanvasLayer/Button" to="." method="_on_button_pressed"]

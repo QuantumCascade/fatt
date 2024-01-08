@@ -16,8 +16,8 @@ radius = 3.0
 height = 24.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2544u"]
-radius = 3.0
-height = 20.0
+radius = 9.0
+height = 32.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_amdvt"]
 radius = 16.0
@@ -51,8 +51,7 @@ monitoring = false
 
 [node name="HitboxShape" type="CollisionShape2D" parent="Hitbox"]
 unique_name_in_owner = true
-position = Vector2(0, 1)
-rotation = 1.5708
+position = Vector2(1, -11)
 shape = SubResource("CapsuleShape2D_2544u")
 
 [node name="HpBar" parent="." instance=ExtResource("4_1a56b")]

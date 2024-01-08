@@ -19,20 +19,56 @@
 radius = 5.0
 height = 24.0
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_af8gq"]
-radius = 6.0
-height = 56.0
+[sub_resource type="CircleShape2D" id="CircleShape2D_vf4t7"]
+resource_local_to_scene = true
+radius = 250.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_2hidk"]
 resource_local_to_scene = true
 radius = 200.0
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_vf4t7"]
-resource_local_to_scene = true
-radius = 250.0
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_af8gq"]
+radius = 6.0
+height = 56.0
 
 [node name="Archer" type="CharacterBody2D"]
 script = ExtResource("1_8cxjs")
+
+[node name="CollisionShape" type="CollisionShape2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(0, -1)
+rotation = -1.57079
+shape = SubResource("CapsuleShape2D_1vs7e")
+debug_color = Color(0, 0.6, 0.701961, 0.164706)
+
+[node name="VisionArea" parent="." instance=ExtResource("8_4idgj")]
+unique_name_in_owner = true
+position = Vector2(1, -27)
+collision_mask = 4
+
+[node name="VisionRange" type="CollisionShape2D" parent="VisionArea"]
+shape = SubResource("CircleShape2D_vf4t7")
+debug_color = Color(0.0352941, 0.576471, 0.807843, 0.0117647)
+
+[node name="AttackArea" parent="." instance=ExtResource("7_phv2n")]
+unique_name_in_owner = true
+position = Vector2(0, -25)
+collision_mask = 4
+
+[node name="AttackRange" type="CollisionShape2D" parent="AttackArea"]
+shape = SubResource("CircleShape2D_2hidk")
+debug_color = Color(0.886275, 0.156863, 0.709804, 0)
+
+[node name="Hitbox" parent="." instance=ExtResource("3_x5sbf")]
+unique_name_in_owner = true
+position = Vector2(0, -19)
+collision_layer = 2
+collision_mask = 0
+
+[node name="HitboxShape" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(-1, -6)
+shape = SubResource("CapsuleShape2D_af8gq")
+debug_color = Color(0, 0.6, 0.701961, 0.141176)
 
 [node name="ArcherStateMachine" type="Node" parent="."]
 unique_name_in_owner = true
@@ -60,42 +96,6 @@ offset_bottom = -54.0
 unique_name_in_owner = true
 position = Vector2(-1, -32)
 scale = Vector2(0.35, 0.35)
-
-[node name="CollisionShape" type="CollisionShape2D" parent="."]
-unique_name_in_owner = true
-position = Vector2(0, -1)
-rotation = -1.57079
-shape = SubResource("CapsuleShape2D_1vs7e")
-debug_color = Color(0, 0.6, 0.701961, 0.164706)
-
-[node name="Hitbox" parent="." instance=ExtResource("3_x5sbf")]
-unique_name_in_owner = true
-position = Vector2(0, -19)
-collision_layer = 2
-collision_mask = 0
-
-[node name="HitboxShape" type="CollisionShape2D" parent="Hitbox"]
-position = Vector2(-1, -6)
-shape = SubResource("CapsuleShape2D_af8gq")
-debug_color = Color(0, 0.6, 0.701961, 0.141176)
-
-[node name="AttackArea" parent="." instance=ExtResource("7_phv2n")]
-unique_name_in_owner = true
-position = Vector2(0, -25)
-collision_mask = 4
-
-[node name="AttackRange" type="CollisionShape2D" parent="AttackArea"]
-shape = SubResource("CircleShape2D_2hidk")
-debug_color = Color(0.886275, 0.156863, 0.709804, 0)
-
-[node name="VisionArea" parent="." instance=ExtResource("8_4idgj")]
-unique_name_in_owner = true
-position = Vector2(1, -27)
-collision_mask = 4
-
-[node name="VisionRange" type="CollisionShape2D" parent="VisionArea"]
-shape = SubResource("CircleShape2D_vf4t7")
-debug_color = Color(0.0352941, 0.576471, 0.807843, 0.0117647)
 
 [node name="Audible" parent="." instance=ExtResource("12_uwm8q")]
 unique_name_in_owner = true

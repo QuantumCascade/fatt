@@ -14,6 +14,7 @@ var visible_target: Node2D
 var attack_target: Node2D
 
 
+
 func setup(new_stats: MobStats):
 	super.setup(new_stats)
 	hp_bar.max_value = stats.max_hp
@@ -23,6 +24,8 @@ func setup(new_stats: MobStats):
 	state_machine.setup(self)
 	#sprite.attack_animation_performed.connect(_on_attack_animation_performed)
 	sprite.death_animation_performed.connect(_on_death_animation_performed)
+	hitbox.input_emitter.connect(_on_emitted_input)
+
 
 
 func play_anim(anim_name: String):

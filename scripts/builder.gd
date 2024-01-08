@@ -18,15 +18,6 @@ func _ready():
 	hitbox = %Hitbox
 	sprite = %Sprite
 	vision_area = %VisionArea
-	
-	#mass = 2.
-
-
-func setup(new_stats: MobStats):
-	stats = new_stats.clone()
-	hp_bar.max_value = stats.max_hp
-	hp_bar.value = stats.hp
-	state_machine.setup(self)
 
 
 func check_pending_towers():
@@ -44,10 +35,6 @@ func check_pending_towers():
 
 func in_building_area() -> bool:
 	return building_target && %WorkingArea.get_overlapping_areas().has(building_target.construction_site_area)
-
-
-func _on_nav_agent_velocity_computed(safe_velocity: Vector2):
-	super._on_nav_agent_velocity_computed(safe_velocity)
 
 
 func hiding_in_castle():

@@ -1,11 +1,11 @@
 [gd_scene load_steps=14 format=3 uid="uid://b7r4oasomokr7"]
 
-[ext_resource type="Texture2D" uid="uid://dym7if71lx7yc" path="res://assets/sprites/archer-b/archer-b-walk.png" id="1_fummc"]
 [ext_resource type="Script" path="res://scripts/archer_b_sprite.gd" id="1_lcl5e"]
-[ext_resource type="Texture2D" uid="uid://ck726r7ubbc7d" path="res://assets/sprites/archer-b/archer-b-idle.png" id="3_s5vvy"]
-[ext_resource type="Texture2D" uid="uid://b3a0w4i8seyjv" path="res://assets/sprites/archer-b/archer-b-shoot.png" id="4_x7g28"]
-[ext_resource type="Texture2D" uid="uid://cap84imm1bbl1" path="res://assets/sprites/archer-b/archer-b-die.png" id="5_fuqrn"]
-[ext_resource type="Texture2D" uid="uid://2li42vxnvgcw" path="res://assets/sprites/archer-b/archer-b-idle2.png" id="6_ggo82"]
+[ext_resource type="Texture2D" uid="uid://ck726r7ubbc7d" path="res://assets/sprites/characters/archer-b/archer-b-idle.png" id="1_xt0mu"]
+[ext_resource type="Texture2D" uid="uid://b3a0w4i8seyjv" path="res://assets/sprites/characters/archer-b/archer-b-shoot.png" id="3_6t5fl"]
+[ext_resource type="Texture2D" uid="uid://cap84imm1bbl1" path="res://assets/sprites/characters/archer-b/archer-b-die.png" id="4_e80wi"]
+[ext_resource type="Texture2D" uid="uid://2li42vxnvgcw" path="res://assets/sprites/characters/archer-b/archer-b-idle2.png" id="5_drr3p"]
+[ext_resource type="Texture2D" uid="uid://dym7if71lx7yc" path="res://assets/sprites/characters/archer-b/archer-b-walk.png" id="6_3dm4f"]
 
 [sub_resource type="Animation" id="Animation_styg2"]
 length = 0.001
@@ -19,7 +19,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("3_s5vvy")]
+"values": [ExtResource("1_xt0mu")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -71,7 +71,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [15]
+"values": [20]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -95,7 +95,7 @@ tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("4_x7g28")]
+"values": [ExtResource("3_6t5fl")]
 }
 tracks/3/type = "method"
 tracks/3/imported = false
@@ -155,7 +155,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("5_fuqrn")]
+"values": [ExtResource("4_e80wi")]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -221,7 +221,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("3_s5vvy")]
+"values": [ExtResource("1_xt0mu")]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -259,7 +259,7 @@ tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [0.8]
+"values": [2.0]
 }
 
 [sub_resource type="Animation" id="Animation_qacim"]
@@ -289,7 +289,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("6_ggo82")]
+"values": [ExtResource("5_drr3p")]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -342,7 +342,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("1_fummc")]
+"values": [ExtResource("6_3dm4f")]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -366,7 +366,7 @@ tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [3.0]
+"values": [4.0]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_swuy8"]
@@ -380,7 +380,7 @@ _data = {
 }
 
 [node name="ArcherBSprite" type="Sprite2D"]
-texture = ExtResource("3_s5vvy")
+texture = ExtResource("1_xt0mu")
 hframes = 20
 script = ExtResource("1_lcl5e")
 

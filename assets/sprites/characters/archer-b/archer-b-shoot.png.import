@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b3a0w4i8seyjv"
-path="res://.godot/imported/archer-b-shoot.png-714ff7baa61368c32495e076bdab76cf.ctex"
+path="res://.godot/imported/archer-b-shoot.png-d9224ab2ebccda44641faffdd310cc71.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/archer-b/archer-b-shoot.png"
-dest_files=["res://.godot/imported/archer-b-shoot.png-714ff7baa61368c32495e076bdab76cf.ctex"]
+source_file="res://assets/sprites/characters/archer-b/archer-b-shoot.png"
+dest_files=["res://.godot/imported/archer-b-shoot.png-d9224ab2ebccda44641faffdd310cc71.ctex"]
 
 [params]
 

@@ -8,6 +8,7 @@ var resting_time: float
 
 var anim_timer: Timer
 
+
 func enter() -> void:
 	resting_time = resting_time_on_idle
 	archer.play_anim("idle_2")
@@ -50,7 +51,9 @@ func physics_process(delta: float):
 		print("%s sudden enemy in attack area: %s" % [archer, archer.enemy_to_attack])
 		state_transition.emit(self, "Attacking")
 	
-	if archer.check_visible_enemies():
+	var visible_enemy = archer.check_visible_enemies()
+	if visible_enemy:
+		archer.enemy_to_attack = visible_enemy
 		print("%s spotted enemy - approaching %s" % [archer, archer.enemy_to_attack])
 		archer.movement_target = archer.enemy_to_attack.global_position
 		state_transition.emit(self, "Moving")

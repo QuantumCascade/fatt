@@ -6,6 +6,8 @@ var resting_time_on_idle: float = 0.75
 # if resting then wait for a while before looking for new opportunities
 var resting_time: float
 
+var anim_timer: Timer
+
 func enter() -> void:
 	resting_time = resting_time_on_idle
 	builder.play_anim("idle_2")
@@ -13,7 +15,10 @@ func enter() -> void:
 
 
 func setup_anim_timer():
-	add_child(disposable_timer(play_idle_anim, randf_range(5, 20)))
+	if anim_timer:
+		anim_timer.queue_free()
+	anim_timer = disposable_timer(play_idle_anim, randf_range(5, 20))
+	add_child(anim_timer)
 
 
 func play_idle_anim():

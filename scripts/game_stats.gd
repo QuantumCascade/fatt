@@ -35,6 +35,17 @@ static var archer_stats: Dictionary = {
 	"resource": load("res://scenes/archer.tscn"),
 }
 
+
+static var rabbit_with_sword_stats: Dictionary = {
+	"name": "rabbit_with_sword",
+	"cost": 100,
+	"movement_speed": 60,
+	"max_hp": 90,
+	"armor": 10,
+	"dmg": 135,
+	"resource": load("res://scenes/rabbit_with_sword.tscn"),
+}
+
 static var snake_stats: Dictionary = {
 	"name": "snake",
 	"movement_speed": 75,
@@ -59,6 +70,7 @@ static var rat_stats: Dictionary = {
 static var mob_stats_list: Array[Dictionary] = [
 	builder_stats,
 	archer_stats,
+	rabbit_with_sword_stats,
 	snake_stats,
 ]
 

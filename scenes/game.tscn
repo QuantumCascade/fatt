@@ -36,6 +36,7 @@ initial_position = 1
 visible = false
 
 [node name="Camera2D" type="Camera2D" parent="." groups=["cam"]]
+zoom = Vector2(3, 3)
 limit_left = 0
 limit_top = 0
 limit_right = 1920
